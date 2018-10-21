@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@index');
+Route::get('/info', 'PagesController@info');
+Route::get('/table', 'PagesController@table');
+Route::get('/predictions', 'PagesController@predictions');
+Route::get('/results', 'PagesController@results');
+Route::get('/cl_draw', 'PagesController@clDraw');
+Route::get('/cl_results', 'PagesController@clResults');
+Route::get('/cl_statistics', 'PagesController@clStatistics');
+
+
+
+
+
+
+
