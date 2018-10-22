@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Custom\BlogFeed;
 
 class PagesController extends Controller
 {
     public function index() 
     {
-        return view('pages.index');
+        $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
+        $postsArray = $blogFeed->posts;
+        $postsArray = array_slice($postsArray, 0, 5);
+        return view('pages.index')->with("postsArray", $postsArray);
     }
 
     public function info() 

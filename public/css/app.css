@@ -10473,11 +10473,11 @@ body {
 
 .jumbotron {
   margin-top: 5%;
-  border-radius: 10px !important;
+  border-radius: 0px !important;
 }
 
 .basic-div {
-  padding: 3%;
+  padding: 3%, 3%, 3%, 0%;
 }
 
 .navbar-laravel {
