@@ -1,14 +1,32 @@
+html * {
+    font-family: 'Archivo';
+    font-size: 1rem;
+}
+
+  
+@include media-breakpoint-up(sm) {
+    html {
+      font-size: 1.05rem;
+    }
+}
+  
+@include media-breakpoint-up(md) {
+    html {
+      font-size: 1.1rem;
+    }
+  }
+  
+@include media-breakpoint-up(lg) {
+    html {
+      font-size: 1.15rem;
+    }
+}
 body {
     background: white;
     background-image: url("/championsleague.jpg");
 }
 
 .jumbotron {
- 
     margin-top: 5%;
     border-radius: 0px !important;
-}
-
-.basic-div {
-    padding: 3%, 3%, 3%, 0%;
 }

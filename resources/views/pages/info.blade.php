@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="jumbotron">
-        <h1>INFO</h1>
+        <h3>Informacije</h3>
+        <hr>
         <p>TODO</p>
     </div>
 @endsection

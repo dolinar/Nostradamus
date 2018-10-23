@@ -10466,6 +10466,29 @@ a.text-dark:focus {
   }
 }
 
+html * {
+  font-family: 'Archivo';
+  font-size: 1rem;
+}
+
+@media (min-width: 576px) {
+  html {
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  html {
+    font-size: 1.15rem;
+  }
+}
+
 body {
   background: white;
   background-image: url("/championsleague.jpg");
@@ -10474,10 +10497,6 @@ body {
 .jumbotron {
   margin-top: 5%;
   border-radius: 0px !important;
-}
-
-.basic-div {
-  padding: 3%, 3%, 3%, 0%;
 }
 
 .navbar-laravel {
