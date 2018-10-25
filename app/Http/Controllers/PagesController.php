@@ -25,11 +25,6 @@ class PagesController extends Controller
         return view('pages.table');
     }
 
-    public function predictions() 
-    {
-        return view('pages.predictions');
-    }
-
     public function results() 
     {
         return view('pages.results');

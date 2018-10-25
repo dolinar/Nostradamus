@@ -19,16 +19,15 @@
             </li>
 
             <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton2" aria-haspopup="true" aria-expanded="false"> Liga prvakov </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="/cl_draw">Prvenstvo</a>
-                        <a class="dropdown-item" href="/cl_results">Rezultati</a>
-                        <a class="dropdown-item" href="/cl_statistics">Statistika</a>
-                    </div>
-                </li>
-            <!--<li class="nav-item">
-                <a class="btn ml-2 btn-warning" href="/">Test</a>
-            </li> -->
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton2" aria-haspopup="true" aria-expanded="false"> Liga prvakov </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/cl_draw">Prvenstvo</a>
+                    <a class="dropdown-item" href="/cl_results">Rezultati</a>
+                    <a class="dropdown-item" href="/cl_statistics">Statistika</a>
+                    <a class="dropdown-item" href="/teams">Ekipe</a>
+                </div>
+            </li>
+
         </ul>
     </div>
 </nav>
