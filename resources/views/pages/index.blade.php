@@ -18,7 +18,7 @@
             @if (count($postsArray) > 0)
                 @foreach($postsArray as $post)
                     <li class="list-group-item">
-                    <time class="timeago small" datetime="{{date('c', $post->ts)}}"><small></small></time>
+                    <time class="timeago small text-muted" datetime="{{date('c', $post->ts)}}"><small></small></time>
                         <a target="_blank" rel="noopener noreferrer" data-toggle="tooltip" title="{{$post->summary}}" href="{{$post->link}}">
                             <b>{{$post->title}}</b>
                         </a>
@@ -27,9 +27,9 @@
             @endif
  
             <div class="row justify-content-center mt-2">
-                <a href="/predictions" class="btn btn-info m-2 col-lg-2">Navodila</a>
-                <a href="/cl_statistics" class="btn btn-info m-2 col-lg-2">Prijava</a>
-                <a href="/table" class="btn btn-info m-2 col-lg-2">Lestvica najboljših</a>
+                <a href="/predictions" class="btn btn-info m-2 col-lg-2">Informacije</a>
+                <a href="/login" class="btn btn-info m-2 col-lg-2">Prijava</a>
+                <a href="/register" class="btn btn-info m-2 col-lg-2">Registracija</a>
             </div>  
         </div>
     </div>

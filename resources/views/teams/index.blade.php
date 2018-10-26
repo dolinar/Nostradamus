@@ -21,7 +21,7 @@
                         <img class="card-img-top-multiple eliminated" src={{$team->logo_url}} alt="">
                         <div class="card-body">
                             <h5 class="card-title">{{$team->name}}</h5>
-                            <p class="card-text text-danger">Izloceni iz tekmovanja.</p>
+                            <p class="card-text text-danger">Izločeni iz tekmovanja.</p>
                             <a href="{{route('teams.show', $team->id)}}" class="btn btn-primary">Podatki</a>
                         </div>
                     </div>
