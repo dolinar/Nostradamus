@@ -13,6 +13,7 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/info', 'PagesController@info');
+Route::get('/instructions', 'PagesController@instructions');
 Route::get('/table', 'PagesController@table');
 Route::get('/cl_draw', 'PagesController@clDraw');
 Route::get('/cl_results', 'PagesController@clResults');
@@ -28,15 +29,11 @@ Route::resource('matchdays', 'MatchdaysController', [
     'only' => ['index', 'show']
 ]);
 
-Route::resource('overall_predictions', 'OverallPredictionsController', [
+Route::resource('overall_prediction', 'OverallPredictionsController', [
     'only' => ['index', 'update', 'store']
 ]);
 
 
-
-
-
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'DashboardController@index');

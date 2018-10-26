@@ -20,6 +20,11 @@ class PagesController extends Controller
         return view('pages.info');
     }
 
+    public function instructions() 
+    {
+        return view('pages.instructions');
+    }
+
     public function table() 
     {
         return view('pages.table');

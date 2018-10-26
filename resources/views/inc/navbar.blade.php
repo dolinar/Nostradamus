@@ -5,12 +5,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/info"> Informacije </a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="/predictions">Napovedi</a>
-                        <a class="dropdown-item" href="/overall_predictions">Napoved zmagovalca</a>
+                        <a class="dropdown-item" href="/info">Informacije</a>
+                        <a class="dropdown-item" href="/instructions">Navodila</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/table">Lestvica</a>
                     </div>
                 </li>
@@ -26,18 +26,23 @@
                 </li>
                 @guest
                 <div class="btn-group">
-                    <a class="btn btn-default" href="{{ route('login') }}">{{ __('Prijava') }}</a>
+                    <a class="btn btn-default" style="color:palegreen" href="{{ route('login') }}">{{ __('Prijava') }}</a>
                     @if (Route::has('register'))
-                        <a class="btn btn-default" href="{{ route('register') }}">{{ __('Registracija') }}</a>
+                        <a class="btn btn-default" style="color:palegreen" href="{{ route('register') }}">{{ __('Registracija') }}</a>
                     @endif
                 </div>
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color:palegreen" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/dashboard">Nadzorna plošča</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/overall_prediction">Končna napoved</a>
+                            <a class="dropdown-item" href="/predictions">Napovedi</a>                     
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">

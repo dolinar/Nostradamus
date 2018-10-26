@@ -31,6 +31,10 @@
                 <a href="/login" class="btn btn-info m-2 col-lg-2">Prijava</a>
                 <a href="/register" class="btn btn-info m-2 col-lg-2">Registracija</a>
             </div>  
+            <div class="text-center">
+                <hr>
+                <p class="small text-muted">Nostradamus 2018/19</p>
+            </div>
         </div>
     </div>
 
