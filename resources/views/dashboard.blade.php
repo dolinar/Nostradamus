@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron">
     <h4>Pozdravljeni {{Auth::user()->name}}</h4>
     <hr>
     @if (session('status'))
@@ -9,5 +8,4 @@
             {{ session('status') }}
         </div>
     @endif
-</div>
 @endsection

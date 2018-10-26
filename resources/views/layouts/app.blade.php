@@ -27,7 +27,10 @@
 <body>
     @include('inc.navbar')
     <div class="container">
-        @yield('content')
+        <div class="jumbotron">
+            @include('inc.messages')
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>
