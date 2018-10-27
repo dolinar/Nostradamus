@@ -6,11 +6,11 @@
             jQuery("time.timeago").timeago();
         });
     </script>
-    <div class="text-center">
-        <!--<h3 class="display-5">Pozdravljeni na strani {{config('app.name', 'Nostradamus')}}!</h3> -->
-        <p class="lead">Preverite svoje vizionarske sposobnosti pri napovedovanju rezultatov za Ligo prvakov 2018/2019.</p>
+    <!--<div class="text-center">
+        <h3 class="display-5">Pozdravljeni na strani {{config('app.name', 'Nostradamus')}}!</h3>
+        <h5>Preverite svoje vizionarske sposobnosti pri napovedovanju rezultatov za Ligo prvakov 2018/2019.</h5>
     </div>
-    <hr>
+    <hr>-->
     <div class="container">
         @auth
             @if (count($data['overallPrediction']) == 0)
@@ -19,9 +19,36 @@
                 </div>
                 <hr>
             @endif
- 
         @endauth
-        <h5>Novice:</h4>
+        @if (count($data['fixtures']) > 0)
+            <h5>Naslednji tekmovalni dan: {{ date('j F, Y', strtotime($data['matchday'][0]->date))}}</h5>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Čas pričetka</th>
+                    <th scope="col">Domača ekipa</th>
+                    <th scope="col">Gostujoča ekipa</th>
+                    <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach ($data['fixtures'] as $fixture)
+                @if ($fixture->status == 'NS')
+                    <tr>
+                        <td>{{substr($fixture->time, 0, 5)}}</td>
+                        <td>{{$fixture->home_team}}</td>
+                        <td>{{$fixture->away_team}}</td>
+                        <td>{{$fixture->status}}</td>
+                    </tr>
+                @endif
+            @endforeach
+                </tbody>
+            </table>
+            </div>
+        @endif
+        <hr>
+        <h5>Novice:</h5>
         @if (count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
                 <li class="list-group-item">

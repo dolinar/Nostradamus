@@ -1,4 +1,6 @@
-<p>Vaša trenutna izbira je: <b>{{$data['overallPrediction'][0]->name}}</b>.</p>
+<div class="alert alert-info" role="alert">
+    Vaša trenutna izbira je: <b>{{$data['overallPrediction'][0]->name}}</b>.
+</div>
 {{ Form::open(['action' => ['OverallPredictionsController@update', $data['overallPrediction'][0]->id], 'method' => 'POST']) }}
     <div class="form-group">
         <ul class="list-group">
