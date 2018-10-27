@@ -27,7 +27,7 @@
 <body>
     @include('inc.navbar')
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron pb-5 pt-5">
             @include('inc.messages')
             @yield('content')
         </div>

@@ -12,9 +12,18 @@
     </div>
     <hr>
     <div class="container">
+        @auth
+            @if (count($data['overallPrediction']) == 0)
+                <div class="alert alert-danger">
+                    <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
+                </div>
+                <hr>
+            @endif
+ 
+        @endauth
         <h5>Novice:</h4>
-        @if (count($postsArray) > 0)
-            @foreach($postsArray as $post)
+        @if (count($data['posts']) > 0)
+            @foreach($data['posts'] as $post)
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-lg-2 col-md-3 col-xs-4 text-right">

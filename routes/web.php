@@ -34,6 +34,7 @@ Route::resource('overall_prediction', 'OverallPredictionsController', [
 ]);
 
 
+//Auth::routes(['verify' => true]);
+//Route::get('/dashboard', 'DashboardController@index')->middleware('verified');
 Auth::routes();
-
 Route::get('/dashboard', 'DashboardController@index');
