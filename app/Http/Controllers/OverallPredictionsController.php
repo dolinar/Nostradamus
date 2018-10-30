@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\OverallPrediction;
 use App\Team;
+use App\User;
+
 class OverallPredictionsController extends Controller
 {
     public function __construct()
@@ -20,13 +22,18 @@ class OverallPredictionsController extends Controller
      */
     public function index()
     {
-        $teams = Team::where('status', 1)->orWhere('status', 0)->get();
-        $overallPrediction = DB::select('SELECT t.name, op.id
-                                            FROM teams t INNER JOIN overall_predictions op 
-                                                ON t.id = op.id_team 
-                                                    WHERE op.id_user = ?', array(auth()->user()->id));
+        // fetch all teams
+        $teams = Team::All();
+
+        // fetch overall prediction of an authorized user
+        $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
+
+        // fetch current selected team's data
+        $overallPredictionTeam = OverallPrediction::find($overallPrediction->id)->team;
+
         $data = [
             'teams' => $teams,
+            'overallPredictionTeam' => $overallPredictionTeam,
             'overallPrediction' => $overallPrediction
         ];
         return view('overallpredictions.index')->with('data', $data);
@@ -44,10 +51,10 @@ class OverallPredictionsController extends Controller
         $this->validate($request, [
             'ekipa' => 'required'
         ]);
-        $overallPrediction = new OverallPrediction;
-        $overallPrediction->id_user = auth()->user()->id;
-        $overallPrediction->id_team = intval($request->ekipa);
-        $overallPrediction->save();
+        $overallPredictionStore = new OverallPrediction;
+        $overallPredictionStore->id_user = auth()->user()->id;
+        $overallPredictionStore->id_team = intval($request->ekipa);
+        $overallPredictionStore->save();
 
         return redirect('/overall_prediction')->with('success', 'Napoved končnega zmagovalca shranjena!');
     }
@@ -64,10 +71,9 @@ class OverallPredictionsController extends Controller
         $this->validate($request, [
             'ekipa' => 'required'
         ]);
-
-        $overallPrediction = OverallPrediction::find($id);
-        $overallPrediction->id_team = intval($request->ekipa);
-        $overallPrediction->save();
+        $overallPredictionUpdate = OverallPrediction::find($id);
+        $overallPredictionUpdate->id_team = intval($request->ekipa);
+        $overallPredictionUpdate->save();
 
         return redirect('/overall_prediction')->with('success', 'Napoved končnega zmagovalca posodobljena!');
     }

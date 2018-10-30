@@ -29,4 +29,8 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function overallPrediction() {
+        return $this->hasOne('App\OverallPrediction', 'id_user');
+    }
 }

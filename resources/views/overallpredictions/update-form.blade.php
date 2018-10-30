@@ -1,7 +1,7 @@
 <div class="alert alert-info" role="alert">
-    Vaša trenutna izbira je: <b>{{$data['overallPrediction'][0]->name}}</b>.
+    Vaša trenutna izbira je: <b>{{$data['overallPredictionTeam']->name}}</b>.
 </div>
-{{ Form::open(['action' => ['OverallPredictionsController@update', $data['overallPrediction'][0]->id], 'method' => 'POST']) }}
+{{ Form::open(['action' => ['OverallPredictionsController@update', $data['overallPrediction']->id], 'method' => 'POST']) }}
     <div class="form-group">
         <ul class="list-group">
             @foreach ($data['teams'] as $team)
