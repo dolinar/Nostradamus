@@ -23,7 +23,7 @@
                             <td>{{substr($result->time, 0, 5)}}</td>
                             <td>{{$result->home_team}}</td>
                             <td>{{$result->away_team}}</td>
-                            <td>{{$result->score_home}} - {{$result->score_away}}</td>
+                            <td>{{$result->home_score}} - {{$result->away_score}}</td>
                         </tr>
                     @endif
                 @endforeach
