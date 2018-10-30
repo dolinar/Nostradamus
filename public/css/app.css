@@ -10467,7 +10467,7 @@ a.text-dark:focus {
 }
 
 html * {
-  font-family: 'Archivo';
+  font-family: 'Nunito Sans';
   font-size: 1rem;
 }
 
@@ -10510,6 +10510,11 @@ body {
   height: 15rem;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+hr.no-space {
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 .navbar-laravel {

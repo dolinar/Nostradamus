@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Nostradamus') }}</title>
 
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Archivo' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">

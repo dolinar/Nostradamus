@@ -27,10 +27,10 @@ class PagesController extends Controller
         }
 
         // next matchday
-        $matchday = Matchday::orderBy('date', 'asc')->limit(1)->get();
+        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->get();
 
         $matchdayId = $matchday[0]->id;
-        $fixtures = DB::select('SELECT m.date, f.time, f.status, t.name AS home_team, t2.name as away_team 
+        $fixtures = DB::select('SELECT m.date, m.stage, f.time, f.status, t.name AS home_team, t2.name as away_team 
                                     FROM matchdays m INNER JOIN fixtures f ON m.id = f.id_matchday 
                                         INNER JOIN teams t ON f.home_team = t.id 
                                         INNER JOIN teams t2 ON f.away_team = t2.id 
@@ -67,11 +67,6 @@ class PagesController extends Controller
     public function clDraw() 
     {
         return view('pages.cl_draw');
-    }
-
-    public function clResults() 
-    {
-        return view('pages.cl_results');
     }
 
     public function clStatistics() 

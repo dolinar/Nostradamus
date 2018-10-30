@@ -14,22 +14,22 @@
     <div class="container">
         @auth
             @if (count($data['overallPrediction']) == 0)
-                <div class="alert alert-danger">
+                <div class="alert alert-warning">
                     <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
                 </div>
-                <hr>
             @endif
         @endauth
         @if (count($data['fixtures']) > 0)
-            <h5>Naslednji tekmovalni dan: {{ date('j F, Y', strtotime($data['matchday'][0]->date))}}</h5>
+            <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['matchday'][0]->date))}}</h5>
+            <hr class="no-space">
             <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
+            <table class="table table-sm table-striped">
+                <thead class="table-info">
                     <tr>
                     <th scope="col">Čas pričetka</th>
                     <th scope="col">Domača ekipa</th>
                     <th scope="col">Gostujoča ekipa</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Stopnja tekmovanja</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
                         <td>{{substr($fixture->time, 0, 5)}}</td>
                         <td>{{$fixture->home_team}}</td>
                         <td>{{$fixture->away_team}}</td>
-                        <td>{{$fixture->status}}</td>
+                        <td>{{$fixture->stage}}</td>
                     </tr>
                 @endif
             @endforeach
@@ -47,8 +47,9 @@
             </table>
             </div>
         @endif
-        <hr>
-        <h5>Novice:</h5>
+        <br>
+        <h5>Novice</h5>
+        <hr class="no-space">
         @if (count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
                 <li class="list-group-item">

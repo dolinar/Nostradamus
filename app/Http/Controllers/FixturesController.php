@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Fixture;
+use App\Matchday;
 
 class FixturesController extends Controller
 {
@@ -13,7 +16,18 @@ class FixturesController extends Controller
      */
     public function index()
     {
-        //
+
+        $results = DB::select('SELECT m.date, f.id_matchday, f.time, f.score_home, f.score_away, f.status, t.name AS home_team, t2.name as away_team 
+                                FROM matchdays m INNER JOIN fixtures f ON m.id = f.id_matchday 
+                                    INNER JOIN teams t ON f.home_team = t.id 
+                                    INNER JOIN teams t2 ON f.away_team = t2.id 
+                                        WHERE f.status = ?', array('FT'));
+        $matchdays = Matchday::where('finished', true)->get();
+        $data = [
+            'results' => $results,
+            'matchdays' => $matchdays
+        ];
+        return view('pages.cl_results')->with('data', $data);
     }
 
     /**
