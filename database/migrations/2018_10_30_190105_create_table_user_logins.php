@@ -13,7 +13,12 @@ class CreateTableUserLogins extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('logins', function (Blueprint $table) {
+            $table->increments('id_login');
+            $table->bigInteger('id_user');
+            $table->string('ip_address', 15);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class CreateTableUserLogins extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('logins');
     }
 }
