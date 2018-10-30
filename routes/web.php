@@ -14,9 +14,10 @@
 Route::get('/', 'PagesController@index');
 Route::get('/info', 'PagesController@info');
 Route::get('/instructions', 'PagesController@instructions');
-Route::get('/table', 'PagesController@table');
 Route::get('/cl_draw', 'PagesController@clDraw');
 Route::get('/cl_statistics', 'PagesController@clStatistics');
+
+Route::get('/table', 'ParticipantsController@index');
 
 Route::resource('predictions', 'PredictionsController', [
     'only' => ['index', 'show', 'edit', 'update']
