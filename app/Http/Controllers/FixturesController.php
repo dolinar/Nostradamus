@@ -14,7 +14,7 @@ class FixturesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexResults()
     {
         // finished fixtures
         $results =  Matchday::where('finished', '=', 1)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->get();
@@ -22,6 +22,15 @@ class FixturesController extends Controller
             'results' => $results->toArray(),
         ];
         return view('pages.cl_results')->with('data', $data);
+    }
+
+    public function indexDraw() {
+        // to be played
+        $draw =  Matchday::where('finished', '=', 0)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->get();
+        $data = [
+            'draw' => $draw->toArray(),
+        ];
+        return view('pages.cl_draw')->with('data', $data);
     }
 
     /**

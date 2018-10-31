@@ -8,7 +8,7 @@ use App\User;
 class ParticipantsController extends Controller
 {
     public function index() {
-        $participants = User::where('status', 1)->get();
+        $participants = User::where('status', 1)->paginate(1);
         $data = [
             'participants' => $participants
         ];

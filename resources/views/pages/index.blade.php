@@ -20,7 +20,8 @@
             @endif
         @endauth
         @if (count($data['fixtures']) > 0)
-            <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}</h5>
+            <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}
+            <a class="float-right text-primary" href="/cl_draw">Več</a></h5>
             <hr class="no-space">
             <div class="table-responsive">
             <table class="table table-sm table-striped">
@@ -33,16 +34,16 @@
                     </tr>
                 </thead>
                 <tbody>
-            @foreach ($data['fixtures']['fixtures'] as $fixture)
-                @if ($fixture['status'] == 'NS')
-                    <tr>
-                        <td>{{substr($fixture['time'], 0, 5)}}</td>
-                        <td>{{$fixture['team_home']['name']}}</td>
-                        <td>{{$fixture['team_away']['name']}}</td>
-                        <td>{{$data['fixtures']['stage']}}</td>
-                    </tr>
-                @endif
-            @endforeach
+                    @foreach ($data['fixtures']['fixtures'] as $fixture)
+                        @if ($fixture['status'] == 'NS')
+                            <tr>
+                                <td>{{substr($fixture['time'], 0, 5)}}</td>
+                                <td>{{$fixture['team_home']['name']}}</td>
+                                <td>{{$fixture['team_away']['name']}}</td>
+                                <td>{{$data['fixtures']['stage']}}</td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
             </table>
             </div>
