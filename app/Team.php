@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     protected $table = 'teams';
-    
+
     public function overallPredictions() {
         return $this->hasMany('App\OverallPrediction', 'id_team');
     }

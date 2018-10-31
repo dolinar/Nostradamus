@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Custom\BlogFeed;
 use App\OverallPrediction;
 use App\Matchday;
+use App\User;
 
 class PagesController extends Controller
 {
@@ -20,26 +21,19 @@ class PagesController extends Controller
         // overall prediction reminder
         $overallPrediction = array();
         if (auth()->user()) {
-            $overallPrediction = DB::select('SELECT t.name, op.id
-                                    FROM teams t INNER JOIN overall_predictions op 
-                                        ON t.id = op.id_team 
-                                            WHERE op.id_user = ?', array(auth()->user()->id));
+            $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
         }
 
         // next matchday
-        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->get();
+        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
 
-        $matchdayId = $matchday[0]->id;
-        $fixtures = DB::select('SELECT m.date, m.stage, f.time, f.status, t.name AS home_team, t2.name as away_team 
-                                    FROM matchdays m INNER JOIN fixtures f ON m.id = f.id_matchday 
-                                        INNER JOIN teams t ON f.home_team = t.id 
-                                        INNER JOIN teams t2 ON f.away_team = t2.id 
-                                            WHERE m.id = ?', array($matchdayId));
+        // TODO: figure out why fixtures.teams doesnt work
+        $fixtures = Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id);
+
         $data = [
             'posts' => $postsArray,
             'overallPrediction' => $overallPrediction,
-            'matchday' => $matchday,
-            'fixtures' => $fixtures
+            'fixtures' => $fixtures->toArray()
         ];  
         return view('pages.index')->with("data", $data);
     }
