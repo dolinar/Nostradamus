@@ -27,9 +27,8 @@ class OverallPredictionsController extends Controller
 
         // fetch overall prediction of an authorized user
         $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
-
-        // fetch current selected team's data
-        $overallPredictionTeam = OverallPrediction::find($overallPrediction->id)->team;
+        // fetch team data
+        $overallPredictionTeam = (!is_null($overallPrediction)) ? OverallPrediction::find($overallPrediction->id)->team : null;
 
         $data = [
             'teams' => $teams,

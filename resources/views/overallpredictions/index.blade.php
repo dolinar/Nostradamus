@@ -17,7 +17,7 @@
         @include('overallpredictions.disabled-form')
 
     @elseif (count($data['overallPrediction']) == 0)
-        @include('overallpredictions.store-form');
+        @include('overallpredictions.store-form')
 
     @else
         @include('overallpredictions.update-form')
