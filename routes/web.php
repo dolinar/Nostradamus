@@ -42,3 +42,8 @@ Route::get('/dashboard', 'DashboardController@index');
 
 //languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
+
+// admin page
+Route::get('/admin', 'AdminController@index')    
+    ->middleware('is_admin')    
+    ->name('admin');
