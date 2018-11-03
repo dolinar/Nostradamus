@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Matchday;
+use App\Prediction;
+use Illuminate\Support\Facades\DB;
 class PredictionsController extends Controller
 {
     public function __construct()
@@ -17,6 +19,25 @@ class PredictionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $predictions = Matchday::where('finished', '=', '0')
+                                        ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
+                                            $q->where('id_user', auth()->user()->id);
+                                        }])
+                                        ->get();
+        $data = [
+            'predictions' => $predictions->toArray(),
+        ];
+        return view('predictions.index')->with('data', $data);
+    }
+
+        /**
+     * Store new resource
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function store()
     {
         //
     }

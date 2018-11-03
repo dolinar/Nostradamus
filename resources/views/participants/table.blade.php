@@ -15,9 +15,11 @@
                 </thead>
                 <tbody>
                     @foreach ($data['participants'] as $participant)
+                    <tr>
                         <td>{{$participant->username}}</td>
                         <td>{{$participant->name}}</td>
                         <td>12</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

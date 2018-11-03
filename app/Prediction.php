@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prediction extends Model
 {
-    protected $table = 'prediction';
+    protected $table = 'predictions';
 
     public function fixture() {
         return $this->belongsTo('App\Fixture', 'id_fixture');

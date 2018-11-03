@@ -13,6 +13,10 @@ class Fixture extends Model
         return $this->belongsTo('App\Matchday', 'id_matchday');
     }
 
+    public function prediction() {
+        return $this->hasMany('App\Prediction', 'id_fixture');
+    }
+
     public function teamHome() {
         return $this->belongsTo('App\Team', 'home_team');
     }

@@ -18,9 +18,7 @@ Route::get('/cl_statistics', 'PagesController@clStatistics');
 
 Route::get('/table', 'ParticipantsController@index');
 
-Route::resource('predictions', 'PredictionsController', [
-    'only' => ['index', 'show', 'edit', 'update']
-]);
+Route::resource('predictions', 'PredictionsController');
 
 Route::resource('teams', 'TeamsController');
 
@@ -44,6 +42,4 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 // admin page
-Route::get('/admin', 'AdminController@index')    
-    ->middleware('is_admin')    
-    ->name('admin');
+Route::get('/admin', 'AdminController@index');   
