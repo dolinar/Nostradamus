@@ -31,26 +31,29 @@ class PredictionsController extends Controller
         return view('predictions.index')->with('data', $data);
     }
 
-        /**
+
+    /**
      * Store new resource
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $this->validate($request, [
+            'prediction.*.*' => 'required'
+        ], [], [
+            'prediction.*.*' => 'goli ekipe',
+        ]);
+        foreach ($request['prediction'] as $idFixture => $scores) {
+            $prediction = new Prediction;
+            $prediction->id_user = auth()->user()->id;
+            $prediction->id_fixture = $idFixture;
+            $prediction->prediction_home = $scores['home'];
+            $prediction->prediction_away = $scores['away'];
+            $prediction->save();
+        }
+        return redirect('/predictions')->with('success', 'Napovedi shranjene!');
     }
 
     /**
@@ -61,7 +64,11 @@ class PredictionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prediction = Prediction::with('fixture', 'fixture.teamHome', 'fixture.teamAway')->find($id);
+        if (auth()->user()->id !== $prediction->id_user) {
+            return redirect('/predictions');
+        }
+        return view('predictions.edit')->with('prediction', $prediction->toArray());
     }
 
     /**
@@ -73,17 +80,19 @@ class PredictionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request, [
+            'home' => 'required',
+            'away' => 'required'
+        ], [], [
+            'home' => 'napoved',
+            'away' => 'napoved'
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $prediction = Prediction::find($id);
+        $prediction->prediction_home = $request->home;
+        $prediction->prediction_away = $request->away;
+        $prediction->save();
+
+        return redirect('/predictions')->with('success', 'Napoved uspešno posodobljena!');
     }
 }

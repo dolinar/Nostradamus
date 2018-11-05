@@ -18,7 +18,9 @@ Route::get('/cl_statistics', 'PagesController@clStatistics');
 
 Route::get('/table', 'ParticipantsController@index');
 
-Route::resource('predictions', 'PredictionsController');
+Route::resource('predictions', 'PredictionsController', [
+    'only' => ['index', 'edit', 'store', 'update']
+]);
 
 Route::resource('teams', 'TeamsController');
 

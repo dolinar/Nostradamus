@@ -6,24 +6,26 @@
     @if (count($data['predictions']) > 0)
         @foreach ($data['predictions'] as $matchday)
             {{ Form::open(array('action' => 'PredictionsController@store', 'method' => 'POST')) }}
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">
-                    <p>Napovedi za tekmovalni dan <b>{{$matchday['date']}}</b>. Stopnja tekmovanja: <b>{{$matchday['stage']}}</b></p>
+                    Napovedi za tekmovalni dan <b>{{ strftime('%e %B, %G', strtotime($matchday['date']))}}</b>. Stopnja tekmovanja: <b>{{$matchday['stage']}}</b>
                 </div>
                 <ul class="list-group list-group-flush">
-                @foreach ($matchday['fixtures'] as $fixture)
-                    {{-- @if ($fixture['prediction'] != NULL)
-                        {{$fixture['prediction'][0]['id']}}
-                    @endif --}}
-                    <li class="list-group-item">
-                            {{Form::label('teamHome', $fixture['team_home']['name'])}}
-                            {{Form::text('teamHome')}} : 
-                            {{Form::text('teamHome')}}
-                            {{Form::label('teamHome', $fixture['team_away']['name'])}}
-                    </li>
-                @endforeach
+                    @foreach ($matchday['fixtures'] as $fixture)
+                        @if ($matchday['date'] . ' ' . $fixture['time'] < (new DateTime(date('Y-m-d h:i:s')))->modify('+5 minutes'))
+                            @if($fixture['prediction'] == NULL)
+                                @include('predictions.form-active')
+                            @else 
+                                @include('predictions.form-disabled')
+                            @endif
+                        @else
+                            @include('predictions.form-disabled')
+                        @endif
+                    @endforeach
                 </ul>
-                {{ Form::submit('Shrani', array('class' => 'btn btn-primary')) }}
+                <div class="card-footer text-center p-2">
+                    {{ Form::submit('Shrani', array('class' => 'btn btn-sm btn-primary')) }}
+                </div>
             </div>
             {{ Form::close() }}
         @endforeach

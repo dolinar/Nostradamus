@@ -50,10 +50,10 @@ class OverallPredictionsController extends Controller
         $this->validate($request, [
             'ekipa' => 'required'
         ]);
-        $overallPredictionStore = new OverallPrediction;
-        $overallPredictionStore->id_user = auth()->user()->id;
-        $overallPredictionStore->id_team = intval($request->ekipa);
-        $overallPredictionStore->save();
+        $overallPrediction = new OverallPrediction;
+        $overallPrediction->id_user = auth()->user()->id;
+        $overallPrediction->id_team = intval($request->ekipa);
+        $overallPrediction->save();
 
         return redirect('/overall_prediction')->with('success', 'Napoved končnega zmagovalca shranjena!');
     }
@@ -70,9 +70,9 @@ class OverallPredictionsController extends Controller
         $this->validate($request, [
             'ekipa' => 'required'
         ]);
-        $overallPredictionUpdate = OverallPrediction::find($id);
-        $overallPredictionUpdate->id_team = intval($request->ekipa);
-        $overallPredictionUpdate->save();
+        $overallPrediction = OverallPrediction::find($id);
+        $overallPrediction->id_team = intval($request->ekipa);
+        $overallPrediction->save();
 
         return redirect('/overall_prediction')->with('success', 'Napoved končnega zmagovalca posodobljena!');
     }
