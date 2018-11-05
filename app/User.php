@@ -38,4 +38,8 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     public function overallPrediction() {
         return $this->hasOne('App\OverallPrediction', 'id_user');
     }
+
+    public function predictions() {
+        return $this->hasMany('App\Prediction', 'id_user');
+    }
 }

@@ -18,6 +18,11 @@
                     <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
                 </div>
             @endif
+            @if ($data['difference'] > 0)
+                <div class="alert alert-warning">
+                    <span>Napovejte vse rezultate <a href="/predictions">tukaj</a>!</span>
+                </div>
+            @endif
         @endauth
         @if (count($data['fixtures']) > 0)
             <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}
