@@ -32,9 +32,14 @@ class PagesController extends Controller
         $fixtures = Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id);
 
         // Check if count of all current fixtures is greater than number of user's number of ACTIVE predictions
-        $numberOfActiveFixtures = count(Fixture::where('status', 'NS')->get());
-        $numberOfPredictions = count(DB::select('SELECT * FROM predictions p LEFT JOIN fixtures f ON p.id_fixture = f.id WHERE p.id_user = ? AND f.status = ?', 
-                            array(auth()->user()->id, 'NS')));
+        $numberOfActiveFixtures = 0;
+        $numberOfPredictions = 0;
+        if (auth()->user()){
+            $numberOfActiveFixtures = count(Fixture::where('status', 'NS')->get());
+            $numberOfPredictions = count(DB::select('SELECT * FROM predictions p LEFT JOIN fixtures f ON p.id_fixture = f.id WHERE p.id_user = ? AND f.status = ?', 
+                                array(auth()->user()->id, 'NS')));
+        }
+
         $data = [
             'difference' => $numberOfActiveFixtures - $numberOfPredictions,
             'posts' => $postsArray,
