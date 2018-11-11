@@ -40,11 +40,18 @@ class PagesController extends Controller
                                 array(auth()->user()->id, 'NS')));
         }
 
+        $topTen =  User::where('status', 1)->orWhere('status', 0)
+        ->select('users.username', DB::raw('SUM(points) as total_points'))
+        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+        ->groupBy('predictions.id_user', 'users.username')
+        ->orderBy('total_points', 'DESC')
+        ->take(5)->get();
         $data = [
             'difference' => $numberOfActiveFixtures - $numberOfPredictions,
             'posts' => $postsArray,
             'overallPrediction' => $overallPrediction,
-            'fixtures' => $fixtures->toArray()
+            'fixtures' => $fixtures->toArray(),
+            'topTen' => $topTen
         ];  
         return view('pages.index')->with("data", $data);
     }

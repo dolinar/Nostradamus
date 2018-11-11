@@ -6,11 +6,6 @@
             jQuery("time.timeago").timeago();
         });
     </script>
-    <!--<div class="text-center">
-        <h3 class="display-5">Pozdravljeni na strani {{config('app.name', 'Nostradamus')}}!</h3>
-        <h5>Preverite svoje vizionarske sposobnosti pri napovedovanju rezultatov za Ligo prvakov 2018/2019.</h5>
-    </div>
-    <hr>-->
     <div class="container">
         @auth
             @if (count($data['overallPrediction']) == 0)
@@ -20,7 +15,7 @@
             @endif
             @if ($data['difference'] > 0)
                 <div class="alert alert-warning">
-                    <span>Napovejte vse rezultate <a href="/predictions">tukaj</a>!</span>
+                    <span>Napovejte vse rezultate <a href="/predictions">tukaj</a>.</span>
                 </div>
             @endif
         @endauth
@@ -53,6 +48,33 @@
             </table>
             </div>
         @endif
+
+        <br>
+        <h5>Najboljših 10<a class="float-right text-primary" href="/table">Več</a></h5>
+        <hr class="no-space">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead class="table-info">
+                    <tr>
+                    <th scope="col">Uporabnik</th>
+                    <th scope="col">Točke</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data['topTen'] as $participant)
+                        <tr>
+                            <td>{{$participant['username']}}</td>
+                            @if ($participant['total_points'] != null)
+                                <td>{{$participant['total_points']}}</td>
+                            @else
+                                <td>0</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
         <br>
         <h5>Novice</h5>
         <hr class="no-space">

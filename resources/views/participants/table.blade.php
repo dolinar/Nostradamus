@@ -8,7 +8,7 @@
             <table class="table table-sm table-striped">
                 <thead class="table-info">
                     <tr>
-                    <th scope="col">Uporabniško ime</th>
+                    <th scope="col">Tekmovalec</th>
                     <th scope="col">Ime in priimek</th>
                     <th scope="col">Točke</th>
                     </tr>
@@ -16,9 +16,13 @@
                 <tbody>
                     @foreach ($data['participants'] as $participant)
                     <tr>
-                        <td>{{$participant->username}}</td>
-                        <td>{{$participant->name}}</td>
-                        <td>12</td>
+                        <td>{{$participant['username']}}</td>
+                        <td>{{$participant['name']}}</td>
+                        @if ($participant['total_points'] != null)
+                            <td>{{$participant['total_points']}}</td>
+                        @else
+                            <td>0</td>
+                        @endif 
                     </tr>
                     @endforeach
                 </tbody>
