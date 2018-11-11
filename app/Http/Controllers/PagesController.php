@@ -29,7 +29,12 @@ class PagesController extends Controller
         // next matchday
         $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
         // TODO: figure out why fixtures.teams doesnt work
-        $fixtures = Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id);
+        if ($matchday) {
+            $fixtures = Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id)->toArray();
+        } else {
+            $fixtures = array();
+        }
+
 
         // Check if count of all current fixtures is greater than number of user's number of ACTIVE predictions
         $numberOfActiveFixtures = 0;
@@ -46,13 +51,15 @@ class PagesController extends Controller
         ->groupBy('predictions.id_user', 'users.username')
         ->orderBy('total_points', 'DESC')
         ->take(5)->get();
+
         $data = [
             'difference' => $numberOfActiveFixtures - $numberOfPredictions,
             'posts' => $postsArray,
             'overallPrediction' => $overallPrediction,
-            'fixtures' => $fixtures->toArray(),
+            'fixtures' => $fixtures,
             'topTen' => $topTen
         ];  
+        
         return view('pages.index')->with("data", $data);
     }
 

@@ -12,7 +12,9 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     @foreach ($matchday['fixtures'] as $fixture)
-                        @if ($matchday['date'] . ' ' . $fixture['time'] < (new DateTime(date('Y-m-d h:i:s')))->modify('+5 minutes'))
+                        {{-- {{print_r(new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))}}
+                        {{print_r((new DateTime(date('Y-m-d H:i:s')))->modify('+55 minutes'))}} --}}
+                        @if ((new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes') > (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour'))
                             @if($fixture['prediction'] == NULL)
                                 @include('predictions.form-active')
                             @else 
