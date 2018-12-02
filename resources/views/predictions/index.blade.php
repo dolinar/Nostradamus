@@ -31,5 +31,9 @@
             </div>
             {{ Form::close() }}
         @endforeach
+    @else
+        <div class="alert alert-info text-center">
+            <span>Trenutno ni na sporedu nobene tekme!</span>
+        </div>
     @endif  
 @endsection

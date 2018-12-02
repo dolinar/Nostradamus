@@ -27,7 +27,7 @@
 <body>
     @include('inc.navbar')
     <div class="container">
-        <div class="jumbotron px-2 py-4">
+        <div class="jumbotron">
             @include('inc.messages')
             @yield('content')
         </div>

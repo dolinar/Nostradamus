@@ -32,8 +32,8 @@
         @endforeach
         
     @else
-        <div class="alert alert-info" role="alert">
-            Za to tekmovanje še ni rezultatov.
+        <div class="alert alert-info text-center" role="alert">
+            <span>Trenutno ni na sporedu nobene tekme!</span>
         </div>
     @endif
 @endsection

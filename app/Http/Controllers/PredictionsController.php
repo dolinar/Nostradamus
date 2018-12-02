@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Matchday;
 use App\Prediction;
 use Illuminate\Support\Facades\DB;
+use \Datetime;
 class PredictionsController extends Controller
 {
     public function __construct()
@@ -20,6 +21,7 @@ class PredictionsController extends Controller
      */
     public function index()
     {
+
         $predictions = Matchday::where('finished', '=', '0')
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
                                             $q->where('id_user', auth()->user()->id);
@@ -43,15 +45,26 @@ class PredictionsController extends Controller
         $this->validate($request, [
             'prediction.*.*' => 'required'
         ], [], [
-            'prediction.*.*' => 'goli ekipe',
+            'prediction.*.*' => 'goli ekipe', 
         ]);
+
+
+
+
         foreach ($request['prediction'] as $idFixture => $scores) {
-            $prediction = new Prediction;
-            $prediction->id_user = auth()->user()->id;
-            $prediction->id_fixture = $idFixture;
-            $prediction->prediction_home = $scores['home'];
-            $prediction->prediction_away = $scores['away'];
-            $prediction->save();
+            $fixture = Fixture::find($idFixture);
+            $matchday = $fixture->matchday;
+            // we need to make sure the user did not open the form, wait till the game started/ended and then saved the predictions
+            $currentTime = (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour');
+            $fixtureTime = (new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes');
+            if ($fixtureTime > $currentTime) {
+                $prediction = new Prediction;
+                $prediction->id_user = auth()->user()->id;
+                $prediction->id_fixture = $idFixture;
+                $prediction->prediction_home = $scores['home'];
+                $prediction->prediction_away = $scores['away'];
+                $prediction->save();
+            }
         }
         return redirect('/predictions')->with('success', 'Napovedi shranjene!');
     }
@@ -65,6 +78,7 @@ class PredictionsController extends Controller
     public function edit($id)
     {
         $prediction = Prediction::with('fixture', 'fixture.teamHome', 'fixture.teamAway')->find($id);
+
         if (auth()->user()->id !== $prediction->id_user) {
             return redirect('/predictions');
         }
@@ -89,6 +103,16 @@ class PredictionsController extends Controller
         ]);
 
         $prediction = Prediction::find($id);
+
+        $fixture = $prediction->fixture;
+        $matchday = $prediction->fixture->matchday;
+        // we need to make sure the user did not open the form, wait till the game started/ended and then saved the predictions
+        $currentTime = (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour');
+        $fixtureTime = (new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes');
+        if ($fixtureTime < $currentTime) {
+            return redirect('/predictions')->with('error', 'Čas za napoved je potekel!');
+        }
+
         $prediction->prediction_home = $request->home;
         $prediction->prediction_away = $request->away;
         $prediction->save();
