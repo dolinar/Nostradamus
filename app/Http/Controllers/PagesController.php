@@ -15,49 +15,25 @@ class PagesController extends Controller
 {
     public function index() 
     {
-        // news 
-        $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
-        $postsArray = $blogFeed->posts;
-        $postsArray = array_slice($postsArray, 0, 5);
+        $postsArray = $this->getPostsArray();
 
-        // overall prediction reminder
-        $overallPrediction = array();
-        if (auth()->user()) {
-            $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
-        }
+        $overallPrediction = $this->getOverallPrediction();
 
-        // next matchday
-        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
-        // TODO: figure out why fixtures.teams doesnt work
-        if ($matchday) {
-            $fixtures = Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id)->toArray();
-        } else {
-            $fixtures = array();
-        }
+        $fixtures = $this->getNextMatchday();
 
+        $predictionsData = $this->getPredictionsData();
 
-        // Check if count of all current fixtures is greater than number of user's number of ACTIVE predictions
-        $numberOfActiveFixtures = 0;
-        $numberOfPredictions = 0;
-        if (auth()->user()){
-            $numberOfActiveFixtures = count(Fixture::where('status', 'NS')->get());
-            $numberOfPredictions = count(DB::select('SELECT * FROM predictions p LEFT JOIN fixtures f ON p.id_fixture = f.id WHERE p.id_user = ? AND f.status = ?', 
-                                array(auth()->user()->id, 'NS')));
-        }
+        $topFive = $this->getTopFive();
 
-        $topTen =  User::where('status', 1)->orWhere('status', 0)
-        ->select('users.username', DB::raw('SUM(points) as total_points'))
-        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-        ->groupBy('predictions.id_user', 'users.username')
-        ->orderBy('total_points', 'DESC')
-        ->take(5)->get();
+        $user = $this->getAuthenticatedUserIfNotInTopFive($topFive);
 
         $data = [
-            'difference' => $numberOfActiveFixtures - $numberOfPredictions,
+            'difference' => $predictionsData['numberOfActiveFixtures'] - $predictionsData['numberOfPredictions'],
             'posts' => $postsArray,
             'overallPrediction' => $overallPrediction,
             'fixtures' => $fixtures,
-            'topTen' => $topTen
+            'topFive' => $topFive,
+            'user' => $user
         ];  
         
         return view('pages.index')->with("data", $data);
@@ -91,5 +67,86 @@ class PagesController extends Controller
     public function clStatistics() 
     {
         return view('pages.cl_statistics');
+    }
+
+    private function getPostsArray() {
+        $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
+        $postsArray = $blogFeed->posts;
+        return array_slice($postsArray, 0, 5);
+    }
+
+    private function getOverallPrediction() {
+        $overallPrediction = null;
+        if (auth()->user()) {
+            $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
+        }
+        return $overallPrediction == null ? array() : $overallPrediction;
+
+    }
+
+    private function getNextMatchday() {
+        // next matchday
+        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
+        // TODO: figure out why fixtures.teams doesnt work
+        return $matchday ? Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id)->toArray() : array();
+    }
+
+    private function getPredictionsData() {
+        // Check if count of all current fixtures is greater than number of user's number of ACTIVE predictions
+        $numberOfActiveFixtures = 0;
+        $numberOfPredictions = 0;
+        if (auth()->user()){
+            $numberOfActiveFixtures = count(Fixture::where('status', 'NS')->get());
+            $numberOfPredictions = count(DB::select('SELECT * FROM predictions p LEFT JOIN fixtures f ON p.id_fixture = f.id WHERE p.id_user = ? AND f.status = ?', 
+                                array(auth()->user()->id, 'NS')));
+        }
+        return array('numberOfActiveFixtures' => $numberOfActiveFixtures, 'numberOfPredictions' => $numberOfPredictions);
+    }
+
+    private function getTopFive() {
+        return  
+            User::where('status', 1)->orWhere('status', 0)
+                ->select('users.username', DB::raw('SUM(points) as total_points'))
+                ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+                ->groupBy('predictions.id_user', 'users.username')
+                ->orderBy('total_points', 'DESC')
+                ->take(5)->get();
+    }
+
+    private function getAuthenticatedUserIfNotInTopFive($topFive) {
+        $isTopFive = false;
+        $authenticated = auth()->user();
+        foreach ($topFive as $user) {
+            if ($authenticated && $user->username === auth()->user()->username) {
+                $isTopFive = true;
+                break;
+            }
+        }
+
+        if (!$isTopFive && $authenticated) {
+            $username = $authenticated->username;
+            $users =  User::where('status', 1)->orWhere('status', 0)
+                        ->select('users.username', DB::raw('SUM(points) as total_points'))
+                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+                        ->groupBy('predictions.id_user', 'users.username')
+                        ->orderBy('total_points', 'DESC')
+                        ->get();
+
+            $position = $users->search(function ($users, $key) use ($username) {
+                return $users->username == $username;
+            });
+
+            $user = User::where('username', $username)
+                        ->select('users.username', DB::raw('SUM(points) as total_points'))
+                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+                        ->groupBy('predictions.id_user', 'users.username')
+                        ->orderBy('total_points', 'DESC')
+                        ->get(); 
+
+            $user['position'] = $position+1;
+            return $user;
+        }
+        
+        return null;
     }
 }

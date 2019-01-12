@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Matchday;
 use App\Prediction;
+use App\Fixture;
 use Illuminate\Support\Facades\DB;
 use \Datetime;
 class PredictionsController extends Controller
@@ -47,9 +48,6 @@ class PredictionsController extends Controller
         ], [], [
             'prediction.*.*' => 'goli ekipe', 
         ]);
-
-
-
 
         foreach ($request['prediction'] as $idFixture => $scores) {
             $fixture = Fixture::find($idFixture);

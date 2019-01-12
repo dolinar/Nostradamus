@@ -8,7 +8,7 @@
     </script>
     <div class="container">
         @auth
-            @if (count($data['overallPrediction']) == 0)
+            @if (is_array($data['overallPrediction']) && count($data['overallPrediction']) == 0)
                 <div class="alert alert-warning">
                     <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
                 </div>
@@ -23,9 +23,9 @@
             <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}
             <a class="float-right text-primary" href="/cl_draw">Več</a></h5>
             <hr class="no-space">
-            <div class="table-responsive">
-            <table class="table table-sm table-striped">
-                <thead class="table-info">
+            <div class="table-responsive" style="border-radius:5px">
+            <table class="table table-sm table-hover">
+                <thead class="table-active">
                     <tr>
                     <th scope="col">Čas pričetka</th>
                     <th scope="col">Domača ekipa</th>
@@ -50,19 +50,26 @@
         @endif
 
         <br>
-        <h5>Najboljših 10<a class="float-right text-primary" href="/table">Več</a></h5>
+        <h5>Najboljših 5<a class="float-right text-primary" href="/table">Več</a></h5>
         <hr class="no-space">
-        <div class="table-responsive">
-            <table class="table table-sm table-striped">
-                <thead class="table-info">
+        <div class="table-responsive" style="border-radius:5px">
+            <table class="table table-sm table-hover">
+                <thead class="table-active">
                     <tr>
-                    <th scope="col">Uporabnik</th>
+                    <th>#</th>
+                    <th scope="col">Tekmovalec</th>
                     <th scope="col">Točke</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['topTen'] as $participant)
-                        <tr>
+                    @php $i=1; @endphp
+                    @foreach ($data['topFive'] as $participant)
+                        @if (auth()->user() && $participant['username'] == auth()->user()->username)
+                            <tr style="background-color:#b7d3ff">
+                        @else
+                            <tr>       
+                        @endif
+                            <td >{{$i++}}.</td>
                             <td>{{$participant['username']}}</td>
                             @if ($participant['total_points'] != null)
                                 <td>{{$participant['total_points']}}</td>
@@ -71,6 +78,17 @@
                             @endif
                         </tr>
                     @endforeach
+                    @if ($data['user'])
+                        <tr style="background-color:#b7d3ff">
+                            <td >{{$data['user']['position']}}.</td>
+                            <td>{{$data['user'][0]['username']}}</td>
+                            @if ($data['user'][0]['total_points'] != null)
+                                <td>{{$data['user'][0]['total_points']}}</td>
+                            @else
+                                <td>0</td>
+                            @endif
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -80,7 +98,7 @@
         <hr class="no-space">
         @if (count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
-                <li class="list-group-item">
+                <li class="list-group-item" style="border-radius:5px">
                     <div class="row">
                         <div class="col-lg-2 col-md-3 col-xs-4 text-right">
                             <time class="timeago small text-muted" datetime="{{date('c', $post->ts)}}"><small></small></time>

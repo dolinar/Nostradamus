@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnUsernameUsers extends Migration
+class CreateTableGroups extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class AddColumnUsernameUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function($table) {
-            $table->string('username')->unique();
-        });
+        //
     }
 
     /**
@@ -25,8 +23,6 @@ class AddColumnUsernameUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function($table) {
-            $table->dropColumn('username');
-        });
+        //
     }
 }
