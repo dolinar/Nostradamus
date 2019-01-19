@@ -14,7 +14,8 @@ class ParticipantsController extends Controller
                             ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
                             ->groupBy('predictions.id_user', 'users.username', 'users.name')
                             ->orderBy('total_points', 'DESC')
-                            ->paginate(5);
+                            ->orderBy('users.username')
+                            ->paginate(10);
         
         $user = $this->getAuthenticatedUser();
         $data = [

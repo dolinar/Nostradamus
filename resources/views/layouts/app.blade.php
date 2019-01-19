@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-
+    
     <!-- Scripts -->
     <script src="{{asset('js/jquery.min.js')}}"></script> 
     <script src="{{asset('js/bootstrap.min.js')}}"></script> 

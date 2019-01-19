@@ -31,7 +31,7 @@
                                 <td>1</td>
                             </tr>
                     @endforeach
-                    @if ($data['user']['position'] < $data['participants']->firstItem() || $data['user']['position'] >= $data['participants']->firstItem() + 5)
+                    @if (auth()->user() && ($data['user']['position'] < $data['participants']->firstItem() || $data['user']['position'] >= $data['participants']->firstItem() + 10))
                         <tr style="background-color:#b7d3ff">
                             <td >{{$data['user']['position']}}.</td>
                             <td>{{$data['user'][0]['username']}}</td>

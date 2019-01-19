@@ -26,7 +26,6 @@ class PagesController extends Controller
         $topFive = $this->getTopFive();
 
         $user = $this->getAuthenticatedUserIfNotInTopFive($topFive);
-
         $data = [
             'difference' => $predictionsData['numberOfActiveFixtures'] - $predictionsData['numberOfPredictions'],
             'posts' => $postsArray,
@@ -110,6 +109,7 @@ class PagesController extends Controller
                 ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
                 ->groupBy('predictions.id_user', 'users.username')
                 ->orderBy('total_points', 'DESC')
+                ->orderBy('users.username')
                 ->take(5)->get();
     }
 

@@ -42,4 +42,8 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     public function predictions() {
         return $this->hasMany('App\Prediction', 'id_user');
     }
+
+    public function groups() {
+        return $this->belongsToMany('App\Group', 'user_group', 'id_user', 'id_group');
+    }
 }

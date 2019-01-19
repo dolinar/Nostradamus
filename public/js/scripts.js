@@ -19,5 +19,19 @@ $(document).ready(function() {
             $('#team-id').val($(this).attr('name'));
         } 
     });
-    
 });
+
+$(document).ready(function() {
+    $('.btn-click').click(function() {
+        var id = this.id;
+        $('#div-'+id).toggle(500);
+        $(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
+});
+
+$(document).ready(function() {
+    $('#show-group-form').click(function() {
+        $('#group-store').toggle(500);
+    });
+});
+

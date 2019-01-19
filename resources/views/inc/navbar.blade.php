@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"> <img class="logo" src="/cl_logo_white.png" height="50"> {{config('app.name', 'Nostradamus')}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
+    <a class="navbar-brand" href="/"> <img class="logo" src="/cl_logo_white.png" height="50"> {{config('app.name', 'Nostradamus')}}</a>   
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
@@ -40,22 +40,21 @@
                 </li>
                 @guest
                 <div class="btn-group">
-                    <a class="btn btn-default" style="color:palegreen" href="{{ route('login') }}">{{ __('Prijava') }}</a>
+                    <a class="btn btn-default" style="color:#338394" href="{{ route('login') }}">{{ __('Prijava') }}</a>
                     @if (Route::has('register'))
-                        <a class="btn btn-default" style="color:palegreen" href="{{ route('register') }}">{{ __('Registracija') }}</a>
+                        <a class="btn btn-default" style="color:#338394" href="{{ route('register') }}">{{ __('Registracija') }}</a>
                     @endif
                 </div>
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color:palegreen" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color:#338394" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/dashboard">Nadzorna plošča</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/overall_prediction">Končna napoved</a>
-                            <a class="dropdown-item" href="/predictions">Napovedi</a>                     
+                            <a class="dropdown-item" href="/predictions">Napovedi</a>  
+                            <a class="dropdown-item" href="/groups">Skupine</a>                     
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

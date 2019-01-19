@@ -38,7 +38,10 @@ Route::get('cl_draw', 'FixturesController@indexDraw');
 //Auth::routes(['verify' => true]);
 //Route::get('/dashboard', 'DashboardController@index')->middleware('verified');
 Auth::routes();
-Route::get('/dashboard', 'DashboardController@index');
+//Route::get('/dashboard', 'DashboardController@index');
+
+//groups
+Route::resource('groups', 'GroupsController');
 
 //languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);

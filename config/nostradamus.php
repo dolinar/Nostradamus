@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'competition-start' => '2018-10-26 14:48:55'
+    'competition-start' => '2019-02-12 21:00:00'
 ];

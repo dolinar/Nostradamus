@@ -8,7 +8,7 @@
     </script>
     <div class="container">
         @auth
-            @if (is_array($data['overallPrediction']) && count($data['overallPrediction']) == 0)
+            @if ($data['overallPrediction'] && Config::get('nostradamus.competition-start') > date('Y-m-d H:i:s'))
                 <div class="alert alert-warning">
                     <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
                 </div>
@@ -114,8 +114,8 @@
         @endif
         <div class="row justify-content-center mt-2">
             <a href="/info" class="btn btn-info m-2 col-lg-2">Informacije</a>
-            <a href="/login" class="btn btn-info m-2 col-lg-2">Prijava</a>
-            <a href="/register" class="btn btn-info m-2 col-lg-2">Registracija</a>
+            <a href="/instructions" class="btn btn-info m-2 col-lg-2">Navodila</a>
+            <a href="/cl_results" class="btn btn-info m-2 col-lg-2">Rezultati</a>
         </div>  
         <div class="text-center">
             <hr>
