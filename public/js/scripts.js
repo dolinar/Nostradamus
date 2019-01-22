@@ -24,14 +24,37 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.btn-click').click(function() {
         var id = this.id;
-        $('#div-'+id).toggle(500);
+        $('#div-' + id).toggle(500);
         $(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
 });
 
 $(document).ready(function() {
     $('#show-group-form').click(function() {
+          
         $('#group-store').toggle(500);
+    }); 
+});
+
+
+$(document).ready(function(){
+    $('#user-search').on('keyup', function() {
+        var text = $('#user-search').val();
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            method: "GET",
+            url: "/table/search",
+            data: {text: $('#user-search').val()},
+            success: function(response) {
+                $('#table-div').html(response['html']);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                //alert(errorThrown);
+            }       
+        });
     });
 });
+
+
+
 

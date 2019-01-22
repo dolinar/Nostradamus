@@ -15,7 +15,7 @@ class ParticipantsController extends Controller
                             ->groupBy('predictions.id_user', 'users.username', 'users.name')
                             ->orderBy('total_points', 'DESC')
                             ->orderBy('users.username')
-                            ->paginate(10);
+                            ->paginate(2);
         
         $user = $this->getAuthenticatedUser();
         $data = [
@@ -25,7 +25,7 @@ class ParticipantsController extends Controller
 
 
 
-        return view('participants.table')->with('data', $data);
+        return view('participants.index')->with('data', $data);
     }
 
     private function getAuthenticatedUser() {
@@ -59,4 +59,28 @@ class ParticipantsController extends Controller
         return null;
     }
     
+    public function search(Request $request) {
+        $search = $request->input('text');
+        $participants = User::where(function ($query) {
+            $query->where('status', 1)->orWhere('status', 0);
+        })
+            ->select('users.username', 'users.name', DB::raw('SUM(points) as total_points'))
+            ->where('users.username', 'like', '%' . $search . '%')
+            ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+            ->groupBy('predictions.id_user', 'users.username', 'users.name')
+            ->orderBy('total_points', 'DESC')
+            ->orderBy('users.username')
+            ->paginate(2);
+
+        $user = $this->getAuthenticatedUser();
+
+        $data = [
+            'participants' => $participants,
+            'user' => $user
+        ];
+
+
+        $returnHTML = view('participants.table')->with('data', $data)->render();
+        return response()->json(array('success' => true, 'html'=>$returnHTML));
+    }
 }

@@ -65,7 +65,7 @@
                     @php $i=1; @endphp
                     @foreach ($data['topFive'] as $participant)
                         @if (auth()->user() && $participant['username'] == auth()->user()->username)
-                            <tr style="background-color:#b7d3ff">
+                            <tr style="background-color:#ccd4e2">
                         @else
                             <tr>       
                         @endif
@@ -79,7 +79,7 @@
                         </tr>
                     @endforeach
                     @if ($data['user'])
-                        <tr style="background-color:#b7d3ff">
+                        <tr style="background-color:#ccd4e2">
                             <td >{{$data['user']['position']}}.</td>
                             <td>{{$data['user'][0]['username']}}</td>
                             @if ($data['user'][0]['total_points'] != null)

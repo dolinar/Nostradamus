@@ -48,3 +48,8 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 
 // admin page
 Route::get('/admin', 'AdminController@index');   
+
+// live search
+//Route::get('/search', 'ParticipantsControler@search');
+Route::get('/table/search', 'ParticipantsController@search');
+

@@ -193,6 +193,10 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $group = Group::find($id);
+        $group->delete();
+        $group->users()->detach();
+
+        return redirect('/groups')->with('success', 'Skupina uspešno izbrisana!'); 
     }
 }

@@ -5,7 +5,7 @@
     <hr>
     @if (count($data['groups']) > 0)
         @foreach($data['groups'] as $group)
-        <li class="list-group-item" style="border-radius:5px; margin-bottom:10px;">
+        <li class="list-group-item" style="border-radius:5px;">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-xs-3 text-right">
                     Ekipa: <a href="{{route('groups.show', $group->id)}}"><b>{{$group->name}}</b></a>
@@ -71,7 +71,7 @@
             Trenutno niste član nobene skupine.
         </div>
     @endif
-    <hr>
+    <br>
     <button class="btn btn-info btn-sm" id="show-group-form">Ustvari novo skupino</button>
     <br><br>
 
@@ -82,5 +82,4 @@
     </div>
     {{Form::submit('Shrani', ['class' => 'btn btn-primary btn-sm'])}}
     {{ Form::close() }}
-
 @endsection
