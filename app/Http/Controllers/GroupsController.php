@@ -32,11 +32,12 @@ class GroupsController extends Controller
                 $this->getTopFiveForGroup($group->id),
                 $this->getAuthenticatedUser($group->id)
             );
-
         }
+
         $data = [
             'groups' => $groups,
-            'info' => $info
+            'info' => $info,
+
         ];
         return view('groups.index')->with('data', $data);
     }
@@ -150,9 +151,11 @@ class GroupsController extends Controller
         $partOfGroup = $user->groups()->wherePivot('id_group', '=', $id)->get();
         
         $group = Group::find($id);
+        $users = User::pluck('username', 'id');
 
         $data = [
-            'group' => $group
+            'group' => $group,
+            'users' => $users
         ];
         if (count($partOfGroup) > 0) {
             return view('groups.show')->with('data', $data);
@@ -198,5 +201,18 @@ class GroupsController extends Controller
         $group->users()->detach();
 
         return redirect('/groups')->with('success', 'Skupina uspešno izbrisana!'); 
+    }
+
+    public function sendInvitation(Request $request) {
+        if (count(Group::find($request->group_id)->users()->where('users.id', '=', $request->user_id_select)->get()) > 0) {
+            return redirect('/groups/' . $request->group_id)->with('error', 'Uporabnik je že v skupini!'); 
+        }
+
+
+        if ($request->user_checkbox) {
+            return 'okkkk';
+        }
+        return $request->user_id_select;
+
     }
 }

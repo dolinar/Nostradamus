@@ -46,15 +46,24 @@ $(document).ready(function(){
             url: "/table/search",
             data: {text: $('#user-search').val()},
             success: function(response) {
-                $('#table-div').html(response['html']);
+                if (response['search'] == null) {
+                    $('body').html(response['html']);
+                    $('#user-search').focus();
+                    $('#pagination').show();
+                } else {
+                    $('#tbody-participants').hide();
+                    $('#tbody-participants').html(response['html']);
+                    $('#tbody-participants').show(300);
+                    $('#pagination').hide();
+                }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                //alert(errorThrown);
+                alert(errorThrown);
             }       
         });
     });
 });
 
-
-
-
+$(document).ready(function(){
+    $('#user-id-select').select2();
+});

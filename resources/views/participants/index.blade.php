@@ -9,8 +9,23 @@
                 <input type="search" id="user-search" value="" class="form-control" placeholder="Išči uporabnike">
             </div>
         </div>
-        <div id="table-div">
-            @include('participants.table')
+        <div class="table-responsive" style="border-radius:5px">
+            <table class="table table-sm table-hover">
+                <thead class="table-active">
+                    <tr>
+                    <th>#</th>
+                    <th scope="col">Tekmovalec</th>
+                    <th scope="col">Točke skupaj</th>
+                    <th scope="col">Točke zadnji tekmovalni dan</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-participants">
+                    @include('participants.table')
+                </tbody>
+            </table>
+        </div>
+        <div id="pagination">
+            {{ $data['participants']->links() }}
         </div>
     @endif
 
