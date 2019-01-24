@@ -42,7 +42,8 @@ Auth::routes();
 
 //groups
 Route::resource('groups', 'GroupsController');
-Route::post('store_user', 'GroupsController@sendInvitation');
+Route::post('send_invitation', 'GroupsController@sendInvitation');
+Route::get('store_user_to_group', 'GroupsController@storeUser');
 
 //languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);

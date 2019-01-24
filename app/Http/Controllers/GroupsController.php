@@ -151,6 +151,7 @@ class GroupsController extends Controller
         $partOfGroup = $user->groups()->wherePivot('id_group', '=', $id)->get();
         
         $group = Group::find($id);
+        
         $users = User::pluck('username', 'id');
 
         $data = [
@@ -203,16 +204,66 @@ class GroupsController extends Controller
         return redirect('/groups')->with('success', 'Skupina uspešno izbrisana!'); 
     }
 
+    public function storeUser(Request $request) {
+        $invitation =  DB::table('group_invitations')
+            ->select('id', 'id_user', 'id_group', 'admin')
+            ->where('id', '=', $request->id)
+            ->get();
+
+        if ($request->confirmed == 1) {
+            DB::table('user_group')->insert (
+                array(
+                    'id_user' => $invitation[0]->id_user,
+                    'id_group' => $invitation[0]->id_group,
+                    'user_status' => $invitation[0]->admin,
+                )
+            );
+        } 
+
+        $invitation = DB::table('group_invitations')
+            ->where('id', '=', $invitation[0]->id)
+            ->update(array (
+                'status' => ($request->confirmed == 1) ? 1 : 2
+            ));
+
+        if ($request->confirmed == 1) {
+            return redirect('/')->with('success', 'Uspešno ste bili dodani v skupino!'); 
+        } else {
+            return redirect('/')->with('success', 'Povabilo za skupino zavrnjeno.'); 
+        }
+
+    }
+
     public function sendInvitation(Request $request) {
-        if (count(Group::find($request->group_id)->users()->where('users.id', '=', $request->user_id_select)->get()) > 0) {
-            return redirect('/groups/' . $request->group_id)->with('error', 'Uporabnik je že v skupini!'); 
+        $idGroup = $request->group_id;
+        $idUser = $request->user_id_select;
+        $adminCheckbox = ($request->user_checkbox) ? 1 : 0;
+
+        if (count(Group::find($idGroup)->users()->where('users.id', '=', $idUser)->get()) > 0) {
+            return redirect('/groups/' . $idGroup)->with('error', 'Uporabnik je že v skupini!'); 
         }
 
-
-        if ($request->user_checkbox) {
-            return 'okkkk';
+        $invitation =  DB::table('group_invitations')
+                                ->select('id')
+                                ->where([
+                                    ['id_group', '=', $idGroup],
+                                    ['id_user', '=', $idUser]
+                                    ])
+                                ->get();
+        
+        if (count($invitation) > 0) {
+            return redirect('/groups/' . $idGroup)->with('error', 'Uporabnik je že povabljen!'); 
         }
-        return $request->user_id_select;
 
+        DB::table('group_invitations')->insert (
+            array(
+                'id_group' => $idGroup,
+                'id_user' => $idUser,
+                'id_user_invitator' => auth()->user()->id,
+                'admin' => $adminCheckbox,
+                'status' => 0
+            )
+        );
+        return redirect('/groups/' . $idGroup)->with('success', 'Uporabnik je povabljen! Uporabnik mora sedaj povabilo sprejeti.'); 
     }
 }

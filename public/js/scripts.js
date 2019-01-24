@@ -65,5 +65,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    $('#user-id-select').select2();
+    $('#user-id-select').select2({
+        placeholder: 'Izberi uporabnika'
+    });
 });

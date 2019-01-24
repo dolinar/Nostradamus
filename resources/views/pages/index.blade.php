@@ -18,6 +18,18 @@
                     <span>Napovejte vse rezultate <a href="/predictions">tukaj</a>.</span>
                 </div>
             @endif
+
+            @if (count($data['invitations']) > 0)
+
+                @foreach ($data['invitations'] as $invtitation)
+                    <div class="alert alert-warning">
+                        <span>Uporabnik <b>{{$invtitation->user_invitator}}</b> te je povabil v skupino <b>{{$invtitation->name}}.</b>
+                            <a href="store_user_to_group{{'?id=' . $invtitation->id . '&confirmed=1'}}"><span class="fas fa-check"></span></a>  
+                            <a href="store_user_to_group{{'?id=' . $invtitation->id . '&confirmed=0'}}"><span class="fas fa-times"></span></a>
+                    </div>
+                @endforeach
+
+            @endif
         @endauth
         @if (count($data['fixtures']) > 0)
             <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}

@@ -25,6 +25,8 @@ class PagesController extends Controller
 
         $topFive = $this->getTopFive();
 
+        $invitations = $this->getInvitations();
+
         $user = $this->getAuthenticatedUserIfNotInTopFive($topFive);
         $data = [
             'difference' => $predictionsData['numberOfActiveFixtures'] - $predictionsData['numberOfPredictions'],
@@ -32,8 +34,10 @@ class PagesController extends Controller
             'overallPrediction' => $overallPrediction,
             'fixtures' => $fixtures,
             'topFive' => $topFive,
-            'user' => $user
+            'user' => $user,
+            'invitations' => $invitations,
         ];  
+
         
         return view('pages.index')->with("data", $data);
     }
@@ -148,5 +152,23 @@ class PagesController extends Controller
         }
         
         return null;
+    }
+
+    public function getInvitations() {
+        $invitations = array();
+
+        if (auth()->user()) {
+            $invitations = DB::table('group_invitations')
+                ->select('group_invitations.id', 'u1.username as user', 'u2.username as user_invitator', 'groups.name')
+                ->join('users as u1',  'group_invitations.id_user', '=', 'u1.id')
+                ->join('users as u2',  'group_invitations.id_user_invitator', '=', 'u2.id')
+                ->join('groups', 'group_invitations.id_group', '=', 'groups.id')
+                ->where('group_invitations.id_user', '=', auth()->user()->id)
+                ->where('group_invitations.status', '=', '0')
+                ->get()->toArray();
+        }
+
+        return $invitations;
+
     }
 }
