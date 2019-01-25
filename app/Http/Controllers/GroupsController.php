@@ -87,7 +87,7 @@ class GroupsController extends Controller
                         ->get(); 
 
             $user['position'] = $position+1;
-            if ($position + 1 >= 5) {
+            if ($position + 1 > 5) {
                 return $user;
             } else {
                 return null;
@@ -205,12 +205,15 @@ class GroupsController extends Controller
     }
 
     public function storeUser(Request $request) {
+        $invitationId = $request->id;
+        $confirmed = $request->confirmed;
+
         $invitation =  DB::table('group_invitations')
             ->select('id', 'id_user', 'id_group', 'admin')
-            ->where('id', '=', $request->id)
+            ->where('id', '=', $invitationId)
             ->get();
 
-        if ($request->confirmed == 1) {
+        if ($confirmed == 1) {
             DB::table('user_group')->insert (
                 array(
                     'id_user' => $invitation[0]->id_user,
@@ -223,10 +226,10 @@ class GroupsController extends Controller
         $invitation = DB::table('group_invitations')
             ->where('id', '=', $invitation[0]->id)
             ->update(array (
-                'status' => ($request->confirmed == 1) ? 1 : 2
+                'status' => ($confirmed == 1) ? 1 : 2
             ));
 
-        if ($request->confirmed == 1) {
+        if ($confirmed == 1) {
             return redirect('/')->with('success', 'Uspešno ste bili dodani v skupino!'); 
         } else {
             return redirect('/')->with('success', 'Povabilo za skupino zavrnjeno.'); 

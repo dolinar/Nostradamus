@@ -8,7 +8,7 @@
     </script>
     <div class="container">
         @auth
-            @if ($data['overallPrediction'] && Config::get('nostradamus.competition-start') > date('Y-m-d H:i:s'))
+            @if (!$data['overallPrediction'] && Config::get('nostradamus.competition-start') > date('Y-m-d H:i:s'))
                 <div class="alert alert-warning">
                     <span>Niste še izbrali končnega zmagovalca. To lahko storite <a href="/overall_prediction">tukaj</a>.</span>
                 </div>
@@ -24,8 +24,8 @@
                 @foreach ($data['invitations'] as $invtitation)
                     <div class="alert alert-warning">
                         <span>Uporabnik <b>{{$invtitation->user_invitator}}</b> te je povabil v skupino <b>{{$invtitation->name}}.</b>
-                            <a href="store_user_to_group{{'?id=' . $invtitation->id . '&confirmed=1'}}"><span class="fas fa-check"></span></a>  
-                            <a href="store_user_to_group{{'?id=' . $invtitation->id . '&confirmed=0'}}"><span class="fas fa-times"></span></a>
+                            <a href="#" name={{$invtitation->id}} value="1" id="store-accept"><span class="fas fa-check"></span></a>  
+                            <a href="#" name={{$invtitation->id}} value="0" id="store-reject"><span class="fas fa-times"></span></a>  
                     </div>
                 @endforeach
 

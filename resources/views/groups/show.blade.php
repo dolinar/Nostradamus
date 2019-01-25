@@ -3,11 +3,12 @@
 @section('content')
     <h3>Skupina {{$data['group']['name']}}</h3>
     <hr>
-        <div class="card mb-3 mt3 p-3">
+        <button id="group-add-member" class="btn btn-info btn-sm">Dodaj novega člana</button>
+        <div class="card my-3 mt3 p-3" id="add-member-form" style="display:none;">
             {{ Form::open(['action' => 'GroupsController@sendInvitation', 'method' => 'POST', 'id' => 'store-user']) }}
             {{ Form::hidden('group_id', $data['group']['id'])}}
             <fieldset>
-                <legend>Dodaj novega člana</legend>
+                <h5>Dodaj novega člana</h5>
                 <div class="form-group">
                     {{ Form::select('user_id_select', $data['users'], 1, array('id' => 'user-id-select')) }}
                 </div>
@@ -21,6 +22,7 @@
             </fieldset>
             {{ Form::close() }}
         </div>
+    <hr>
 
     @if ($data['group']['owner'] == auth()->user()->id)
         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'groups.destroy', $data['group']['id'] ]]) }}

@@ -30,10 +30,14 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#show-group-form').click(function() {
-          
+    $('#show-group-form').click(function() {     
         $('#group-store').toggle(500);
     }); 
+
+    $('#group-add-member').click(function() {
+        $('#add-member-form').toggle(500);
+    }); 
+
 });
 
 
@@ -58,7 +62,7 @@ $(document).ready(function(){
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert(errorThrown);
+                //alert(errorThrown);
             }       
         });
     });
@@ -66,6 +70,45 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $('#user-id-select').select2({
-        placeholder: 'Izberi uporabnika'
+        placeholder: 'Izberi uporabnika',
+        width: '100%'
+    });
+});
+
+$(document).ready(function() {
+    $('#store-accept').click(function() {
+        var id = $(this).attr('name');
+        var confirmed = $(this).attr('value');
+
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            method: "GET",
+            url: "store_user_to_group",
+            data: {id: id, confirmed: confirmed},
+            success: function(response) {
+                $('body').html(response);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                //alert(errorThrown);
+            }       
+        });
+    });
+
+    $('#store-reject').click(function() {
+        var id = $(this).attr('name');
+        var confirmed = $(this).attr('value');
+
+        $.ajax({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+            method: "GET",
+            url: "store_user_to_group",
+            data: {id: id, confirmed: confirmed},
+            success: function(response) {
+                $('body').html(response);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                //alert(errorThrown);
+            }       
+        });
     });
 });

@@ -25,15 +25,21 @@
                         @endif
                     @endforeach
                 </ul>
-                <div class="card-footer text-center p-2">
-                    {{ Form::submit('Shrani', array('class' => 'btn btn-sm btn-primary')) }}
-                </div>
+                @if ((new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes') > (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour'))
+                    <div class="card-footer text-center p-2">
+                        {{ Form::submit('Shrani', array('class' => 'btn btn-sm btn-primary')) }}
+                    </div>
+                @else
+                    <div class="card-footer text-center p-2">
+                        {{ Form::submit('Shrani', array('class' => 'btn btn-sm btn-primary disable', 'disabled' => 'disabled')) }}
+                    </div>
+                @endif
             </div>
             {{ Form::close() }}
         @endforeach
     @else
         <div class="alert alert-info text-center">
-            <span>Trenutno ni na sporedu nobene tekme!</span>
+            <span>Trenutno ni na sporedu nobene tekme.</span>
         </div>
     @endif  
 @endsection
