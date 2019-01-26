@@ -64,43 +64,27 @@
         <br>
         <h5>Najboljših 5<a class="float-right text-primary" href="/table">Več</a></h5>
         <hr class="no-space">
-        <div class="table-responsive" style="border-radius:5px">
+        <div class="table-responsive" style="border-radius:5px; margin: 0 auto;">
             <table class="table table-sm table-hover">
                 <thead class="table-active">
                     <tr>
-                    <th>#</th>
-                    <th scope="col">Tekmovalec</th>
-                    <th scope="col">Točke</th>
+                    <th scope="col" class="cell-align-right">#</th>
+                    <th scope="col" class="pl-3">Tekmovalec</th>
+                    <th scope="col" class="cell-align-right">Točke</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i=1; @endphp
                     @foreach ($data['topFive'] as $participant)
                         @if (auth()->user() && $participant['username'] == auth()->user()->username)
                             <tr style="background-color:#ccd4e2">
                         @else
                             <tr>       
                         @endif
-                            <td >{{$i++}}.</td>
-                            <td>{{$participant['username']}}</td>
-                            @if ($participant['total_points'] != null)
-                                <td>{{$participant['total_points']}}</td>
-                            @else
-                                <td>0</td>
-                            @endif
+                            <td class="cell-align-right">{{$participant['position']}}.</td>
+                            <td class="pl-3">{{$participant['username']}}</td>
+                            <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : $participant['points_total']}}</td>
                         </tr>
                     @endforeach
-                    @if ($data['user'])
-                        <tr style="background-color:#ccd4e2">
-                            <td >{{$data['user']['position']}}.</td>
-                            <td>{{$data['user'][0]['username']}}</td>
-                            @if ($data['user'][0]['total_points'] != null)
-                                <td>{{$data['user'][0]['total_points']}}</td>
-                            @else
-                                <td>0</td>
-                            @endif
-                        </tr>
-                    @endif
                 </tbody>
             </table>
         </div>

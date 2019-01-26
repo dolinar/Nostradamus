@@ -1,29 +1,30 @@
-@foreach ($data['participants'] as $key => $participant)
+@foreach ($data['participants'] as $participant)
+
     @if (auth()->user() && $participant['username'] === auth()->user()->username)
         <tr style="background-color:#b7d3ff">
     @else
         <tr>
     @endif
-            <td>{{$data['participants']->firstItem() + $key}}</td>  
-            <td>{{$participant['username']}}</td>
-            @if ($participant['total_points'] != null)
-                <td>{{$participant['total_points']}}</td>
-            @else
-                <td>0</td>
-            @endif 
-            <td>{{$data['lastWeek'][$participant['username']]}}</td>
-        </tr>
+            <td class="cell-align-right mr-">{{$participant['position']}}.</td>  
+            <td class="pl-3">{{$participant['username']}}</td>
+            <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : ($participant['points_total'])}}</td>
+            <td class="cell-align-right">{{$participant['points_matchday']}}</td>
+            @if ($participant['last_position'] - $participant['position'] > 0)
+                <td class="cell-align-right" style="color:green">+{{$participant['last_position'] - $participant['position']}} <i class="fas fa-arrow-up"></i></td>
+            @elseif ($participant['last_position'] - $participant['position'] == 0)  
+                <td class="cell-align-right">{{$participant['last_position'] - $participant['position']}} <i class="fas fa-minus"></i></td>  
+            @else 
+                <td class="cell-align-right" style="color:red">{{$participant['last_position'] - $participant['position']}} <i class="fas fa-arrow-down"></i></td>
+            @endif
+        </tr>   
 @endforeach
-@if (auth()->user() && ($data['user']['position'] < $data['participants']->firstItem() || $data['user']['position'] >= $data['participants']->firstItem() + 10))
+
+@if (auth()->user() && ($data['user'][0]['position'] < $data['participants']->firstItem() || $data['user'][0]['position'] >= $data['participants']->firstItem() + 10))
     <tr style="background-color:#b7d3ff">
-        <td >{{$data['user']['position']}}.</td>
+        <td >{{$data['user'][0]['position']}}.</td>
         <td>{{$data['user'][0]['username']}}</td>
-        @if ($data['user'][0]['total_points'] != null)
-            <td>{{$data['user'][0]['total_points']}}</td>
-        @else
-            <td>0</td>
-        @endif
-        <td>1</td>
+        <td>{{($data['user'][0]['points_total']) == null ? 0 : $data['user'][0]['points_total']}}</td>
+        <td>{{$data['user'][0]['points_matchday']}}</td>
     </tr>
 @endif
  

@@ -154,6 +154,8 @@ class GroupsController extends Controller
         
         $users = User::pluck('username', 'id');
 
+
+
         $data = [
             'group' => $group,
             'users' => $users

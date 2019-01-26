@@ -1,7 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>Navodila</h3>
+    <h3>Pravila igre</h3>
     <hr>
-    <p>TODO</p>
+    <div class="general-text">
+        <p>    
+            Vsaka napoved rezultata mora biti oddana pred začetkom tekme. Za pravilno napovedan rezultat uporabnik prejme 3 točke, za pravilno napovedan tip (zmaga domačih, remi, zmaga gostov) pa 1 točko. Napačna napoved ne prinaša točk. V primeru podaljška se upošteva rezultat ob koncu rednega dela tekme. 
+            Pred začetkom izločilnih bojev vsak uporabnik napove končnega zmagovalca lige prvakov za to sezono. Pravilna napoved prvaka je vredna 5 točk, napačna napoved ne prinaša točk.
+        </p>
+    </div>
+
+    <div class="general-text">
+        <p>
+            Nostradamusa postane tisti uporabnik, ki ima po končanem finalu v Madridu 1. junija 2019 največ zbranih točk. V primeru izenačenja na vrhu na koncu odloča večje število točno napovedanih tekem.
+        </p>
+    </div>
+
+    <h4>Srečno!<h4>
+
 @endsection

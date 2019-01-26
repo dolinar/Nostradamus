@@ -13,10 +13,11 @@
             <table class="table table-sm table-hover">
                 <thead class="table-active">
                     <tr>
-                    <th>#</th>
-                    <th scope="col">Tekmovalec</th>
-                    <th scope="col">Točke skupaj</th>
-                    <th scope="col">Točke zadnji tekmovalni dan</th>
+                    <th scope="col" class="cell-align-right">#</th>
+                    <th scope="col" class="pl-3">Tekmovalec</th>
+                    <th scope="col" class="cell-align-right">Skupaj točk</th>
+                    <th scope="col" class="cell-align-right">Zadnji tekmovalni dan</th>
+                    <th scope="col" class="cell-align-right">Napredovanje</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-participants">
@@ -28,5 +29,4 @@
             {{ $data['participants']->links() }}
         </div>
     @endif
-
 @endsection

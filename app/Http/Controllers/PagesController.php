@@ -22,23 +22,20 @@ class PagesController extends Controller
         $fixtures = $this->getNextMatchday();
 
         $predictionsData = $this->getPredictionsData();
-
+        
         $topFive = $this->getTopFive();
 
         $invitations = $this->getInvitations();
 
-        $user = $this->getAuthenticatedUserIfNotInTopFive($topFive);
         $data = [
             'difference' => $predictionsData['numberOfActiveFixtures'] - $predictionsData['numberOfPredictions'],
             'posts' => $postsArray,
             'overallPrediction' => $overallPrediction,
             'fixtures' => $fixtures,
             'topFive' => $topFive,
-            'user' => $user,
             'invitations' => $invitations,
         ];  
 
-        
         return view('pages.index')->with("data", $data);
     }
 
@@ -107,51 +104,14 @@ class PagesController extends Controller
     }
 
     private function getTopFive() {
-        return  
-            User::where('status', 1)->orWhere('status', 0)
-                ->select('users.username', DB::raw('SUM(points) as total_points'))
-                ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                ->groupBy('predictions.id_user', 'users.username')
-                ->orderBy('total_points', 'DESC')
-                ->orderBy('users.username')
-                ->take(5)->get();
-    }
-
-    private function getAuthenticatedUserIfNotInTopFive($topFive) {
-        $isTopFive = false;
-        $authenticated = auth()->user();
-        foreach ($topFive as $user) {
-            if ($authenticated && $user->username === auth()->user()->username) {
-                $isTopFive = true;
-                break;
-            }
-        }
-
-        if (!$isTopFive && $authenticated) {
-            $username = $authenticated->username;
-            $users =  User::where('status', 1)->orWhere('status', 0)
-                        ->select('users.username', DB::raw('SUM(points) as total_points'))
-                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                        ->groupBy('predictions.id_user', 'users.username')
-                        ->orderBy('total_points', 'DESC')
-                        ->get();
-
-            $position = $users->search(function ($users, $key) use ($username) {
-                return $users->username == $username;
-            });
-
-            $user = User::where('username', $username)
-                        ->select('users.username', DB::raw('SUM(points) as total_points'))
-                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                        ->groupBy('predictions.id_user', 'users.username')
-                        ->orderBy('total_points', 'DESC')
-                        ->get(); 
-
-            $user['position'] = $position+1;
-            return $user;
-        }
-        
-        return null;
+        return User::where(function ($query) {
+                        $query->where('status', 1)->orWhere('status', 0);
+                    })
+                    ->select('users.username', 'user_data_flow.points_total', 'user_data_flow.position')
+                    ->join('user_data_flow', 'users.id', '=', 'user_data_flow.id_user')
+                    ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId()[0])
+                    ->take(5)->get();
+            
     }
 
     public function getInvitations() {
@@ -169,6 +129,12 @@ class PagesController extends Controller
         }
 
         return $invitations;
+    }
 
+    private function getMatchdayId() {
+        return Matchday::where('finished', 1)
+                       ->orderBy('id', 'DESC')
+                       ->limit(1)
+                       ->pluck('id');
     }
 }
