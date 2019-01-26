@@ -54,6 +54,7 @@ $(document).ready(function(){
                     $('body').html(response['html']);
                     $('#user-search').focus();
                     $('#pagination').show();
+                    $('.dropdown-toggle').dropdown();
                 } else {
                     $('#tbody-participants').hide();
                     $('#tbody-participants').html(response['html']);
@@ -81,12 +82,13 @@ $(document).ready(function() {
         var confirmed = $(this).attr('value');
 
         $.ajax({
-            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            method: "GET",
-            url: "store_user_to_group",
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            method: "POST",
+            url: "/store_user_to_group",
             data: {id: id, confirmed: confirmed},
             success: function(response) {
                 $('body').html(response);
+                $('.dropdown-toggle').dropdown();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 //alert(errorThrown);
@@ -99,16 +101,40 @@ $(document).ready(function() {
         var confirmed = $(this).attr('value');
 
         $.ajax({
-            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
-            method: "GET",
-            url: "store_user_to_group",
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            method: "POST",
+            url: "/store_user_to_group",
             data: {id: id, confirmed: confirmed},
             success: function(response) {
                 $('body').html(response);
+                $('.dropdown-toggle').dropdown();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 //alert(errorThrown);
             }       
         });
     });
+});
+
+$(document).ready(function(){
+    $('.group-delete-fa').click(function() {
+        if (confirm('Res želite uporabnika odstraniti iz skupine?')) {
+            var id = $(this).attr('id');
+            var idGroup = $(this).attr('value');
+            $.ajax({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                method: "POST",
+                url: "/remove_user",
+                data: {id: id, idGroup: idGroup },
+                success: function(response) {
+                    $('body').html(response);
+                    //$('.dropdown-toggle').dropdown();
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    //alert(errorThrown);
+                }       
+            });
+        }
+    })
 });

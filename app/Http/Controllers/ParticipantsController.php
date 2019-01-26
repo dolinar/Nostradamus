@@ -22,9 +22,8 @@ class ParticipantsController extends Controller
                                 $join->where('u2.id_matchday', '=', $idMatchday - 1);
                             })
                             ->orderBy('u1.position')
-                            ->paginate(5)
+                            ->paginate(10)
                             ->setPath('table');
-        //return $participants;
 
         $user = $this->getAuthenticatedUser();
 
@@ -80,7 +79,7 @@ class ParticipantsController extends Controller
                                 $join->where('u2.id_matchday', '=', $idMatchday - 1);
                             })
                             ->orderBy('u1.position')
-                            ->paginate(5)
+                            ->paginate(10)
                             ->setPath('table');
 
         $user = $this->getAuthenticatedUser();

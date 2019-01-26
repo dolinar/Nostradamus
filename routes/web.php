@@ -43,7 +43,8 @@ Auth::routes();
 //groups
 Route::resource('groups', 'GroupsController');
 Route::post('send_invitation', 'GroupsController@sendInvitation');
-Route::get('store_user_to_group', 'GroupsController@storeUser');
+Route::post('store_user_to_group', 'GroupsController@storeUser');
+Route::post('remove_user', 'GroupsController@removeUser');
 
 //languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
@@ -52,6 +53,6 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('/admin', 'AdminController@index');   
 
 // live search
-//Route::get('/search', 'ParticipantsControler@search');
 Route::get('/table/search', 'ParticipantsController@search');
+//Route::get('/group/search', 'GroupController@search');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Group;
+use App\Matchday;
 use Illuminate\Support\Facades\DB;
 
 class GroupsController extends Controller
@@ -33,7 +34,6 @@ class GroupsController extends Controller
                 $this->getAuthenticatedUser($group->id)
             );
         }
-
         $data = [
             'groups' => $groups,
             'info' => $info,
@@ -42,58 +42,7 @@ class GroupsController extends Controller
         return view('groups.index')->with('data', $data);
     }
 
-    private function getTopFiveForGroup($groupId) {
-        $participants = User::where('status', 1)->orWhere('status', 0)
-                            ->select('users.username', 'users.name', DB::raw('SUM(points) as total_points'))
-                            ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                            ->join('user_group', function($join) use($groupId) {
-                                $join->on('users.id', '=', 'user_group.id_user');
-                                $join->where('user_group.id_group', '=', $groupId);
-                            })
-                            ->groupBy('predictions.id_user', 'users.username', 'users.name')
-                            ->orderBy('total_points', 'DESC')
-                            ->orderBy('users.username')
-                            ->take(5)->get();
-        return $participants;
-    }
-
     
-    private function getAuthenticatedUser($groupId) {
-        $authenticated = auth()->user();
-
-        if ($authenticated) {
-            $username = $authenticated->username;
-            $users = User::where('status', 1)->orWhere('status', 0)
-                        ->select('users.username', 'users.name', DB::raw('SUM(points) as total_points'))
-                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                        ->join('user_group', function($join) use($groupId) {
-                            $join->on('users.id', '=', 'user_group.id_user');
-                            $join->where('user_group.id_group', '=', $groupId);
-                        })
-                        ->groupBy('predictions.id_user', 'users.username', 'users.name')
-                        ->orderBy('total_points', 'DESC')
-                        ->orderBy('users.username')
-                    ->get();
-
-            $position = $users->search(function ($users, $key) use ($username) {
-                return $users->username == $username;
-            });
-
-            $user = User::where('username', $username)
-                        ->select('users.username', DB::raw('SUM(points) as total_points'))
-                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
-                        ->groupBy('predictions.id_user', 'users.username')
-                        ->orderBy('total_points', 'DESC')
-                        ->get(); 
-
-            $user['position'] = $position+1;
-            if ($position + 1 > 5) {
-                return $user;
-            } else {
-                return null;
-            }
-        }
-    }
         
 
     /**
@@ -150,16 +99,24 @@ class GroupsController extends Controller
         $user = User::find(auth()->user()->id);
         $partOfGroup = $user->groups()->wherePivot('id_group', '=', $id)->get();
         
+        $isAdmin = $user->groups()->wherePivot('id_group', '=', $id)->wherePivot('user_status', '=', 1)->get();
+
         $group = Group::find($id);
         
         $users = User::pluck('username', 'id');
 
+        $participants = $this->getGroupParticipants($id);
 
+        $user = $this->getAuthenticatedUser($id);
 
         $data = [
             'group' => $group,
-            'users' => $users
+            'users' => $users,
+            'participants' => $participants,
+            'user' => $user,
+            'isAdmin' => (count($isAdmin)) > 0 ? 1 : 0
         ];
+
         if (count($partOfGroup) > 0) {
             return view('groups.show')->with('data', $data);
         } else {
@@ -204,6 +161,18 @@ class GroupsController extends Controller
         $group->users()->detach();
 
         return redirect('/groups')->with('success', 'Skupina uspešno izbrisana!'); 
+    }
+
+    public function removeUser(Request $request) {
+        $id = $request->id;
+        $idGroup = $request->idGroup;
+        $user = User::find($id);
+        
+        //$user->groups()->detach($idGroup);
+
+        $view = $this->show($idGroup);
+        return $view->with('success', 'Uporabnik uspešno odstranjen iz skupine.')->render();
+        
     }
 
     public function storeUser(Request $request) {
@@ -252,7 +221,8 @@ class GroupsController extends Controller
                                 ->select('id')
                                 ->where([
                                     ['id_group', '=', $idGroup],
-                                    ['id_user', '=', $idUser]
+                                    ['id_user', '=', $idUser],
+                                    ['status', '=', 0]
                                     ])
                                 ->get();
         
@@ -271,4 +241,122 @@ class GroupsController extends Controller
         );
         return redirect('/groups/' . $idGroup)->with('success', 'Uporabnik je povabljen! Uporabnik mora sedaj povabilo sprejeti.'); 
     }
+
+    private function getGroupParticipants($groupId) {
+        $idMatchday = $this->getMatchdayId()[0];
+        $participants = User::whereHas('groups', function($query) use($groupId) {
+                                $query->where('groups.id', '=', $groupId);
+                            })
+                            ->where(function ($query) {
+                                $query->where('users.status', 1)->orWhere('users.status', 0);
+                            })
+                            ->where('u1.id_matchday', '=', $idMatchday)
+                            ->select('users.id', 'users.username', 'users.name', 'u1.points_total', 'u1.points_matchday')
+                            ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')    
+                            ->orderBy('u1.position')
+                            ->paginate(10);
+        return $participants;
+    }
+
+    private function getTopFiveForGroup($groupId) {
+        $participants = User::where(function ($query) {
+                                $query->where('status', 1)->orWhere('status', 0);
+                            })
+                            ->select('users.username', 'user_data_flow.points_total')
+                            ->join('user_group', function($join) use($groupId) {
+                                $join->on('users.id', '=', 'user_group.id_user');
+                                $join->where('user_group.id_group', '=', $groupId);
+                            })
+                            ->join('user_data_flow', 'users.id', '=', 'user_data_flow.id_user')
+                            ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId()[0])
+                            ->take(5)->get();
+
+        return $participants;
+    }
+
+    
+    private function getAuthenticatedUser($groupId) {
+        $authenticated = auth()->user();
+        $idMatchday = $this->getMatchdayId()[0];
+        if ($authenticated) {
+            $username = $authenticated->username;
+
+            $users = User::where(function ($query) {
+                            $query->where('status', 1)->orWhere('status', 0);
+                        })
+                        ->select('users.username', 'users.name', DB::raw('SUM(points) as total_points'))
+                        ->leftJoin('predictions', 'users.id', '=', 'predictions.id_user')
+                        ->join('user_group', function($join) use($groupId) {
+                            $join->on('users.id', '=', 'user_group.id_user');
+                            $join->where('user_group.id_group', '=', $groupId);
+                        })
+                        ->groupBy('predictions.id_user', 'users.username', 'users.name')
+                        ->orderBy('total_points', 'DESC')
+                        ->orderBy('users.username')
+                    ->get();
+
+
+            $position = $users->search(function ($users, $key) use ($username) {
+                return $users->username == $username;
+            });
+
+
+            $user = User::where('username', $username)
+                        ->where('u1.id_matchday', '=', $idMatchday)     
+                        ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday')
+                        ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')
+                        ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
+                            $join->on('users.id', '=', 'u2.id_user');
+                            $join->where('u2.id_matchday', '=', $idMatchday - 1);
+                        })
+                        ->orderBy('u1.position')
+                        ->get(); 
+        }
+        $user['position'] = $position + 1;
+        return $user;
+    }
+    
+    //maybe later
+    /*public function search(Request $request) {
+        $idMatchday = $this->getMatchdayId()[0];
+        $search = $request->input('text');
+
+        if (is_null($search) || strcmp($search, '') == 0) {
+            $data = $this->index()->render();
+            return response()->json(array('success' => true, 'search' => $search, 'html' => $data));
+        }
+
+        $participants = User::whereHas('groups', function($query) use($groupId) {
+            $query->where('groups.id', '=', $groupId);
+                    })
+                    ->where(function ($query) {
+                        $query->where('users.status', 1)->orWhere('users.status', 0);
+                    })
+                    ->where('users.username', 'like', '%' . $search . '%')
+                    ->where('u1.id_matchday', '=', $idMatchday)
+                    ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday')
+                    ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')    
+                    ->orderBy('u1.position')
+                    ->paginate(5)
+                    ->setPath('group/{id}');
+        
+
+        $user = $this->getAuthenticatedUser();
+
+        $data = [
+            'participants' => $participants,
+            'user' => $user,
+        ];
+
+        $returnHTML = view('groups.table')->with('data', $data)->render();
+        return response()->json(array('success' => true, 'search' => $search, 'html' => $returnHTML));
+    }*/
+    
+    private function getMatchdayId() {
+        return Matchday::where('finished', 1)
+                       ->orderBy('id', 'DESC')
+                       ->limit(1)
+                       ->pluck('id');
+    }
+
 }

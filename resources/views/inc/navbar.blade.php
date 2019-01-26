@@ -5,12 +5,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                         {{ Config::get('languages')[App::getLocale()] }}
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" role="menu">
                         @foreach (Config::get('languages') as $lang => $language)
                             @if ($lang != App::getLocale())
                                 <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
@@ -21,22 +20,22 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/info">Informacije</a>
                         <a class="dropdown-item" href="/instructions">Navodila</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/table">Lestvica</a>
-                    </div>
+                    </ul>
                 </li>
     
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton2" aria-haspopup="true" aria-expanded="false"> Liga prvakov </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/cl_draw">Prvenstvo</a>
                         <a class="dropdown-item" href="/cl_results">Rezultati</a>
                         <a class="dropdown-item" href="/cl_statistics">Statistika</a>
                         <a class="dropdown-item" href="/teams">Ekipe</a>
-                    </div>
+                    </ul>
                 </li>
                 @guest
                 <div class="btn-group">

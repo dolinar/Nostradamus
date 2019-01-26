@@ -27,9 +27,9 @@
                     <table class="table table-sm table-hover">
                         <thead class="table-active">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Uporabniško ime</th>
-                                <th scope="col">Točke</th>
+                                <th scope="col" class="cell-align-right">#</th>
+                                <th scope="col" class="pl-3">Uporabniško ime</th>
+                                <th scope="col" class="cell-align-right">Točke</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,26 +40,11 @@
                                 @else
                                     <tr>       
                                 @endif
-                                    <td>{{$i++}}.</td>
-                                    <td>{{$user['username']}}</td>
-                                    @if ($user['total_points'] != null)
-                                        <td>{{$user['total_points']}}</td>
-                                    @else
-                                        <td>0</td>
-                                    @endif
+                                    <td class="cell-align-right">{{$i++}}.</td>
+                                    <td class="pl-3">{{$user['username']}}</td>
+                                    <td class="cell-align-right">{{($user['points_total'] == null) ? 0 : $user['points_total']}}</td>
                                 </tr>
                             @endforeach
-                            @if ($data['info'][$group->id][3])
-                                <tr style="background-color:#b7d3ff">
-                                    <td >{{$data['info'][$group->id][3]['position']}}.</td>
-                                    <td>{{$data['info'][$group->id][3][0]['username']}}</td>
-                                    @if ($data['info'][$group->id][3][0]['total_points'] != null)
-                                        <td>{{$data['info'][$group->id][3][0]['total_points']}}</td>
-                                    @else
-                                        <td>0</td>
-                                    @endif
-                                </tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>
