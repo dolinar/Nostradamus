@@ -1,4 +1,4 @@
-@if ($data['participants'])
+@if ($data['invitations'])
 <div class="table-responsive" style="border-radius:5px">
     <table class="table table-sm table-hover">
         <thead class="table-active">

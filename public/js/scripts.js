@@ -35,7 +35,13 @@ $(document).ready(function() {
     }); 
 
     $('#group-add-member').click(function() {
+        $('#group-inv-status-table').hide(500);
         $('#add-member-form').toggle(500);
+    }); 
+
+    $('#group-show-inv-status').click(function() {
+        $('#add-member-form').hide(500);
+        $('#group-inv-status-table').toggle(500);
     }); 
 
 });

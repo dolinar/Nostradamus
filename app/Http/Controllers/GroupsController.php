@@ -13,7 +13,7 @@ class GroupsController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth'/*, 'verified'*/]);
     }
 
     /**
@@ -109,12 +109,15 @@ class GroupsController extends Controller
 
         $user = $this->getAuthenticatedUser($id);
 
+        $invitations = $this->getInvitationStatuses($id);
+
         $data = [
             'group' => $group,
             'users' => $users,
             'participants' => $participants,
             'user' => $user,
-            'isAdmin' => (count($isAdmin)) > 0 ? 1 : 0
+            'isAdmin' => (count($isAdmin)) > 0 ? 1 : 0,
+            'invitations' => $invitations
         ];
 
         if (count($partOfGroup) > 0) {
@@ -282,6 +285,15 @@ class GroupsController extends Controller
         return $participants;
     }
 
+
+    private function getInvitationStatuses($groupId) {
+        return DB::table('group_invitations')
+                    ->select('users.username', 'group_invitations.status')
+                    ->where('id_user_invitator', '=', auth()->user()->id)
+                    ->where('id_group', '=', $groupId)
+                    ->join('users', 'users.id', '=', 'group_invitations.id_user')
+                    ->get();
+    }
     
     private function getAuthenticatedUser($groupId) {
         $authenticated = auth()->user();

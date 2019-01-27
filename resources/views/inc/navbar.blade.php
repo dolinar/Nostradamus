@@ -5,7 +5,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
+                <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                         {{ Config::get('languages')[App::getLocale()] }}
                     </a>
@@ -16,7 +16,7 @@
                             @endif
                         @endforeach
                     </ul>
-                </li>
+                </li>-->
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>

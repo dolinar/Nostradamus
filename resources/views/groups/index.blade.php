@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     <button type="button" id="{{$group->id}}" class="btn btn-info btn-sm btn-click">Top 5 
-                            <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-down"></i>
                     </button>
                 </div>
             </div>
