@@ -4,7 +4,7 @@
     <fieldset>
         <h5>Dodaj novega člana</h5>
         <div class="form-group">
-            {{ Form::select('user_id_select', $data['users'], 1, array('id' => 'user-id-select')) }}
+            {{ Form::select('user_id_select', $data['users'], 0, ['id' => 'user-id-select']) }}
         </div>
         <div class="form-group">
             {{ Form::label('user-admin-label', 'Admin: ') }}

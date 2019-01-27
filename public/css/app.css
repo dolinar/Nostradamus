@@ -10595,6 +10595,10 @@ input[type=number]::-webkit-outer-spin-button {
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
+.btn-info {
+  background: #00b9f1 !important;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

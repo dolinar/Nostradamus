@@ -103,7 +103,7 @@ class GroupsController extends Controller
 
         $group = Group::find($id);
         
-        $users = User::pluck('username', 'id');
+        $users = User::pluck('username', 'id')->toArray();
 
         $participants = $this->getGroupParticipants($id);
 
@@ -224,8 +224,12 @@ class GroupsController extends Controller
         $idUser = $request->user_id_select;
         $adminCheckbox = ($request->user_checkbox) ? 1 : 0;
 
+        if ($idUser == 0) {
+            return redirect('/groups/' . $idGroup)->with('error', 'Izberite uporabnika s seznama.'); 
+        }
+
         if (count(Group::find($idGroup)->users()->where('users.id', '=', $idUser)->get()) > 0) {
-            return redirect('/groups/' . $idGroup)->with('error', 'Uporabnik je že v skupini!'); 
+            return redirect('/groups/' . $idGroup)->with('error', 'Uporabnik je že v skupini.'); 
         }
 
         $invitation =  DB::table('group_invitations')

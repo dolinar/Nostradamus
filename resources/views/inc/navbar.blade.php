@@ -39,14 +39,14 @@
                 </li>
                 @guest
                 <div class="btn-group">
-                    <a class="btn btn-default" style="color:#338394" href="{{ route('login') }}">{{ __('Prijava') }}</a>
+                    <a class="btn btn-default" style="color:#00c5ff" href="{{ route('login') }}">{{ __('Prijava') }}</a>
                     @if (Route::has('register'))
-                        <a class="btn btn-default" style="color:#338394" href="{{ route('register') }}">{{ __('Registracija') }}</a>
+                        <a class="btn btn-default" style="color:#00c5ff" href="{{ route('register') }}">{{ __('Registracija') }}</a>
                     @endif
                 </div>
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color:#338394" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" style="color:#00c5ff" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 

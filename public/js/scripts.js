@@ -78,7 +78,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#user-id-select').select2({
         placeholder: 'Izberi uporabnika',
-        width: '100%'
+        width: '100%',
     });
 });
 
@@ -163,3 +163,15 @@ $(document).ready(function(){
         }
     })
 });
+
+$(document).ready(function() {
+    $('.fa-chevron-results').click(function() {    
+        var id = $(this).attr('id');
+        $('#tb-' + id).toggle(500);
+        $(this).toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    }); 
+
+
+});
+
+

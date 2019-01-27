@@ -22,7 +22,7 @@
         @if($data['group']['owner'] != auth()->user()->id)
             <button id="group-leave" class="btn btn-warning btn-sm col-lg-4 col-md-5 col-sm-5" value={{$data['group']['id']}}>Zapusti skupino</button>
         @else
-            <button id="group-leave" title="Lastnik skupine ne more zapustiti." disabled="disabled" class="btn btn-warning btn-sm col-lg-4 col-md-5 col-sm-5">Zapusti skupino</button>
+            <button id="group-leave-disabled" title="Lastnik skupine ne more zapustiti." disabled="disabled" class="btn btn-warning btn-sm col-lg-4 col-md-5 col-sm-5">Zapusti skupino</button>
         @endif
         <div class="col-lg-4 col-md-2 col-sm-2"></div>
         <div class="col-lg-4 col-md-5 col-sm-5" style="padding:0px;">

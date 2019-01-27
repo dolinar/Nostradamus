@@ -52,7 +52,7 @@
                 <tbody>
                     @foreach ($data['topFive'] as $participant)
                         @if (auth()->user() && $participant['username'] == auth()->user()->username)
-                            <tr style="background-color:#ccd4e2">
+                            <tr style="background-color:#f2f2f2">
                         @else
                             <tr>       
                         @endif

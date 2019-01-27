@@ -18,7 +18,7 @@
             @php $i=1; @endphp
             @foreach ($data['participants'] as $key => $participant)
                 @if (auth()->user() && $participant['username'] === auth()->user()->username)
-                    <tr style="background-color:#b7d3ff">
+                    <tr style="background-color:#f2f2f2">
                 @else
                     <tr>
                 @endif
@@ -38,7 +38,7 @@
             @endforeach
 
             @if (auth()->user() && ($data['user']['position'] < $data['participants']->firstItem() || $data['user']['position'] >= $data['participants']->firstItem() + 10))
-                <tr style="background-color:#b7d3ff">
+                <tr style="background-color:#f2f2f2">
                     <td class="cell-align-right">{{$data['user']['position']}}.</td>
                     <td class="pl-3">{{$data['user'][0]['username']}}</td>
                     <td class="cell-align-right">{{($data['user'][0]['points_total']) == null ? 0 : $data['user'][0]['points_total']}}</td>

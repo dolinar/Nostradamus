@@ -5,10 +5,13 @@
     <hr>
     @if (count($data['draw']) > 0)
         @foreach ($data['draw'] as $matchday)
-            <p>Tekmovalni dan: <b>{{date('j F, Y', strtotime($matchday['date']))}}</b></p>
-            <div class="table-responsive">
-                <table class="table table-sm table-striped">
-                    <thead class="table-info">
+            <li class="list-group-item mt-3 rounded-top">
+                <span>Tekmovalni dan: <b>{{date('j F, Y', strtotime($matchday['date']))}}</b></span>
+                <i class="fas fa-chevron-down fa-chevron-results" id="{{$matchday['id']}}" style="font-size:25px; float:right"></i></span>
+            </li>
+            <div class="table-responsive" style="display:none;" id="tb-{{$matchday['id']}}">
+                <table class="table table-sm table-hover">
+                    <thead class="table-active">
                         <tr>
                         <th scope="col">Čas pričetka</th>
                         <th scope="col">Domača ekipa</th>
@@ -18,17 +21,16 @@
                     </thead>
                     <tbody>
                     @foreach ($matchday['fixtures'] as $result)
-                            <tr>
-                                <td>{{substr($result['time'], 0, 5)}}</td>
-                                <td>{{$result['team_home']['name']}}</td>
-                                <td>{{$result['team_away']['name']}}</td>
-                                <td>{{$matchday['stage']}}</td>
-                            </tr>
+                        <tr>
+                            <td>{{substr($result['time'], 0, 5)}}</td>
+                            <td>{{$result['team_home']['name']}}</td>
+                            <td>{{$result['team_away']['name']}}</td>
+                            <td>{{$matchday['stage']}}</td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-            <hr>
         @endforeach
         
     @else
