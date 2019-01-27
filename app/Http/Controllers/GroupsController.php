@@ -168,11 +168,19 @@ class GroupsController extends Controller
         $idGroup = $request->idGroup;
         $user = User::find($id);
         
-        //$user->groups()->detach($idGroup);
+        $user->groups()->detach($idGroup);
 
-        $view = $this->show($idGroup);
-        return $view->with('success', 'Uporabnik uspešno odstranjen iz skupine.')->render();
+        return redirect('/groups/' . $idGroup)->with('success', 'Uporabnik uspešno odstranjen iz skupine.');
+    }
+
+    public function leaveGroup(Request $request) {
+        $user = User::find(auth()->user()->id);
+        $idGroup = $request->idGroup;
+        $group = Group::find($idGroup);
+
+        $user->groups()->detach($idGroup);
         
+        return redirect('/groups')->with('success', 'Uspešno ste zapustili skupino' . $group->name . '.');
     }
 
     public function storeUser(Request $request) {

@@ -128,11 +128,30 @@ $(document).ready(function(){
                 data: {id: id, idGroup: idGroup },
                 success: function(response) {
                     $('body').html(response);
-                    //$('.dropdown-toggle').dropdown();
+                    $('.dropdown-toggle').dropdown();
 
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                     //alert(errorThrown);
+                }       
+            });
+        }
+    })
+
+    $('#group-leave').click(function() {
+        if (confirm('Res želite zapustiti skupino?')) {
+            var idGroup = $(this).attr('value');
+            $.ajax({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                method: "POST",
+                url: "/leave_group",
+                data: {idGroup: idGroup },
+                success: function(response) {
+                    $('body').html(response);
+                    $('.dropdown-toggle').dropdown();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    //alert(textStatus);
                 }       
             });
         }

@@ -7,7 +7,12 @@
     <hr>
 
     <button id="group-add-member" class="btn btn-info btn-sm">Dodaj novega člana</button>
-    <button id="group-leave" class="btn btn-warning btn-sm ml-3">Zapusti skupino</button>
+
+    @if($data['group']['owner'] != auth()->user()->id)
+        <button id="group-leave" class="btn btn-warning btn-sm ml-3" value={{$data['group']['id']}}>Zapusti skupino</button>
+    @else
+        <button id="group-leave" title="Lastnik skupine ne more zapustiti." disabled="disabled" class="btn btn-warning btn-sm ml-3">Zapusti skupino</button>
+    @endif
     <div class="card my-3 mt3 p-3" id="add-member-form" style="display:none;">
         {{ Form::open(['action' => 'GroupsController@sendInvitation', 'method' => 'POST', 'id' => 'store-user']) }}
         {{ Form::hidden('group_id', $data['group']['id'])}}

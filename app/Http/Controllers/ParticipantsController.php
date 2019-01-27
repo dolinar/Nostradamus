@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ParticipantsController extends Controller
 {
-    public function index() {
+    public function index() { 
         $idMatchday = $this->getMatchdayId()[0];
         $participants = User::where(function ($query) {
                                 $query->where('status', 1)->orWhere('status', 0);

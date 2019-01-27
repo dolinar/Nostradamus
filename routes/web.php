@@ -45,6 +45,7 @@ Route::resource('groups', 'GroupsController');
 Route::post('send_invitation', 'GroupsController@sendInvitation');
 Route::post('store_user_to_group', 'GroupsController@storeUser');
 Route::post('remove_user', 'GroupsController@removeUser');
+Route::post('leave_group', 'GroupsController@leaveGroup');
 
 //languages
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
