@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -36,6 +38,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request)
+    {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password]))
+        {
+            return $this->sendLoginResponse($request);
+        }
+        else
+        {
+            return $this->sendFailedLoginResponse($request, 'auth.failed_status');
+        }
+}
 
     public function username() {
         return 'username';

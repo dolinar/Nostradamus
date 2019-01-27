@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
 Route::get('/', 'PagesController@index');
 Route::get('/info', 'PagesController@info');
 Route::get('/instructions', 'PagesController@instructions');
@@ -37,7 +39,7 @@ Route::get('cl_draw', 'FixturesController@indexDraw');
 
 //Auth::routes(['verify' => true]);
 //Route::get('/dashboard', 'DashboardController@index')->middleware('verified');
-Auth::routes();
+Auth::routes(['verify' => true]);
 //Route::get('/dashboard', 'DashboardController@index');
 
 //groups

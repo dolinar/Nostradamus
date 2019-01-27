@@ -7,16 +7,16 @@
         @foreach($data['groups'] as $group)
         <li class="list-group-item" style="border-radius:5px;">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-xs-3 text-right">
-                    Ekipa: <a href="{{route('groups.show', $group->id)}}"><b>{{$group->name}}</b></a>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                    Skupina: <a href="{{route('groups.show', $group->id)}}"><b>{{$group->name}}</b></a>
                 </div>
-                <div class="col-lg-3 col-md-3 col-xs-3 text-right">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     # članov: <b>{{$data['info'][$group->id][0]}}</b>
                 </div>
-                <div class="col-lg-3 col-md-3 col-xs-3 text-right">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     Lasntik: <b>{{$data['info'][$group->id][1]}}</b>
                 </div>
-                <div class="col-lg-3 col-md-3 col-xs-3 text-right">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     <button type="button" id="{{$group->id}}" class="btn btn-info btn-sm btn-click">Top 5 
                             <i class="fas fa-chevron-down"></i>
                     </button>
