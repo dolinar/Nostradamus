@@ -34,6 +34,10 @@ Route::resource('overall_prediction', 'OverallPredictionsController', [
     'only' => ['index', 'update', 'store']
 ]);
 
+Route::resource('user_profile', 'ProfilesController', [
+    'only' => ['update', 'show']
+]);
+
 Route::get('cl_results', 'FixturesController@indexResults');
 Route::get('cl_draw', 'FixturesController@indexDraw');
 

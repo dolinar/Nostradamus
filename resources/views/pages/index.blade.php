@@ -55,7 +55,7 @@
                             <tr>       
                         @endif
                             <td class="cell-align-right">{{$participant['position']}}.</td>
-                            <td class="pl-3">{{$participant['username']}}</td>
+                            <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
                             <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : $participant['points_total']}}</td>
                         </tr>
                     @endforeach

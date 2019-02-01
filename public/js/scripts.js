@@ -168,10 +168,18 @@ $(document).ready(function() {
     $('.li-results').click(function() {    
         var id = $(this).attr('id');
         $('#tb-' + id).toggle(500);
-        $(this).find('fa-chevron-results').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+        $(this).find('.fa-chevron-results').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     }); 
 
+    $('.active-predictions-dropdown').click(function() {
+        $('.active-predictions').toggle(500);
+        $(this).find('.fa-chevron-active-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
 
+    $('.old-predictions-dropdown').click(function() {
+        $('.old-predictions').toggle(500);
+        $(this).find('.fa-chevron-old-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
 });
 
 

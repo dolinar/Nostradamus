@@ -10546,6 +10546,16 @@ hr.no-space {
   .text-xs-center {
     text-align: center;
   }
+
+  .profile-border {
+    border-bottom: solid 1px grey;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .profile-border {
+    border-right: solid 1px grey;
+  }
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -10597,6 +10607,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 .btn-info {
   background: #00b9f1 !important;
+}
+
+.predictions-dropdown {
+  cursor: pointer;
 }
 
 .navbar-laravel {
