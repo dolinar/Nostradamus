@@ -10,10 +10,9 @@
         @if (count($data['fixtures']) > 0)
             <h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}
             <a class="float-right text-primary" href="/cl_draw">Več</a></h5>
-            <hr class="no-space">
             <div class="table-responsive" style="border-radius:5px">
-            <table class="table table-sm table-hover">
-                <thead class="table-active">
+            <table class="table table-hover">
+                <thead>
                     <tr>
                     <th scope="col">Čas pričetka</th>
                     <th scope="col">Domača ekipa</th>
@@ -39,10 +38,9 @@
 
         <br>
         <h5>Najboljših 5<a class="float-right text-primary" href="/table">Več</a></h5>
-        <hr class="no-space">
         <div class="table-responsive" style="border-radius:5px; margin: 0 auto;">
-            <table class="table table-sm table-hover">
-                <thead class="table-active">
+            <table class="table table table-hover">
+                <thead>
                     <tr>
                     <th scope="col" class="cell-align-right">#</th>
                     <th scope="col" class="pl-3">Tekmovalec</th>
@@ -70,7 +68,7 @@
         <hr class="no-space">
         @if (count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
-                <li class="list-group-item" style="border-radius:5px">
+                <li class="list-group-item">
                     <div class="row">
                         <div class="col-lg-2 col-md-3 col-xs-4 text-right">
                             <time class="timeago small text-muted" datetime="{{date('c', $post->ts)}}"><small></small></time>

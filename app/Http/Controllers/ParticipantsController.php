@@ -14,14 +14,16 @@ class ParticipantsController extends Controller
         $participants = User::where(function ($query) {
                                 $query->where('status', 1)->orWhere('status', 0);
                             })
-                            ->where('u1.id_matchday', '=', $idMatchday)
                             ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday', 'u1.position', 'u2.position AS last_position')
-                            ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')
+                            ->leftJoin('user_data_flow AS u1', function($join) use($idMatchday) {
+                                $join->on('users.id', '=', 'u1.id_user');
+                                $join->where('u1.id_matchday', '=', $idMatchday);
+                            })
                             ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                                 $join->on('users.id', '=', 'u2.id_user');
                                 $join->where('u2.id_matchday', '=', $idMatchday - 1);
                             })
-                            ->orderBy('u1.position')
+                            ->orderByRaw('ISNULL(u1.position), u1.position ASC')
                             ->paginate(10)
                             ->setPath('table');
 
@@ -43,14 +45,15 @@ class ParticipantsController extends Controller
             $username = $authenticated->username;
 
             $user = User::where('username', $username)
-                        ->where('u1.id_matchday', '=', $idMatchday)     
                         ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday', 'u1.position', 'u2.position AS last_position')
-                        ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')
+                        ->leftJoin('user_data_flow AS u1', function($join) use($idMatchday) {
+                            $join->on('users.id', '=', 'u1.id_user');
+                            $join->where('u1.id_matchday', '=', $idMatchday);
+                        })
                         ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                             $join->on('users.id', '=', 'u2.id_user');
                             $join->where('u2.id_matchday', '=', $idMatchday - 1);
                         })
-                        ->orderBy('u1.position')
                         ->get(); 
             return $user;
         }
@@ -69,16 +72,18 @@ class ParticipantsController extends Controller
 
         $participants = User::where(function ($query) {
                                 $query->where('status', 1)->orWhere('status', 0);
-                            })
-                            ->where('u1.id_matchday', '=', $idMatchday)         
+                            })    
                             ->where('users.username', 'like', '%' . $search . '%')
                             ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday', 'u1.position', 'u2.position AS last_position')
-                            ->join('user_data_flow AS u1', 'users.id', '=', 'u1.id_user')
+                            ->leftJoin('user_data_flow AS u1', function($join) use($idMatchday) {
+                                $join->on('users.id', '=', 'u1.id_user');
+                                $join->where('u1.id_matchday', '=', $idMatchday);
+                            })
                             ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                                 $join->on('users.id', '=', 'u2.id_user');
                                 $join->where('u2.id_matchday', '=', $idMatchday - 1);
                             })
-                            ->orderBy('u1.position')
+                            ->orderByRaw('ISNULL(u1.position), u1.position ASC')
                             ->paginate(10)
                             ->setPath('table');
 

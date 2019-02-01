@@ -165,10 +165,10 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
-    $('.fa-chevron-results').click(function() {    
+    $('.li-results').click(function() {    
         var id = $(this).attr('id');
         $('#tb-' + id).toggle(500);
-        $(this).toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+        $(this).find('fa-chevron-results').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     }); 
 
 

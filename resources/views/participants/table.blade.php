@@ -1,14 +1,14 @@
 @foreach ($data['participants'] as $participant)
 
     @if (auth()->user() && $participant['username'] === auth()->user()->username)
-        <tr style="background-color:#b7d3ff">
+        <tr style="background-color:#f2f2f2">
     @else
         <tr>
     @endif
-            <td class="cell-align-right">{{$participant['position']}}.</td>  
+            <td class="cell-align-right">{{($participant['position']) == null ? 0 : ($participant['position'])}}.</td>  
             <td class="pl-3">{{$participant['username']}}</td>
             <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : ($participant['points_total'])}}</td>
-            <td class="cell-align-right">{{$participant['points_matchday']}}</td>
+            <td class="cell-align-right">{{($participant['points_matchday']) == null ? 0 : ($participant['points_matchday'])}}</td>
             @if ($participant['last_position'] - $participant['position'] > 0)
                 <td class="cell-align-right" style="color:green">+{{$participant['last_position'] - $participant['position']}} <i class="fas fa-arrow-up"></i></td>
             @elseif ($participant['last_position'] - $participant['position'] == 0)  
@@ -20,7 +20,7 @@
 @endforeach
 
 @if (auth()->user() && ($data['user'][0]['position'] < $data['participants']->firstItem() || $data['user'][0]['position'] >= $data['participants']->firstItem() + 10))
-    <tr style="background-color:#b7d3ff">
+    <tr style="background-color:#f2f2f2">
         <td class="cell-align-right">{{$data['user'][0]['position']}}.</td>
         <td class="pl-3">{{$data['user'][0]['username']}}</td>
         <td class="cell-align-right">{{($data['user'][0]['points_total']) == null ? 0 : $data['user'][0]['points_total']}}</td>

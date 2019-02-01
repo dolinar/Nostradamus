@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Team;
+use App\Matchday;
 
 class TeamsController extends Controller
 {
@@ -48,6 +49,13 @@ class TeamsController extends Controller
     public function show($id)
     {
         $team = Team::find($id);
+
+        $fixtures = Matchday::where('finished', '=', 1)
+                        ->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')
+                        ->get()->where('teamHome.id', $id);
+        return $fixtures;
+ 
+
         return view('teams.show')->with('team', $team);
     }
 

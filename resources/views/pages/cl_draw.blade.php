@@ -5,9 +5,9 @@
     <hr>
     @if (count($data['draw']) > 0)
         @foreach ($data['draw'] as $matchday)
-            <li class="list-group-item mt-3 rounded-top">
+            <li class="list-group-item mt-3 rounded-top li-results" id="{{$matchday['id']}}">
                 <span>Tekmovalni dan: <b>{{date('j F, Y', strtotime($matchday['date']))}}</b></span>
-                <i class="fas fa-chevron-down fa-chevron-results" id="{{$matchday['id']}}" style="font-size:25px; float:right"></i></span>
+                <i class="fas fa-chevron-down fa-chevron-results"  style="font-size:25px; float:right"></i></span>
             </li>
             <div class="table-responsive" style="display:none;" id="tb-{{$matchday['id']}}">
                 <table class="table table-sm table-hover">

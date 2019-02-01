@@ -10,6 +10,7 @@
         </div>
     </div>
 
-    <hr>
+    <br><br>
     <h4>Dosedanje tekme</h4>
+    <hr>
 @endsection
