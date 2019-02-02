@@ -2,7 +2,6 @@
 
 @section('content')
     <h5>Skupina {{$data['group']['name']}}</h5>
-    <hr>   
     @include('groups.table')
     <hr>
     @if($data['isAdmin'] == 1)

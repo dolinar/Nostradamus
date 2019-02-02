@@ -1,7 +1,7 @@
 @if ($data['invitations'])
 <div class="table-responsive" style="border-radius:5px">
-    <table class="table table-sm table-hover">
-        <thead class="table-active">
+    <table class="table table-hover">
+        <thead>
             <tr>
             <th scope="col" class="cell-align-right">#</th>
             <th scope="col" class="pl-3">Tekmovalec</th>
@@ -24,7 +24,7 @@
                 @endif
                         <td class="cell-align-right">{{$data['participants']->firstItem() + $key}}.</td>  
                         @if (Auth::id() == $participant['id']) 
-                            <td class="pl-3"><a href={{route('dashboard')}}>{{$participant['username']}}</a></td>
+                            <td class="pl-3"><a href={{route('dashboard.index')}}>{{$participant['username']}}</a></td>
                         @else
                             <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
                         @endif

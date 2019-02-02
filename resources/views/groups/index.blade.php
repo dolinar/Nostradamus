@@ -36,7 +36,7 @@
                             @php $i=1; @endphp
                             @foreach ($data['info'][$group->id][2] as $user)
                                 @if (auth()->user() && $user['username'] == auth()->user()->username)
-                                    <tr style="background-color:#b7d3ff">
+                                    <tr style="background-color:#f2f2f2">
                                 @else
                                     <tr>       
                                 @endif

@@ -73,8 +73,8 @@ class ParticipantsController extends Controller
         $participants = User::where(function ($query) {
                                 $query->where('status', 1)->orWhere('status', 0);
                             })    
-                            ->where('users.id', 'users.username', 'like', '%' . $search . '%')
-                            ->select('users.username', 'users.name', 'u1.points_total', 'u1.points_matchday', 'u1.position', 'u2.position AS last_position')
+                            ->where('users.username', 'like', '%' . $search . '%')
+                            ->select('users.id', 'users.username', 'users.name', 'u1.points_total', 'u1.points_matchday', 'u1.position', 'u2.position AS last_position')
                             ->leftJoin('user_data_flow AS u1', function($join) use($idMatchday) {
                                 $join->on('users.id', '=', 'u1.id_user');
                                 $join->where('u1.id_matchday', '=', $idMatchday);
