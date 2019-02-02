@@ -16,7 +16,7 @@ class ProfilesController extends Controller
 
     public function show($id) {
         $user = User::find($id)
-                ->select('users.username', 'users.profile_image', 'users.created_at AS user_created_at', 'logins.created_at')
+                ->select('users.id', 'users.username', 'users.profile_image', 'users.created_at AS user_created_at', 'logins.created_at')
                 ->join('logins', function($join) use($id) {
                     $join->on('users.id', '=', 'logins.id_user');
                     $join->where('logins.id_user', '=', $id);

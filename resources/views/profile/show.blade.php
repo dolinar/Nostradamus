@@ -7,10 +7,10 @@
                 <div class="col-6 col-md-12 col-xs-8" style="display:block">
                     <img src="../storage/profile_images/{{$data['user'][0]['profile_image']}}" width="100%">
                 </div>
-
                 <div class="col-6 col-md-12 col-xs-4">
                     <h3>{{$data['user'][0]['username']}}
-                        <a href={{route('send_private', ['id' => $data['user'][0]['id_user']])}}><i class="fas fa-envelope"></i></a>
+
+                        <a href={{route('send_private', ['id' => $data['user'][0]['id']])}}><i class="fas fa-envelope"></i></a>
                     </h3>
                     <span><b>Pridružen:</b><br> {{date("d-M-y, H:i", strtotime($data['user'][0]['user_created_at']))}}</span>
                     <br>
