@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>Uredi napoved</h3>
+    <h5>Uredi napoved</h5>
     <hr>
     {{ Form::open(['action' => ['PredictionsController@update', $prediction['id']], 'method' => 'POST']) }}
         <div class="card mb-3">

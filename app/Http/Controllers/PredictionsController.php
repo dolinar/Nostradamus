@@ -26,12 +26,14 @@ class PredictionsController extends Controller
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
                                             $q->where('id_user', auth()->user()->id);
                                         }])
+                                        ->orderBy('matchdays.id', 'DESC')
                                         ->get();
 
         $predictions = Matchday::where('finished', '=', '0')
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
                                             $q->where('id_user', auth()->user()->id);
                                         }])
+                                        ->orderBy('matchdays.id', 'DESC')
                                         ->get();
         $data = [
             'predictions' => $predictions->toArray(),

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use Auth;
 use App\PrivateMessage;
-
+use Illuminate\Support\Facades\Input;
 
 class DashboardController extends Controller
 { 
@@ -50,7 +50,46 @@ class DashboardController extends Controller
             'userData' => $userData,
         ];
 
-        return view('dashboard')->with('data', $data);
+        return view('dashboard.dashboard')->with('data', $data);
+    }
+
+    public function edit($id) {
+        $userId = Auth::id();
+        if ($id != $userId) {
+            return redirect('/dashboard');
+        }
+
+        $data = [
+            'id' => $userId
+        ];
+        return view('dashboard.edit')->with('data', $data);
+    }
+
+    public function update($id, Request $request) {
+        $this->validate($request, [
+            'profile_image' => 'image|nullable|max:1999'
+        ]);
+
+        $user = User::find($id);
+        $filenameToStore = 'user_default.png';
+
+        if ($request->hasFile('profile_image')) {
+            $filenameWithExt = $request->file('profile_image')->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            
+            $ext = $request->file('profile_image')->getClientOriginalExtension();
+
+            $filenameToStore = $filename . '_' . time() . '.' . $ext;
+
+            $path = $request->file('profile_image')->storeAs('public/profile_images', $filenameToStore);
+        } 
+
+        $user->profile_image = $filenameToStore;
+        $user->save();
+
+        return redirect('/dashboard')->with('success', 'Profil uspešno posodobljen');
+
     }
 
     private function getUser($id) {

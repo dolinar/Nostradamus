@@ -56,7 +56,7 @@
                         @endif
                             <td class="cell-align-right">{{$participant['position']}}.</td>
                             @if (Auth::id() == $participant['id']) 
-                                <td class="pl-3"><a href={{route('dashboard')}}>{{$participant['username']}}</a></td>
+                                <td class="pl-3"><a href={{route('dashboard.index')}}>{{$participant['username']}}</a></td>
                             @else
                                 <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
                             @endif

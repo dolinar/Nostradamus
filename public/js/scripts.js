@@ -161,7 +161,7 @@ $(document).ready(function(){
                 }       
             });
         }
-    })
+    }) 
 });
 
 $(document).ready(function() {
@@ -177,11 +177,34 @@ $(document).ready(function() {
     });
 
     $('.previous-predictions-dropdown').click(function() {
-        console.log('ok');
         $(this).siblings().find('.previous-prediction').toggle(500);
         $(this).find('.fa-chevron-previous-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
 
+
+
+
+    
+    $('.previous-predictions-profile-dropdown').click(function() {
+        $('.previous-prediction').toggle(500);
+        $(this).find('.fa-chevron-previous-predictions-profile').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
+
+    $('.previous-prediction').click(function() {
+        $(this).siblings('#' + $(this).attr('id')).toggle(500);
+        $(this).find('.fa-chevron-results').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
+
+
+    $('.active-predictions-profile-dropdown').click(function() {
+        $('.active-prediction').toggle(500);
+        $(this).find('.fa-chevron-active-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
+
+    $('.active-prediction').click(function() {
+        $(this).siblings('#' + $(this).attr('id')).toggle(500);
+        $(this).find('.fa-chevron-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    });
 });
 
 

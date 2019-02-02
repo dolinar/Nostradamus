@@ -212,9 +212,9 @@ class GroupsController extends Controller
             ));
 
         if ($confirmed == 1) {
-            return redirect('/')->with('success', 'Uspešno ste bili dodani v skupino!'); 
+            return redirect('/groups')->with('success', 'Uspešno ste bili dodani v skupino!'); 
         } else {
-            return redirect('/')->with('success', 'Povabilo za skupino zavrnjeno.'); 
+            return redirect('/groups')->with('success', 'Povabilo za skupino zavrnjeno.'); 
         }
 
     }

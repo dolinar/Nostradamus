@@ -102,7 +102,13 @@ class PrivateMessagesController extends Controller
     public function destroy($id)
     {
         $privateMessage = PrivateMessage::find($id);
-        $privateMessage->delete();
+        if (Auth::id() == $privateMessage->id_sender) {
+            $privateMessage->deleted_by_sender = 1;
+        } else { 
+            $privateMessage->deleted_by_receiver = 1;
+        }
+
+        $privateMessage->save();
 
         return redirect('/private_message')->with('success', 'Sporočilo uspešno izbrisano');
     }
@@ -113,6 +119,8 @@ class PrivateMessagesController extends Controller
                         ->sentMessages()
                         ->select('private_messages.id', 'users.username', 'private_messages.message', 'private_messages.subject', 'private_messages.created_at')
                         ->join('users', 'users.id', '=', 'private_messages.id_receiver')
+                        ->where('private_messages.deleted_by_sender', '=', 0)
+                        ->orderBy('private_messages.id', 'DESC')
                         ->get();
     }
 
@@ -122,6 +130,8 @@ class PrivateMessagesController extends Controller
                 ->select('private_messages.id', 'users.username', 'private_messages.message', 'private_messages.subject', 'private_messages.created_at')
                 ->join('users', 'users.id', '=', 'private_messages.id_sender')
                 ->where('private_messages.opened', '=', $opened)
+                ->where('private_messages.deleted_by_receiver', '=', 0)
+                ->orderBy('private_messages.id', 'DESC')
                 ->get();
     }
 }

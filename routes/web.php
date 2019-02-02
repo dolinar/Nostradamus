@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::resource('dashboard', 'DashboardController', [
+    'only' => ['index', 'edit', 'update']
+]);
 
 Route::get('/', 'PagesController@index');
 Route::get('/info', 'PagesController@info');

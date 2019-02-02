@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Matchday;
+use Auth;
 
 class ProfilesController extends Controller
 {
@@ -12,10 +14,9 @@ class ProfilesController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
-
-
     public function show($id) {
         $user = User::find($id)
+                ->select('users.username', 'users.profile_image', 'users.created_at AS user_created_at', 'logins.created_at')
                 ->join('logins', function($join) use($id) {
                     $join->on('users.id', '=', 'logins.id_user');
                     $join->where('logins.id_user', '=', $id);
@@ -48,23 +49,13 @@ class ProfilesController extends Controller
     }
 
     private function getPredictions($matchdayFinished, $id) {
-        $predictions = User::where('users.id', '=', $id)
-            ->select(
-                    'users.created_at', 
-                    't1.name AS home_team', 't2.name AS away_team', 
-                    'fixtures.home_score', 'fixtures.away_score',
-                    'predictions.prediction_home', 'predictions.prediction_away',
-                    'predictions.points')
-            ->join('predictions', 'users.id', '=', 'predictions.id_user')
-            ->join('fixtures', 'predictions.id_fixture', '=', 'fixtures.id')
-            ->join('teams AS t1', 'fixtures.home_team', '=', 't1.id')
-            ->join('teams AS t2', 'fixtures.away_team', '=', 't2.id')
-            ->join('matchdays', function($join) use($matchdayFinished) {
-                $join->on('fixtures.id_matchday', '=', 'matchdays.id');
-                $join->where('matchdays.finished', '=', $matchdayFinished);
-            })
-            ->get(); 
-        return $predictions;
+        return Matchday::where('finished', '=', $matchdayFinished)
+                ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) use($id) {
+                    $q->where('id_user', $id);
+                }])
+                ->orderBy('matchdays.id', 'DESC')
+                ->get();
+
     }
 
 }

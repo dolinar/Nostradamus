@@ -51,11 +51,12 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('dashboard')}}">Nadzorna plošča</a>
+                            <a class="dropdown-item" href="{{route('dashboard.index')}}">Nadzorna plošča</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/overall_prediction">Končna napoved</a>
                             <a class="dropdown-item" href="/predictions">Napovedi</a>  
-                            <a class="dropdown-item" href="/groups">Skupine</a>                     
+                            <a class="dropdown-item" href="/groups">Skupine</a>    
+                            <a class="dropdown-item" href="/private_message">Zasebna sporočila</a>                     
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

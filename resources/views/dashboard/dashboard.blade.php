@@ -5,12 +5,12 @@
         <div class="col-lg-4 col-md-4 col-sm-12" >
             <div class="row text-center profile-border py-2">
                 <div class="col-6 col-md-12 col-xs-8" style="display:block">
-                    <img src="/user_default.png" width="100%">
+                    <img src="storage/profile_images/{{$data['user'][0]['profile_image']}}" width="100%">
                 </div>
 
                 <div class="col-6 col-md-12 col-xs-4">
                     <h3>{{$data['user'][0]['username']}}
-                        <a href={{route('send_private', ['id' => $data['user'][0]['id_user']])}}><i class="fas fa-edit"></i> Uredi profil</a>
+                        <a href={{route('dashboard.edit', ['id' => $data['user'][0]['id_user']])}}><i class="fas fa-edit"></i> Uredi profil</a>
                     </h3>
                     <span><b>Skupaj točk:</b><br> {{$data['userData'][0]['points_total']}}</span>
                     <br>
@@ -39,7 +39,7 @@
             </div>
             <hr>
             @forelse ($data['invitations'] as $invtitation)
-                <div class="alert alert-warning group-invitations-dropdown">
+                <div class="alert alert-warning">
                     <span>Uporabnik <b>{{$invtitation->user_invitator}}</b> te je povabil v skupino <b>{{$invtitation->name}}.</b>
                         <a href="#" name={{$invtitation->id}} value="1" id="store-accept"><span class="fas fa-check"></span></a>  
                         <a href="#" name={{$invtitation->id}} value="0" id="store-reject"><span class="fas fa-times"></span></a>  
@@ -63,7 +63,7 @@
                 </div>
             @else
                 <div class="alert alert-info group-invitations-dropdown">
-                    <span>Nimate nobenega novega zasebnega sporočila.</span>
+                    <span>Nimate novih zasebnih sporočil.</span>
                 </div>
             @endif
 

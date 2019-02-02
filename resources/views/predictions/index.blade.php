@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>Napovedi</h3>
+    <h5>Napovedi</h5>
     <hr>
     @if (count($data['predictions']) > 0)
         @foreach ($data['predictions'] as $matchday)
