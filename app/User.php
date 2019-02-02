@@ -46,4 +46,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function groups() {
         return $this->belongsToMany('App\Group', 'user_group', 'id_user', 'id_group');
     }
+
+    public function sentMessages() {
+        return $this->hasMany('App\PrivateMessage', 'id_sender');
+    }
+
+    public function receivedMessages() {
+        return $this->hasMany('App\PrivateMessage', 'id_receiver');
+    }
 }

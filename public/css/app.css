@@ -10548,13 +10548,13 @@ hr.no-space {
   }
 
   .profile-border {
-    border-bottom: solid 1px grey;
+    border-bottom: solid 1px #bdbdbd;
   }
 }
 
 @media screen and (min-width: 768px) {
   .profile-border {
-    border-right: solid 1px grey;
+    border-right: solid 1px #bdbdbd;
   }
 }
 

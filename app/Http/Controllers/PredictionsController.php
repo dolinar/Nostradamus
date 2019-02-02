@@ -22,6 +22,11 @@ class PredictionsController extends Controller
      */
     public function index()
     {
+        $previousPredictions = Matchday::where('finished', '=', '1')
+                                        ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
+                                            $q->where('id_user', auth()->user()->id);
+                                        }])
+                                        ->get();
 
         $predictions = Matchday::where('finished', '=', '0')
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
@@ -30,6 +35,7 @@ class PredictionsController extends Controller
                                         ->get();
         $data = [
             'predictions' => $predictions->toArray(),
+            'previousPredictions' => $previousPredictions
         ];
         return view('predictions.index')->with('data', $data);
     }
@@ -117,4 +123,5 @@ class PredictionsController extends Controller
 
         return redirect('/predictions')->with('success', 'Napoved uspešno posodobljena!');
     }
+
 }

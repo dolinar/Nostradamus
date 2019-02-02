@@ -3,20 +3,15 @@
 @section('content')
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12" >
-            <div class="row text-center profile-border">
+            <div class="row text-center profile-border py-2">
                 <div class="col-6 col-md-12 col-xs-8" style="display:block">
                     <img src="/user_default.png" width="100%">
                 </div>
 
-                <div class="col-6 col-md-12 col-xs-4 mt-3">
+                <div class="col-6 col-md-12 col-xs-4">
                     <h3>{{$data['user'][0]['username']}}
-                        @if (Auth::id() != $data['user'][0]['id_user'])
-                            <i class="fas fa-envelope"></i>
-                        @else
-                            <i class="fas fa-edit"></i>
-                        @endif
+                        <a href={{route('send_private', ['id' => $data['user'][0]['id_user']])}}><i class="fas fa-envelope"></i></a>
                     </h3>
-
                     <span><b>Nazadnje viden:</b><br> {{date("d-M-y, H:i", strtotime($data['user'][0]['created_at']))}}</span>
                     <br>
                     <span><b>Skupaj točk:</b><br> {{$data['userData'][0]['points_total']}}</span>

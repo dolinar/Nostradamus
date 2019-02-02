@@ -24,29 +24,12 @@
     <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/scripts.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
     <script src="{{asset('js/select2.min.js')}}"></script>
+    <script src="{{asset('js/cookies.js')}}"></script>
 
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-<script>
-    window.addEventListener("load", function(){
-    window.cookieconsent.initialise({
-    "palette": {
-        "popup": {
-        "background": "#383C42"
-        },
-        "button": {
-        "background": "#00b9f1"
-        }
-    },
-    "theme": "classic",
-    "content": {
-        "message": "Z uporabo spletnega mesta soglašate z uporabo in beleženjem piškotkov.",
-        "dismiss": "V redu",
-        "link": "Preberi več",
-        "href": "https://cookiepolicygenerator.com/live.php?token=2mIvkUQOY1E73wfCj6pRF6t5W7Tvwi9d"
-    }
-    })});
-</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+
+
 
 </head>
 <body>

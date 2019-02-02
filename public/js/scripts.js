@@ -176,10 +176,12 @@ $(document).ready(function() {
         $(this).find('.fa-chevron-active-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
 
-    $('.old-predictions-dropdown').click(function() {
-        $('.old-predictions').toggle(500);
-        $(this).find('.fa-chevron-old-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+    $('.previous-predictions-dropdown').click(function() {
+        console.log('ok');
+        $(this).siblings().find('.previous-prediction').toggle(500);
+        $(this).find('.fa-chevron-previous-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
+
 });
 
 

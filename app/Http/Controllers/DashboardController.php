@@ -7,6 +7,9 @@ use App\Fixture;
 use App\Prediction;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Auth;
+use App\PrivateMessage;
+
 
 class DashboardController extends Controller
 { 
@@ -27,17 +30,51 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $userId = Auth::id();
+
         $predictionsData = $this->getPredictionsData();
         $overallPrediction = $this->getOverallPrediction();
         $invitations = $this->getInvitations();
+
+        $receivedMessages = $this->getReceivedMessages($userId);
+        $user = $this->getUser($userId);
+        $userData = $this->getUserData($userId);
+
 
         $data = [
             'overallPrediction' => $overallPrediction,
             'invitations' => $invitations,
             'difference' => $predictionsData['numberOfActiveFixtures'] - $predictionsData['numberOfPredictions'],
+            'receivedMessages' => $receivedMessages,
+            'user' => $user,
+            'userData' => $userData,
         ];
+
         return view('dashboard')->with('data', $data);
     }
+
+    private function getUser($id) {
+        return User::find($id)
+                    ->join('logins', function($join) use($id) {
+                        $join->on('users.id', '=', 'logins.id_user');
+                        $join->where('logins.id_user', '=', $id);
+                    })
+                    ->orderBy('logins.id', 'DESC')
+                    ->take(1)
+                    ->get();
+    }
+
+    private function getUserData($id) {
+        return $userData = User::find($id)
+                    ->join('user_data_flow', function($join) use($id) {
+                        $join->on('users.id', '=', 'user_data_flow.id_user');
+                        $join->where('user_data_flow.id_user', '=', $id);
+                    })
+                    ->orderBy('user_data_flow.id', 'DESC')
+                    ->take(1)
+                    ->get();
+    }
+
 
     public function getInvitations() {
         $invitations = array();
@@ -50,11 +87,12 @@ class DashboardController extends Controller
                 ->join('groups', 'group_invitations.id_group', '=', 'groups.id')
                 ->where('group_invitations.id_user', '=', auth()->user()->id)
                 ->where('group_invitations.status', '=', '0')
-                ->get()->toArray();
+                ->get();
         }
 
         return $invitations;
     }
+
 
     
     private function getPredictionsData() {
@@ -78,4 +116,14 @@ class DashboardController extends Controller
         return $overallPrediction == null ? array() : $overallPrediction;
 
     }
+
+    private function getReceivedMessages($id) {
+        return User::find($id)
+                ->receivedMessages()
+                ->join('users', 'users.id', '=', 'private_messages.id_sender')
+                ->where('private_messages.opened', '=', '0')
+                ->get();
+    }
+
+
 }

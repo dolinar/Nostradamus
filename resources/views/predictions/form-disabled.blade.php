@@ -15,7 +15,6 @@
     @if ($fixture['prediction'] != NULL)
         <div class="text-center text-muted">
             Trenutna napoved: <b>{{$fixture['prediction'][0]['prediction_home'] . ':' .$fixture['prediction'][0]['prediction_away']}}</b>
-            <a href="{{route('predictions.edit', $fixture['prediction'][0]['id'])}}" class="btn btn-sm btn-default">Uredi</a>
         </div>    
     @endif
     @if ((new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes') < (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour'))

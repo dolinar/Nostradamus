@@ -55,7 +55,11 @@
                             <tr>       
                         @endif
                             <td class="cell-align-right">{{$participant['position']}}.</td>
-                            <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
+                            @if (Auth::id() == $participant['id']) 
+                                <td class="pl-3"><a href={{route('dashboard')}}>{{$participant['username']}}</a></td>
+                            @else
+                                <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
+                            @endif
                             <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : $participant['points_total']}}</td>
                         </tr>
                     @endforeach
