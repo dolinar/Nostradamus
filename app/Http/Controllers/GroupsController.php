@@ -13,7 +13,7 @@ class GroupsController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth'/*, 'verified'*/]);
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -212,9 +212,9 @@ class GroupsController extends Controller
             ));
 
         if ($confirmed == 1) {
-            return redirect('/groups')->with('success', 'Uspešno ste bili dodani v skupino!'); 
+            return redirect('/dashboard')->with('success', 'Uspešno ste bili dodani v skupino!'); 
         } else {
-            return redirect('/groups')->with('success', 'Povabilo za skupino zavrnjeno.'); 
+            return redirect('/dashboard')->with('success', 'Povabilo za skupino zavrnjeno.'); 
         }
 
     }

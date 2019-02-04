@@ -12,9 +12,9 @@
                     <h3>{{$data['user'][0]['username']}}
                         <a href={{route('dashboard.edit', ['id' => $data['user'][0]['id_user']])}}><i class="fas fa-edit"></i> Uredi profil</a>
                     </h3>
-                    <span><b>Skupaj točk:</b><br> {{$data['userData'][0]['points_total']}}</span>
+                    <span><b>Skupaj točk:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_total'] : '-'}}</span>
                     <br>
-                    <span><b>Mesto na lestvici:</b><br> {{$data['userData'][0]['position']}}</span>
+                    <span><b>Mesto na lestvici:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['position'] : '-'}}</span>
                 </div>
             </div>
         </div>

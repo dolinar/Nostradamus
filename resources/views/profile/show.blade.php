@@ -16,11 +16,11 @@
                     <br>
                     <span><b>Nazadnje viden:</b><br> {{date("d-M-y, H:i", strtotime($data['user'][0]['created_at']))}}</span>
                     <br>
-                    <span><b>Skupaj točk:</b><br> {{$data['userData'][0]['points_total']}}</span>
+                    <span><b>Skupaj točk:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_total'] : '-'}}</span>
                     <br>
-                    <span><b>Mesto na lestvici:</b><br> {{$data['userData'][0]['position']}}</span>
+                    <span><b>Mesto na lestvici:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['position'] : '-'}}</span>
                     <br>
-                    <span><b>Točke zadnji tekmovalni dan:</b><br> {{$data['userData'][0]['points_matchday']}}</span>
+                    <span><b>Točke zadnji tekmovalni dan:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_matchday'] : '-'}}</span>
                 </div>
             </div>
         </div>
