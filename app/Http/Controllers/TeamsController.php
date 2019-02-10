@@ -15,29 +15,8 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::orderBy('status', 'DESC')->get();
         return view('teams.index')->with('teams', $teams);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -49,47 +28,34 @@ class TeamsController extends Controller
     public function show($id)
     {
         $team = Team::find($id);
+        
+        $finishedMatchdays = $this->getMatchdays(1, $id);
+        $toBePlayed = $this->getMatchdays(0, $id);
+                        
+        $data = [
+            'team' => $team,
+            'matchdays' => $finishedMatchdays,
+            'activeMatchdays' => $toBePlayed,
+            'id' => $id
+        ];                
 
-        $fixtures = Matchday::where('finished', '=', 1)
-                        ->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')
-                        ->get()->where('teamHome.id', $id);
-        return $fixtures;
- 
-
-        return view('teams.show')->with('team', $team);
+        return view('teams.show')->with('data', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    private function getMatchdays($finished, $id) {
+        return Matchday::where('finished', '=', $finished)
+                        ->select('t1.name as home_team', 't2.name as away_team', 
+                                    'matchdays.date', 'matchdays.stage', 'matchdays.id as matchday_id',
+                                    'fixtures.time', 'fixtures.home_score', 'fixtures.away_score', 
+                                    't1.id as home_team_id', 't2.id as away_team_id')
+                        ->join('fixtures', 'matchdays.id', '=', 'fixtures.id_matchday')
+                        ->join('teams as t1', 'fixtures.home_team', '=', 't1.id')
+                        ->join('teams as t2', 'fixtures.away_team', '=', 't2.id')
+                        ->where(function ($query) use($id) {
+                            $query->where('fixtures.home_team', '=', $id)->orWhere('fixtures.away_team', '=', $id);
+                        })
+                        ->orderBy('matchdays.id', 'DESC')
+                        ->get();
     }
 }

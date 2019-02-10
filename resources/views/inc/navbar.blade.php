@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/cl_draw">Prvenstvo</a>
                         <a class="dropdown-item" href="/cl_results">Rezultati</a>
-                        <a class="dropdown-item" href="/cl_statistics">Statistika</a>
+                        <!--<a class="dropdown-item" href="/cl_statistics">Statistika</a>-->
                         <a class="dropdown-item" href="/teams">Ekipe</a>
                     </ul>
                 </li>
@@ -51,7 +51,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('dashboard.index')}}">Nadzorna plošča</a>
+                            <a class="dropdown-item" href="{{route('dashboard.index')}}">Profil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/overall_prediction">Končna napoved</a>
                             <a class="dropdown-item" href="/predictions">Napovedi</a>  

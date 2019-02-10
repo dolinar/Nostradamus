@@ -39,8 +39,7 @@ class DashboardController extends Controller
         $receivedMessages = $this->getReceivedMessages($userId);
         $user = $this->getUser($userId);
         $userData = $this->getUserData($userId);
-
-
+        
         $data = [
             'overallPrediction' => $overallPrediction,
             'invitations' => $invitations,
@@ -150,8 +149,12 @@ class DashboardController extends Controller
     private function getOverallPrediction() {
         $overallPrediction = null;
         if (auth()->user()) {
-            $overallPrediction = User::find(auth()->user()->id)->overallPrediction;
+            $overallPrediction = User::join('overall_predictions', 'overall_predictions.id_user', '=', 'users.id')
+                                    ->join('teams', 'teams.id', '=', 'overall_predictions.id_team')
+                                    ->where('users.id', '=', Auth::id())
+                                    ->get();
         }
+
         return $overallPrediction == null ? array() : $overallPrediction;
 
     }

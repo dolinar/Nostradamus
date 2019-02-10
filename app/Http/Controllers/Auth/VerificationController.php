@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\User;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\DB;
 
 class VerificationController extends Controller
 {
@@ -38,5 +41,26 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+    public function verify(Request $request)
+    {
+
+        $userId = $request->route('id');
+        $user = User::findOrFail($userId);
+
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+
+            DB::table('user_data_flow')->insert([
+                'id_user' => $userId,
+                'id_matchday' => 0,
+                'points_total' => 0,
+                'position' => 0,
+                'points_matchday' => 0
+            ]);
+        }
+
+
+        return redirect($this->redirectPath())->with('verified', true);
     }
 }

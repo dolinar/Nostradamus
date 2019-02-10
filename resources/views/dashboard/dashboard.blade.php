@@ -15,6 +15,10 @@
                     <span><b>Skupaj točk:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_total'] : '-'}}</span>
                     <br>
                     <span><b>Mesto na lestvici:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['position'] : '-'}}</span>
+                    <br>
+                    <span><b>Točke zadnji tekmovalni dan:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_matchday'] : '-'}}</span>
+                    <br>
+                    <span><b>Končna napoved:</b><br> {{(count($data['overallPrediction']) > 0) ? $data['overallPrediction'][0]['name'] : '-'}}</span>
                 </div>
             </div>
         </div>
@@ -31,6 +35,12 @@
                     <span>Vaše napovedi za prihajajoče tekme so shranjene.</span>
                 </div>
             @endif
+            @if (count($data['overallPrediction']) == 0 && Config::get('nostradamus.competition-start') > date('Y-m-d H:i:s'))
+                <div class="alert alert-danger active-predictions">
+                    <span>Niste še napovedali končnega zmagovalca.<a class="ml-3" href={{route('overall_prediction.index')}}>Več</a></span>
+                </div>
+            @endif
+
 
             <br>
             
@@ -58,7 +68,7 @@
             </div>
             <hr>
             @if (count($data['receivedMessages']) > 0)
-                <div class="alert alert-info group-invitations-dropdown">
+                <div class="alert alert-warning group-invitations-dropdown">
                     <span>Imate nova zasebna sporočila.</span>
                 </div>
             @else

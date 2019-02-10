@@ -16,9 +16,13 @@
         </p>
     </div>
 
+    <hr>
+        Poleg globalne lestvice lahko s prijatelji ustvarite tudi svojo skupino in tekmujete tudi med seboj. V svojem profilu kliknite na Skupine, nato skupino ustvarite in vanjo povabite svoje prijatelje.
+    <hr>
+
     <div class="general-text">
         <p>
-            Najboljše čakajo praktične nagrade! 
+            Najboljše na globalni lestvici čakajo lepe praktične nagrade! 
         </p>
     </div>
 

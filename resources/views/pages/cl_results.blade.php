@@ -10,8 +10,8 @@
                     <i class="fas fa-chevron-down fa-chevron-results" style="font-size:25px; float:right"></i></span>
             </li>
             <div class="table-responsive" style="display:none;" id="tb-{{$matchday['id']}}">
-                <table class="table table-sm table-hover">
-                    <thead class="table-active">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
                         <th scope="col">Čas pričetka</th>
                         <th scope="col">Domača ekipa</th>

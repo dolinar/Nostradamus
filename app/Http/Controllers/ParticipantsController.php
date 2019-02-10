@@ -99,9 +99,10 @@ class ParticipantsController extends Controller
     }
 
     private function getMatchdayId() {
-        return Matchday::where('finished', 1)
-                       ->orderBy('id', 'DESC')
-                       ->limit(1)
-                       ->pluck('id');
+        $id = Matchday::where('finished', 1)
+            ->orderBy('id', 'DESC')
+            ->limit(1)
+            ->pluck('id');
+        return count($id) == 0 ? 0 : $id[0];
     }
 }

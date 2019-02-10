@@ -3,15 +3,19 @@
 @section('content')
     <h3>Tekmovalni dnevi</h3>
     <hr>
+    <div class="text-center">
+        <img src="draw.png" class="img-fluid" alt="Responsive image">
+    </div>
+    <hr>
     @if (count($data['draw']) > 0)
         @foreach ($data['draw'] as $matchday)
             <li class="list-group-item mt-3 rounded-top li-results" id="{{$matchday['id']}}">
-                <span>Tekmovalni dan: <b>{{date('j F, Y', strtotime($matchday['date']))}}</b></span>
+                <span>Tekmovalni dan: <b>{{date('j F, Y', strtotime($matchday['date']))}}</b>. Stopnja tekmovanja: <b>{{$matchday['stage']}}</b>.</span>
                 <i class="fas fa-chevron-down fa-chevron-results"  style="font-size:25px; float:right"></i></span>
             </li>
             <div class="table-responsive" style="display:none;" id="tb-{{$matchday['id']}}">
-                <table class="table table-sm table-hover">
-                    <thead class="table-active">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
                         <th scope="col">Čas pričetka</th>
                         <th scope="col">Domača ekipa</th>

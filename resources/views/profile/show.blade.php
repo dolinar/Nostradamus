@@ -21,6 +21,8 @@
                     <span><b>Mesto na lestvici:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['position'] : '-'}}</span>
                     <br>
                     <span><b>Točke zadnji tekmovalni dan:</b><br> {{(count($data['userData']) > 0) ? $data['userData'][0]['points_matchday'] : '-'}}</span>
+                    <br>
+                    <span><b>Končna napoved:</b><br> {{(count($data['overallPrediction']) > 0) ? $data['overallPrediction'][0]['name'] : '-'}}</span>
                 </div>
             </div>
         </div>

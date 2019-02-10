@@ -48,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['topFive'] as $participant)
+                    @forelse ($data['topFive'] as $participant)
                         @if (auth()->user() && $participant['username'] == auth()->user()->username)
                             <tr style="background-color:#f2f2f2">
                         @else
@@ -62,7 +62,9 @@
                             @endif
                             <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : $participant['points_total']}}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        
+                    @endforelse
                 </tbody>
             </table>
         </div>

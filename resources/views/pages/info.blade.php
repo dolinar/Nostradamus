@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    {!! $data['chart']->script() !!}
+    {!! $data['users']->script() !!}
+    {!! $data['registrations']->script() !!}
     <h3>Informacije</h3>
     <hr>
-    <p>TODO</p>
+    {!! $data['chart']->container() !!}
+    <hr>
+    {!! $data['users']->container() !!}
+    <hr>
+    {!! $data['registrations']->container() !!}
 @endsection

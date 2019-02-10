@@ -4,10 +4,10 @@
     <h1>Ekipe</h1>
     <hr>
     @if(count($teams) > 0) 
-        <div class="row text-center">
+        <div class="row text-center" style="margin-left:auto; margin-right:auto;">
         @foreach ($teams as $team)  
             @if ($team->status == 1)
-                <div class="card col-lg-3 col-md-5 m-2">
+                <div class="card col-lg-4 col-md-6 my-2">
                     <img class="card-img-top-multiple" src={{$team->logo_url}} alt="">
                     <div class="card-body">
                         <h5 class="card-title">{{$team->name}}</h5>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             @else
-                <div class="card col-lg-3 col-md-5 m-2">
+                <div class="card col-lg-4 col-md-6 my-2">
                     <img class="card-img-top-multiple eliminated" src={{$team->logo_url}} alt="">
                     <div class="card-body">
                         <h5 class="card-title">{{$team->name}}</h5>
