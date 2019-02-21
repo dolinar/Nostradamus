@@ -258,7 +258,7 @@ class GroupsController extends Controller
     }
 
     private function getGroupParticipants($groupId) {
-        $idMatchday = $this->getMatchdayId()[0];
+        $idMatchday = $this->getMatchdayId();
         $participants = User::whereHas('groups', function($query) use($groupId) {
                                 $query->where('groups.id', '=', $groupId);
                             })
@@ -283,7 +283,7 @@ class GroupsController extends Controller
                                 $join->where('user_group.id_group', '=', $groupId);
                             })
                             ->join('user_data_flow', 'users.id', '=', 'user_data_flow.id_user')
-                            ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId()[0])
+                            ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId())
                             ->take(5)->get();
 
         return $participants;
@@ -301,7 +301,7 @@ class GroupsController extends Controller
     
     private function getAuthenticatedUser($groupId) {
         $authenticated = auth()->user();
-        $idMatchday = $this->getMatchdayId()[0];
+        $idMatchday = $this->getMatchdayId();
         if ($authenticated) {
             $username = $authenticated->username;
 
@@ -377,10 +377,11 @@ class GroupsController extends Controller
     }*/
     
     private function getMatchdayId() {
-        return Matchday::where('finished', 1)
-                       ->orderBy('id', 'DESC')
-                       ->limit(1)
-                       ->pluck('id');
+        $id = Matchday::where('finished', 1)
+            ->orderBy('id', 'DESC')
+            ->limit(1)
+            ->pluck('id');
+        return count($id) == 0 ? 0 : $id[0];
     }
 
 }

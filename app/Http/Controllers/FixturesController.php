@@ -17,8 +17,7 @@ class FixturesController extends Controller
     public function indexResults()
     {
         // finished fixtures
-        $results =  Matchday::where('finished', '=', 1)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')
-            ->orderBy('id', 'DESC')->get();
+        $results =  Matchday::where('finished', '=', 1)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->get();
         $data = [
             'results' => $results->toArray(),
         ];
@@ -27,7 +26,7 @@ class FixturesController extends Controller
 
     public function indexDraw() {
         // to be played
-        $draw =  Matchday::where('finished', '=', 0)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->orderBy('id', 'DESC')->get();
+        $draw =  Matchday::where('finished', '=', 0)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->get();
         $data = [
             'draw' => $draw->toArray(),
         ];

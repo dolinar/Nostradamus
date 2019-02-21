@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ParticipantsController extends Controller
 {
     public function index() { 
-        $idMatchday = $this->getMatchdayId()[0];
+        $idMatchday = $this->getMatchdayId();
         $participants = User::where(function ($query) {
                                 $query->where('status', 1)->orWhere('status', 0);
                             })
@@ -21,7 +21,7 @@ class ParticipantsController extends Controller
                             })
                             ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                                 $join->on('users.id', '=', 'u2.id_user');
-                                $join->where('u2.id_matchday', '=', $idMatchday - 1);
+                                $join->where('u2.id_matchday', '=', $idMatchday == 0 ? 0 : $idMatchday - 1);
                             })
                             ->orderByRaw('ISNULL(u1.position), u1.position ASC')
                             ->paginate(10)
@@ -38,7 +38,7 @@ class ParticipantsController extends Controller
     }
 
     private function getAuthenticatedUser() {
-        $idMatchday = $this->getMatchdayId()[0];
+        $idMatchday = $this->getMatchdayId();
         $authenticated = auth()->user();
 
         if ($authenticated) {
@@ -52,7 +52,7 @@ class ParticipantsController extends Controller
                         })
                         ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                             $join->on('users.id', '=', 'u2.id_user');
-                            $join->where('u2.id_matchday', '=', $idMatchday - 1);
+                            $join->where('u2.id_matchday', '=', $idMatchday == 0 ? 0 : $idMatchday - 1);
                         })
                         ->get(); 
             return $user;
@@ -62,7 +62,7 @@ class ParticipantsController extends Controller
     }
     
     public function search(Request $request) {
-        $idMatchday = $this->getMatchdayId()[0];
+        $idMatchday = $this->getMatchdayId();
         $search = $request->input('text');
 
         if (is_null($search) || strcmp($search, '') == 0) {
@@ -81,7 +81,7 @@ class ParticipantsController extends Controller
                             })
                             ->leftJoin('user_data_flow AS u2', function($join) use($idMatchday) {
                                 $join->on('users.id', '=', 'u2.id_user');
-                                $join->where('u2.id_matchday', '=', $idMatchday - 1);
+                                $join->where('u2.id_matchday', '=', $idMatchday == 0 ? 0 : $idMatchday - 1);
                             })
                             ->orderByRaw('ISNULL(u1.position), u1.position ASC')
                             ->paginate(10)

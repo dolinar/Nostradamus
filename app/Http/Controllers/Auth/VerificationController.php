@@ -29,7 +29,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -51,16 +51,21 @@ class VerificationController extends Controller
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
 
+
             DB::table('user_data_flow')->insert([
                 'id_user' => $userId,
                 'id_matchday' => 0,
                 'points_total' => 0,
-                'position' => 0,
+                'position' => $this->getNewPosition(),
                 'points_matchday' => 0
             ]);
         }
 
 
         return redirect($this->redirectPath())->with('verified', true);
+    }
+
+    private function getNewPosition() {
+        return DB::table('user_data_flow')->max('position') + 1;
     }
 }

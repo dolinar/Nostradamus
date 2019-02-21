@@ -67,7 +67,7 @@ class ProfilesController extends Controller
                 ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) use($id) {
                     $q->where('id_user', $id);
                 }])
-                ->orderBy('matchdays.id', 'DESC')
+                ->orderBy('matchdays.id', 'ASC')
                 ->get();
 
     }

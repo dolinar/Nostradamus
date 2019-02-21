@@ -20,6 +20,10 @@
     @if ((new DateTime(date('Y-m-d H:i:s', strtotime($matchday['date'] . ' ' . $fixture['time']))))->modify('-5 minutes') < (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour'))
         <div class="text-center text-muted">
             Čas za napoved je potekel!
-        </div>    
+        </div>
+    @else
+        <div class="text-center">
+            <a href="{{route('predictions.edit', $fixture['prediction'][0]['id'])}}" class="btn btn-sm btn-default">Uredi</a>    
+        </div>
     @endif
 </li>

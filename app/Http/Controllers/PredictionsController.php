@@ -26,14 +26,14 @@ class PredictionsController extends Controller
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
                                             $q->where('id_user', auth()->user()->id);
                                         }])
-                                        ->orderBy('matchdays.id', 'DESC')
+                                        ->orderBy('matchdays.id', 'ASC')
                                         ->get();
 
         $predictions = Matchday::where('finished', '=', '0')
                                         ->with(['fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.prediction' => function($q) {
                                             $q->where('id_user', auth()->user()->id);
                                         }])
-                                        ->orderBy('matchdays.id', 'DESC')
+                                        ->orderBy('matchdays.id', 'ASC')
                                         ->get();
         $data = [
             'predictions' => $predictions->toArray(),
@@ -84,10 +84,15 @@ class PredictionsController extends Controller
     public function edit($id)
     {
         $prediction = Prediction::with('fixture', 'fixture.teamHome', 'fixture.teamAway')->find($id);
+        $matchday = Matchday::find($prediction['fixture']['id_matchday']);
 
+        if ((new DateTime(date('Y-m-d H:i:s', strtotime($matchday->date . ' ' . $prediction['fixture']['time']))))->modify('-5 minutes') < (new DateTime(date('Y-m-d H:i:s')))->modify('+1 hour')) {
+            return redirect('/predictions');
+        }
         if (auth()->user()->id !== $prediction->id_user) {
             return redirect('/predictions');
         }
+        
         return view('predictions.edit')->with('prediction', $prediction->toArray());
     }
 

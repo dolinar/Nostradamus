@@ -3,6 +3,7 @@
 @section('content')
     <h5>Uredi napoved</h5>
     <hr>
+
     {{ Form::open(['action' => ['PredictionsController@update', $prediction['id']], 'method' => 'POST']) }}
         <div class="card mb-3">
             <div class="card-header">

@@ -44,7 +44,7 @@
             @if (auth()->user() && ($data['user']['position'] < $data['participants']->firstItem() || $data['user']['position'] >= $data['participants']->firstItem() + 10))
                 <tr style="background-color:#f2f2f2">
                     <td class="cell-align-right">{{$data['user']['position']}}.</td>
-                    <td class="pl-3"><a href={{route('dashboard')}}>{{$data['user'][0]['username']}}</a></td>
+                    <td class="pl-3"><a href={{route('dashboard.index')}}>{{$data['user'][0]['username']}}</a></td>
                     <td class="cell-align-right">{{($data['user'][0]['points_total']) == null ? 0 : $data['user'][0]['points_total']}}</td>
                     <td class="cell-align-right">{{$data['user'][0]['points_matchday']}}</td>
                 </tr>

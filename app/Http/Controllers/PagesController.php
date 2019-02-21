@@ -14,6 +14,7 @@ use App\Charts\SampleChart;
 
 class PagesController extends Controller
 {
+
     public function index() 
     {
         $postsArray = $this->getPostsArray();
@@ -38,10 +39,13 @@ class PagesController extends Controller
         $chart = $this->getOverallPredictionsChart();
         $users = $this->getUsersChart();
         $registrations = $this->getUsersThroughTime();
+        $predictions = $this->getPredictionsPoints();
+
         $data = [
             'chart' => $chart,
             'users' => $users,
-            'registrations' => $registrations
+            'registrations' => $registrations,
+            'predictions' => $predictions
         ];
         return view('pages.info')->with('data', $data);
     }
@@ -88,6 +92,27 @@ class PagesController extends Controller
               ->labels(['Število uporabnikov', 'Število tekmovalcev'])
               ->dataset('', 'bar', [$users, $usersInCompetition])
               ->options(['showInLegend' => false]);
+        return $chart;
+    }
+
+    private function getPredictionsPoints() {
+        $predictionsCount = Prediction::whereNotNull('points')->count();
+        $predictions = Prediction::select(DB::raw('count(predictions.points) as predictions_count, predictions.points'))
+            ->groupBy('points')
+            ->whereNotNull('predictions.points')
+            ->get();
+        $points = ['0 Točk', '1 Točka', '3 Točke'];
+        $predictionsCounts = [];
+
+        foreach ($predictions as $prediction) {
+            $predictionsCounts[] = $prediction['predictions_count'];
+        }
+        $chart = new SampleChart;
+        $chart->title('Napovedi - skupno število napovedi za končane tekme: '. $predictionsCount)
+                ->labels($points)
+                ->dataset('', 'bar', $predictionsCounts)
+                ->options(['showInLegend' => false]);
+            
         return $chart;
     }
     
