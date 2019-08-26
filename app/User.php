@@ -21,11 +21,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'username', 'name', 'email', 'password', 'status',
     ];
 
-    // used for checking if user is admin
-    public function getStatus() {
-        return $this->status;
-    }
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -34,6 +29,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getStatus() {
+        return $this->status;
+    }
 
     public function overallPrediction() {
         return $this->hasOne('App\OverallPrediction', 'id_user');

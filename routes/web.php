@@ -28,10 +28,6 @@ Route::resource('predictions', 'PredictionsController', [
 
 Route::resource('teams', 'TeamsController');
 
-Route::resource('matchdays', 'MatchdaysController', [
-    'only' => ['index', 'show']
-]);
-
 Route::resource('overall_prediction', 'OverallPredictionsController', [
     'only' => ['index', 'update', 'store']
 ]);
@@ -50,6 +46,7 @@ Auth::routes(['verify' => true]);
 
 //groups
 Route::resource('groups', 'GroupsController');
+
 Route::post('send_invitation', 'GroupsController@sendInvitation');
 Route::post('store_user_to_group', 'GroupsController@storeUser');
 Route::post('remove_user', 'GroupsController@removeUser');
@@ -59,7 +56,12 @@ Route::post('leave_group', 'GroupsController@leaveGroup');
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 // admin page
-Route::get('/admin', 'AdminController@index');   
+Route::get('admin', 'AdminController@index')->name('admin');   
+Route::post('create_matchday', 'AdminController@createMatchday'); 
+Route::post('create_fixture', 'AdminController@createFixture');   
+Route::post('finish_fixtures', 'AdminController@finishFixtures');   
+
+
 
 // live search
 Route::get('/table/search', 'ParticipantsController@search');

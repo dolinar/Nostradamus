@@ -51,6 +51,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            @if (Auth::user()->status == 0)
+                                <a class="dropdown-item" href="{{route('admin')}}">Nadzorna plošča</a>
+                            @endif
                             <a class="dropdown-item" href="{{route('dashboard.index')}}">Profil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/overall_prediction">Končna napoved</a>
@@ -70,6 +73,7 @@
                         </div>
                     </li>
                 @endguest
+
             </ul>
         </div>
     </nav>

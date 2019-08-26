@@ -97,6 +97,7 @@ class PagesController extends Controller
 
     private function getPredictionsPoints() {
         $predictionsCount = Prediction::whereNotNull('points')->count();
+        $predictionsCountNull = Prediction::whereNull('points')->count();
         $predictions = Prediction::select(DB::raw('count(predictions.points) as predictions_count, predictions.points'))
             ->groupBy('points')
             ->whereNotNull('predictions.points')
@@ -108,7 +109,7 @@ class PagesController extends Controller
             $predictionsCounts[] = $prediction['predictions_count'];
         }
         $chart = new SampleChart;
-        $chart->title('Napovedi - skupno število napovedi za končane tekme: '. $predictionsCount)
+        $chart->title('Napovedi - skupno število napovedi za končane tekme: '. $predictionsCount . '. Skupaj napovedi: ' . ($predictionsCountNull + $predictionsCount))
                 ->labels($points)
                 ->dataset('', 'bar', $predictionsCounts)
                 ->options(['showInLegend' => false]);
@@ -153,7 +154,7 @@ class PagesController extends Controller
         $chart->title('Napoved končnega tekmovalca')
               ->labels($teams)
               ->dataset('Število napovedi', 'pie', $counts)
-              ->options(['color' => ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#5d82bf', '#73ba7b', '#73bab2', '#e2ae5a', '#a966e8', '#ff87fb']]);
+              ->options(['color' => ['#686868', '#50B432', '#ED561B', '#DDDF00', '#686868', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#5d82bf', '#73ba7b', '#73bab2', '#e2ae5a', '#a966e8', '#ff87fb']]);
         
         return $chart;
     }
