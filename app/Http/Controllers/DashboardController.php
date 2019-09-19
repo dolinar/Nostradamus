@@ -10,6 +10,7 @@ use App\User;
 use Auth;
 use App\PrivateMessage;
 use Illuminate\Support\Facades\Input;
+use Session;
 
 class DashboardController extends Controller
 { 
@@ -82,6 +83,8 @@ class DashboardController extends Controller
             $filenameToStore = $filename . '_' . time() . '.' . $ext;
 
             $path = $request->file('profile_image')->storeAs('public/profile_images', $filenameToStore);
+
+            Session::put('profile_image', 'storage/profile_images/' . $filenameToStore);
         } 
 
         $user->profile_image = $filenameToStore;

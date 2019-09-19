@@ -8,7 +8,7 @@ class Fixture extends Model
 {
 
     protected $table = 'fixtures';
-
+    protected $fillable = ['home_score', 'away_score'];
     public function matchday() {
         return $this->belongsTo('App\Matchday', 'id_matchday');
     }

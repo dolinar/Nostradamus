@@ -59,7 +59,7 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('admin', 'AdminController@index')->name('admin');   
 Route::post('create_matchday', 'AdminController@createMatchday'); 
 Route::post('create_fixture', 'AdminController@createFixture');   
-Route::post('finish_fixtures', 'AdminController@finishFixtures');   
+Route::post('finish_fixture', 'AdminController@finishFixture');   
 
 
 

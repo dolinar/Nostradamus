@@ -10489,15 +10489,6 @@ html * {
   }
 }
 
-body {
-  background: #d9dadb !important;
-  /*background-image: url("/championsleague.jpg");*/
-}
-
-.navbar-default {
-  background: #32726d !important;
-}
-
 .jumbotron {
   margin-top: 5%;
   background: white !important;
@@ -10528,6 +10519,10 @@ hr.no-space {
           justify-content: center;
 }
 
+.navbar a {
+  color: white;
+}
+
 .input-score {
   width: 50px;
   text-align: center;
@@ -10556,6 +10551,16 @@ hr.no-space {
   .profile-border {
     border-right: solid 1px #bdbdbd;
   }
+}
+
+@media (max-width: 991px) {
+  .col-margin {
+    margin-bottom: 25px;
+  }
+}
+
+.btn-rounded {
+  border-radius: 25px 25px 25px 25px !important;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -10603,10 +10608,6 @@ input[type=number]::-webkit-outer-spin-button {
   max-height: 250px;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-
-.btn-info {
-  background: #00b9f1 !important;
 }
 
 .predictions-dropdown {

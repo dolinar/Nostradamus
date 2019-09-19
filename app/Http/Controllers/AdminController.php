@@ -17,10 +17,12 @@ class AdminController extends Controller
     public function index() {
         $teams = Team::pluck('name', 'id')->toArray();
         $matchdays = Matchday::pluck('date', 'id')->toArray();
+        $nextFixture = Fixture::where('status', 'NS')->with(['teamHome', 'teamAway'])->first();
 
         $data = [
             'matchdays' => $matchdays,
-            'teams' => $teams
+            'teams' => $teams,
+            'nextFixture' => $nextFixture
         ];
         return view('admin.index')->with('data', $data);
     }
@@ -46,5 +48,19 @@ class AdminController extends Controller
         $fixture->save();
 
         return redirect('/admin')->with('success', 'Nova tekma shranjena.');
+    }
+
+    public function finishFixture(Request $request) {
+        $this->validate($request, [
+            'home_score' => 'required',
+            'away_score' => 'required'
+        ]);
+        $fixture = Fixture::find($request->id);
+        $fixture->update([
+            'home_score' => $request->home_score,
+            'away_score' => $request->away_score
+        ]);
+
+        return redirect('/admin')->with('success', 'Tekma zaključena.');
     }
 }

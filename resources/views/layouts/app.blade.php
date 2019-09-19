@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- CSRF Token -->
@@ -17,14 +17,17 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/select2.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/mdb.min.css')}}"/>
 
     <!-- Scripts -->
-    <script src="{{asset('js/jquery.min.js')}}"></script> 
+    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script> 
     <script src="{{asset('js/bootstrap.min.js')}}"></script> 
     <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/scripts.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
     <script src="{{asset('js/select2.min.js')}}"></script>
     <script src="{{asset('js/cookies.js')}}"></script>
+    <script src="{{asset('js/mdb.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script>
     <script src="{{asset('js/skies.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
@@ -33,7 +36,7 @@
 
 
 </head>
-<body>
+<body class="deep-purple lighten-5">
     @include('inc.navbar')
     <div class="container">
         <div class="jumbotron">

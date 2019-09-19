@@ -1,69 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+<!-- Default form login -->
 <div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">{{ __('Prijava') }}</div>
+    <form class="text-center border border-light p-5" method="POST" action="{{ route('login') }}">
+        @csrf
+        <p class="h4 mb-4">Prijava</p>
 
-            <div class="card-body">
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+        <!-- Username -->
+        <input placeholder="Uporabniško ime" id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }} mb-4" name="username" value="{{ old('username') }}" required autofocus>
+        @if ($errors->has('username'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('username') }}</strong>
+            </span>
+        @endif
 
-                    <div class="form-group row">
-                        <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Uporabniško ime') }}</label>
+        <!-- Geslo -->
+        <input placeholder="Geslo" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }} mb-4" name="password" required>
+        @if ($errors->has('password'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
 
-                        <div class="col-md-6">
-                            <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+        <div class="d-flex justify-content-around">
+            <div>
+                <!-- Remember me -->
+                <div class="custom-control custom-checkbox">
+                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                            @if ($errors->has('username'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('username') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Geslo') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-6 offset-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="remember">
-                                    {{ __('Zapomni si me') }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Prijava') }}
-                            </button>
-
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Pozabljeno geslo?') }}
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                    <label class="custom-control-label" for="defaultLoginFormRemember">Zapomni si me</label>
+                </div>
+            </div>
+            <div>
+                <!-- Forgot password -->
+                <a href="{{ route('password.request') }}">
+                    {{ __('Pozabljeno geslo?') }}
+                </a>
             </div>
         </div>
-    </div>
+
+        <!-- Sign in button -->
+        <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">
+            {{ __('Prijava') }}
+        </button>
+
+        <!-- Register -->
+        <p>Niste registrirani?
+            <a href="{{ route('register') }}">Registracija</a>
+        </p>
+        <hr>
+    </form>
 </div>
 @endsection

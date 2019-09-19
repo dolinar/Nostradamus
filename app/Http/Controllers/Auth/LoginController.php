@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Session;
+
 
 class LoginController extends Controller
 {
@@ -42,14 +45,20 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password]))
-        {
+        {   
             return $this->sendLoginResponse($request);
         }
         else
         {
             return $this->sendFailedLoginResponse($request, 'auth.failed_status');
         }
-}
+    }
+
+    protected function authenticated(Request $request, $user)   
+    {
+        $profile_image = 'storage/profile_images/' . Auth::user()->profile_image;
+        Session::put('profile_image', $profile_image);
+    }
 
     public function username() {
         return 'username';

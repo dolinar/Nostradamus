@@ -1,0 +1,139 @@
+html * {
+    font-family: 'Nunito Sans';
+    font-size: 1rem;
+}
+
+  
+@include media-breakpoint-up(sm) {
+    html {
+      font-size: 1.05rem;
+    }
+}
+  
+@include media-breakpoint-up(md) {
+    html {
+      font-size: 1.1rem;
+    }
+  }
+  
+@include media-breakpoint-up(lg) {
+    html {
+      font-size: 1.15rem;
+    }
+}
+body {
+    background: #d9dadb!important;
+    /*background-image: url("/championsleague.jpg");*/
+}
+
+.jumbotron {
+    margin-top: 5%;
+    background: white !important;
+    border-radius: 5px !important;
+}
+
+
+.eliminated {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.card-img-top-multiple {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+}
+
+hr.no-space {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.pagination {
+    justify-content: center;
+ }
+
+
+.input-score {
+    width: 50px;
+    text-align: center;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+
+    // Align text to center.
+    .text-xs-center {
+        text-align: center;
+    } 
+
+    .profile-border {
+        border-bottom: solid 1px rgb(189, 189, 189);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .profile-border {
+        border-right: solid 1px rgb(189, 189, 189);
+    }
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.general-text {
+    text-align: justify;
+}
+
+.cell-align-right {
+    text-align: right;
+}
+
+.group-delete-fa { cursor: pointer; }
+
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 250px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.btn-info {
+    background: #00b9f1 !important;
+}
+
+.predictions-dropdown {
+    cursor: pointer;
+}
+
