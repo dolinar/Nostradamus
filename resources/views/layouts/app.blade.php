@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/select2.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/mdb.min.css')}}"/>
-
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    
     <!-- Scripts -->
+    <script src="{{asset('js/app.js')}}"></script> 
     <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script> 
     <script src="{{asset('js/bootstrap.min.js')}}"></script> 
     <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
@@ -32,17 +34,17 @@
     <script src="{{asset('js/skies.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-
-
+    <script src="{{asset('js/bootstrap.js')}}"></script> 
 
 </head>
 <body class="deep-purple lighten-5">
     @include('inc.navbar')
-    <div class="container">
+    <div class="container" id='app'>
         <div class="jumbotron">
             @include('inc.messages')
             @yield('content')
         </div>
     </div>
 </body>
+
 </html>

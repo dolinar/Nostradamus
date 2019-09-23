@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ChatroomEvent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,3 +73,11 @@ Route::resource('private_message', 'PrivateMessagesController')->except([
     'create', 'edit', 'update'
 ]);
 Route::get('private_message/create/{id}', 'PrivateMessagesController@create')->name('send_private');
+
+// chatroom
+Route::post('send_chatroom_message', [
+    'as' => 'send_chatroom_message'
+    , function () {
+        event(new ChatroomEvent('Hello wrold'));
+    }
+]);

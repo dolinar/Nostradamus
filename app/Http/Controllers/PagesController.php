@@ -30,7 +30,7 @@ class PagesController extends Controller
 
         ];  
 
-        return view('pages.index')->with("data", $data);
+        return view('pages.index.index')->with("data", $data);
     }
 
 
