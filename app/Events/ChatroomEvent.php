@@ -8,12 +8,14 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Auth;
 
 class ChatroomEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $username;
 
     /**
      * Create a new event instance.
@@ -23,6 +25,7 @@ class ChatroomEvent implements ShouldBroadcastNow
     public function __construct($message)
     {
         $this->message = $message;
+        $this->username = Auth::user()->username;
     }
 
     /**

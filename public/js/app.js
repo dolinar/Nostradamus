@@ -13918,9 +13918,9 @@ __webpack_require__(13);
 */
 
 Echo.channel('chatroom-channel').listen('ChatroomEvent', function (e) {
-    console.log(e.message);
+    console.log(e);
     document.getElementById('msgField').value = 'new value';
-    alert(document.getElementById('chatbox').outerHTML);
+    // innerHTML = innerHTML + <msg>timestamp + e.username + e.message</msg>
 });
 
 /***/ }),

@@ -26,6 +26,7 @@ class ChatroomEventListener
      */
     public function handle(ChatroomEvent $event)
     {
+        // save to DB.
         return $event;
     }
 }
