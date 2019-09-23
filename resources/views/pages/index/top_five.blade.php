@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6"  style="flex-grow:1;display:flex;flex-direction:column">
     <div class="border p-3">
         <div class="row">
             <div class="col-10"><h5>Najboljših 5</h5></div>

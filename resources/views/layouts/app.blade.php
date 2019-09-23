@@ -22,8 +22,7 @@
     
     <!-- Scripts -->
     <script src="{{asset('js/app.js')}}"></script> 
-    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script> 
-    <script src="{{asset('js/bootstrap.min.js')}}"></script> 
+    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>  
     <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/scripts.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
@@ -34,7 +33,7 @@
     <script src="{{asset('js/skies.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-    <script src="{{asset('js/bootstrap.js')}}"></script> 
+
 
 </head>
 <body class="deep-purple lighten-5">

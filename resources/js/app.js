@@ -28,7 +28,10 @@ require('./bootstrap');
     }
 });
 */
+
 Echo.channel('chatroom-channel')
     .listen('ChatroomEvent', (e) => {
-        console.log(e);
+        console.log(e.message);
+        document.getElementById('msgField').value='new value';
+        alert(document.getElementById('chatbox').outerHTML);
     });

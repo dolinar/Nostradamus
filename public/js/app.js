@@ -13916,8 +13916,11 @@ __webpack_require__(13);
     }
 });
 */
+
 Echo.channel('chatroom-channel').listen('ChatroomEvent', function (e) {
-    console.log(e);
+    console.log(e.message);
+    document.getElementById('msgField').value = 'new value';
+    alert(document.getElementById('chatbox').outerHTML);
 });
 
 /***/ }),
