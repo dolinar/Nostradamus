@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}"/> 
     <link rel="stylesheet" href="{{asset('css/mdb.min.css')}}"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     
@@ -36,6 +36,7 @@
 
 
 </head>
+{{-- {{ setlocale(LC_ALL, 'sl_SL.UTF-8'); }}  --}}
 <body class="deep-purple lighten-5">
     @include('inc.navbar')
     <div class="container" id='app'>

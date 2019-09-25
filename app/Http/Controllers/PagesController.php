@@ -10,6 +10,7 @@ use App\Matchday;
 use App\User;
 use App\Fixture;
 use App\Prediction;
+use App\ChatroomMessage;
 use App\Charts\SampleChart;
 
 class PagesController extends Controller
@@ -20,16 +21,16 @@ class PagesController extends Controller
         $postsArray = $this->getPostsArray();
         $fixtures = $this->getNextMatchday();
         $topFive = $this->getTopFive();
-
+        $chatroomMessages = $this->getChatroomMessages();
 
         $data = [
 
             'posts' => $postsArray,
             'fixtures' => $fixtures,
             'topFive' => $topFive,
+            'chatroomMessages' => $chatroomMessages,
 
         ];  
-
         return view('pages.index.index')->with("data", $data);
     }
 
@@ -176,6 +177,10 @@ class PagesController extends Controller
                     ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId())
                     ->take(5)->get();
             
+    }
+
+    private function getChatroomMessages() {
+        return ChatroomMessage::with('user')->latest()->take(10)->get();
     }
 
     private function getMatchdayId() {

@@ -76,8 +76,6 @@ Route::get('private_message/create/{id}', 'PrivateMessagesController@create')->n
 
 // chatroom
 Route::post('send_chatroom_message', [
-    'as' => 'send_chatroom_message'
-    , function () {
-        event(new ChatroomEvent('Hello wrold'));
-    }
+    'as' => 'send_chatroom_message',
+    'uses' => 'ChatroomMessagesController@fireEvent'
 ]);

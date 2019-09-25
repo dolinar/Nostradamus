@@ -31,7 +31,23 @@ require('./bootstrap');
 
 Echo.channel('chatroom-channel')
     .listen('ChatroomEvent', (e) => {
-        console.log(e);
-        document.getElementById('msgField').value='new value';
-        // innerHTML = innerHTML + <msg>timestamp + e.username + e.message</msg>
+        //console.log(e);
+        var tbody = document.getElementById('chatroom-tbody');
+
+
+        var tbodyModified = tbody.innerHTML + 
+        '<tr>' +
+            '<td class="small text-muted">' + (new Date()).toTimeString().substr(0,5) + '</td>' +
+            '<td>' + e.username + '</td>' +
+            '<td>' + e.message + '</td>' +
+        '</tr>'
+        
+        tbody.innerHTML = tbodyModified;
+
+        var textField = document.getElementById('chatroom-text-field');
+        textField.value = '';
+        textField.focus();
+
+        var element = document.getElementById('chatbox');
+        element.scrollTop = element.scrollHeight;
     });

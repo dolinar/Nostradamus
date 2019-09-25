@@ -209,3 +209,43 @@ $(document).ready(function() {
 jQuery(document).ready(function() { 
     jQuery("time.timeago").timeago();
 });
+
+// chatroom 
+
+$(document).ready(function() {
+    // scroll to bottom
+    var element = document.getElementById('chatbox');
+    if (element) {
+        element.scrollTop = element.scrollHeight;    
+    }
+
+    // disable if not logged in
+    if ($('#chatroom-hidden-input').val() == null || $('#chatroom-hidden-input').val().length === 0) {
+        $('#chatroom-text-field').toggleClass('disabled');
+    }
+
+
+    // fire event on save
+    $('#btn-chatroom-add').click(function(){
+        // do nothing if no message
+        var message = $('#chatroom-text-field').val();
+        if (message == null || message.length === 0) {
+            return;
+        }
+
+
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            url: 'send_chatroom_message',
+            type: 'POST',    
+            dataType: 'json',
+            data: {message: message},
+            success: function (response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+});

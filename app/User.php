@@ -53,4 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function receivedMessages() {
         return $this->hasMany('App\PrivateMessage', 'id_receiver');
     }
+
+    public function sentChatroomMessages() {
+        return $this->hasMany('App\ChatroomMessage', 'id_user');
+    }
 }

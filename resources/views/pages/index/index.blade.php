@@ -4,7 +4,7 @@
     <div class="container">
         @include('pages.index.next_matchday')
         <br>
-        <div class="row" style="display:flex">
+        <div class="row row-eq-height" style="display:flex">
             @include('pages.index.chatroom')
             @include('pages.index.top_five')
         </div>

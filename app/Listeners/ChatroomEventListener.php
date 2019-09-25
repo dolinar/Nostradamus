@@ -5,6 +5,8 @@ namespace App\Listeners;
 use App\Events\ChatroomEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\ChatroomMessage;
+use Auth;
 
 class ChatroomEventListener
 {
@@ -26,7 +28,7 @@ class ChatroomEventListener
      */
     public function handle(ChatroomEvent $event)
     {
-        // save to DB.
+        // TODO: groups.
         return $event;
     }
 }

@@ -22,10 +22,10 @@ class ChatroomEvent implements ShouldBroadcastNow
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $username)
     {
         $this->message = $message;
-        $this->username = Auth::user()->username;
+        $this->username = $username;
     }
 
     /**
