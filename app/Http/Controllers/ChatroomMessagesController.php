@@ -18,6 +18,8 @@ class ChatroomMessagesController extends Controller
         $this->saveMessage($username, $message);
 
         event(new ChatroomEvent($message, $username));
+
+        return "{}";
     }
 
     function saveMessage($username, $message) {

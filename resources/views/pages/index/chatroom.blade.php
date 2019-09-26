@@ -1,15 +1,15 @@
 <div class="col-md-6 col-margin div-max-height">
     <div class="border p-3" style="height:100%;">
         <h5>Klepetalnica</h5>
-        <div id="chatbox" class="pre-scrollable">
+        <div id="chatbox" class="pre-scrollable mt-3">
 			@if (count($data['chatroomMessages']) > 0)
 				<table class="table table-sm max-height mb-0">
 					<tbody id="chatroom-tbody">
 					@foreach($data['chatroomMessages']->reverse() as $message)
 						<tr>
-							<td class="small text-muted">{{date('H:i', strtotime(date($message->created_at)))}}</td>
-							<td>{{$message->user->username}}</td>
-							<td>{{$message->message}}</td>
+							<td class="small text-muted" style="width:15%">{{date('H:i', strtotime(date($message->created_at)))}}</td>
+							<td class="small text-muted" style="width:25%">{{$message->user->username}}</td>
+							<td style="width:100px;word-break: break-all;">{{$message->message}}</td>
 						</tr>
 					@endforeach
 					</tbody>

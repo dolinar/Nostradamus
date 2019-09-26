@@ -213,6 +213,20 @@ jQuery(document).ready(function() {
 // chatroom 
 
 $(document).ready(function() {
+    // on enter press
+    var input = document.getElementById('chatroom-text-field');
+
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener('keyup', function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById('btn-chatroom-add').click();
+    }
+    });
+
     // scroll to bottom
     var element = document.getElementById('chatbox');
     if (element) {
@@ -228,8 +242,8 @@ $(document).ready(function() {
     // fire event on save
     $('#btn-chatroom-add').click(function(){
         // do nothing if no message
-        var message = $('#chatroom-text-field').val();
-        if (message == null || message.length === 0) {
+        var messageVal = $('#chatroom-text-field').val();
+        if (messageVal == null || messageVal.length === 0) {
             return;
         }
 
@@ -239,12 +253,16 @@ $(document).ready(function() {
             url: 'send_chatroom_message',
             type: 'POST',    
             dataType: 'json',
-            data: {message: message},
+            data: { message: messageVal },
             success: function (response) {
-                console.log(response);
+                var textField = document.getElementById('chatroom-text-field');
+                textField.value = '';
+                textField.focus();
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
+                console.log(status);
+                console.log(error);
             }
         });
     });

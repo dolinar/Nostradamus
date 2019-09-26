@@ -28,25 +28,25 @@ require('./bootstrap');
     }
 });
 */
-
+//var usersInChannel = 0;
 Echo.channel('chatroom-channel')
+    // .here((users) => {
+    //     usersInChannel = users.length;
+    // })
     .listen('ChatroomEvent', (e) => {
         //console.log(e);
         var tbody = document.getElementById('chatroom-tbody');
 
 
         var tbodyModified = tbody.innerHTML + 
+        // '<span class="badge">' + usersInChannel + '</span>'
         '<tr>' +
-            '<td class="small text-muted">' + (new Date()).toTimeString().substr(0,5) + '</td>' +
-            '<td>' + e.username + '</td>' +
-            '<td>' + e.message + '</td>' +
+            '<td class="small text-muted" style="width:15%">' + (new Date()).toTimeString().substr(0,5) + '</td>' +
+            '<td class="small text-muted" style="width:25%">' + e.username + '</td>' +
+            '<td style="width:100px;word-break: break-all;">' + e.message + '</td>' +
         '</tr>'
         
         tbody.innerHTML = tbodyModified;
-
-        var textField = document.getElementById('chatroom-text-field');
-        textField.value = '';
-        textField.focus();
 
         var element = document.getElementById('chatbox');
         element.scrollTop = element.scrollHeight;
