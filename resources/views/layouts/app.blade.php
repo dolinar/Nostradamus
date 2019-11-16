@@ -10,8 +10,9 @@
 
     <title>{{ config('app.name', 'Nostradamus') }}</title>
 
-    <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -21,10 +22,9 @@
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     
     <!-- Scripts -->
-    <script src="{{asset('js/app.js')}}"></script> 
-    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>  
-    <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>  
+    <script src="{{asset('js/jquery.timeago.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/scripts.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
     <script src="{{asset('js/select2.min.js')}}"></script>
     <script src="{{asset('js/cookies.js')}}"></script>
@@ -34,17 +34,14 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
 
-
 </head>
-{{-- {{ setlocale(LC_ALL, 'sl_SL.UTF-8'); }}  --}}
-<body class="deep-purple lighten-5">
-    @include('inc.navbar')
-    <div class="container" id='app'>
-        <div class="jumbotron">
-            @include('inc.messages')
-            @yield('content')
-        </div>
+<body>
+    @include('inc.navbar') 
+    <div class="jumbotron mt-n2 mb-n4">
+        @include('inc.messages')
+        @yield('content')
     </div>
+    @include('inc.footer')
 </body>
 
 </html>

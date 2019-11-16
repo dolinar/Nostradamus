@@ -1,4 +1,4 @@
-<div class="row border px-3 pt-3">
+<div class="row border px-1 pt-3 m-1">
     <div class="col">
     @if (count($data['fixtures']) > 0)
         <div class="row">
@@ -20,8 +20,8 @@
                     @if ($fixture['status'] == 'NS')
                         <tr>
                             <td>{{substr($fixture['time'], 0, 5)}}</td>
-                            <td>{{$fixture['team_home']['name']}}</td>
-                            <td>{{$fixture['team_away']['name']}}</td>
+                            <td><img style="height:2em" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}</td>
+                            <td><img style="height:2em" src="{{$fixture['team_away']['logo_url']}}"> {{$fixture['team_away']['name']}}</td>
                             <td>{{$data['fixtures']['stage']}}</td>
                         </tr>
                     @endif

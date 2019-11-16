@@ -53,12 +53,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages = [
+            'email.unique' => 'Račun s tem emailom že obstaja!',
+            'username.unique' => 'Račun s tem uporabniškim immenom že obstaja!',
+            'password-confirm.same' => 'Gesli se ne ujemata!'
+        ];
         return Validator::make($data, [
             'username' => 'required|string|max:20|unique:users',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'string', 'min:8', 'confirmed', new HasAtLeastOneDigit, new HasAtLeastOneSpecialChar],
-        ]);
+            'password' => ['required', 'string', 'min:8', new HasAtLeastOneDigit, new HasAtLeastOneSpecialChar],
+            'password-confirm' => ['same:password']
+        ], $messages);
     }
 
     /**
@@ -74,7 +80,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'status' => 1
+            'status' => 1,
+            'send_mail' => ($data['send_mail'] == 'on') ? 1 : 0,
+            'profile_image' => 'random/256_' . $data['profile_image'] . '.png'
         ]);
     }
 }

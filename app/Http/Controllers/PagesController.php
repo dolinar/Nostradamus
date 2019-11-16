@@ -22,7 +22,6 @@ class PagesController extends Controller
         $fixtures = $this->getNextMatchday();
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
-
         $data = [
 
             'posts' => $postsArray,
@@ -172,7 +171,7 @@ class PagesController extends Controller
         return User::where(function ($query) {
                         $query->where('status', 1)->orWhere('status', 0);
                     })
-                    ->select('users.id', 'users.username', 'user_data_flow.points_total', 'user_data_flow.position')
+                    ->select('users.id', 'users.username', 'users.profile_image', 'user_data_flow.points_total', 'user_data_flow.position')
                     ->join('user_data_flow', 'users.id', '=', 'user_data_flow.id_user')
                     ->where('user_data_flow.id_matchday', '=', $this->getMatchdayId())
                     ->take(5)->get();
@@ -180,6 +179,7 @@ class PagesController extends Controller
     }
 
     private function getChatroomMessages() {
+
         return ChatroomMessage::with('user')->latest()->take(10)->get();
     }
 

@@ -62,10 +62,10 @@ return [
     | Here you may specify the default timezone for your application, which
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
-    |
+    | 
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Ljubljana',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,8 +78,7 @@ return [
     |
     */
 
-    // 'locale' => 'sl',
-
+    'locale' => 'sl_SI',
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -91,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'sl',
+    'fallback_locale' => 'sl_SI',
 
     /*
     |--------------------------------------------------------------------------

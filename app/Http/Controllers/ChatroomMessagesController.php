@@ -14,10 +14,11 @@ class ChatroomMessagesController extends Controller
     function fireEvent(Request $request) {
         $message = $request->message;
         $username = Auth::user()->username;
-
+        $profileImg = Auth::user()->profile_image;
+        $userId = Auth::user()->id;
         $this->saveMessage($username, $message);
 
-        event(new ChatroomEvent($message, $username));
+        event(new ChatroomEvent($userId, $message, $username, $profileImg));
 
         return "{}";
     }

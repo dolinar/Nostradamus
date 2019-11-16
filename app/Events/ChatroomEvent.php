@@ -16,16 +16,19 @@ class ChatroomEvent implements ShouldBroadcastNow
 
     public $message;
     public $username;
-
+    public $profileImg;
+    public $userId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, $username)
+    public function __construct($userId, $message, $username, $profileImg)
     {
         $this->message = $message;
         $this->username = $username;
+        $this->profileImg = $profileImg;
+        $this->userId = $userId;
     }
 
     /**

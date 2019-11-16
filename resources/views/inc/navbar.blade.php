@@ -1,4 +1,4 @@
-<nav class="mb-1 navbar navbar-expand-lg deep-purple darken-1">
+<nav class="mb-1 navbar navbar-expand-lg blue darken-2">
     <a class="navbar-brand" href="/"> {{config('app.name', 'Nostradamus')}}</a>   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
             <span>
@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav ml-auto">
-            <!--<li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                     {{ Config::get('languages')[App::getLocale()] }}
                 </a>
@@ -18,7 +18,7 @@
                         @endif
                     @endforeach
                 </ul>
-            </li>-->
+            </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>
@@ -50,7 +50,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->username }} <span class="caret"></span>
-                        <img src="{{ Session::get('profile_image') }}" class="rounded-circle z-depth-0 mt-n3 mb-n3" style="max-height: 40px;"
+                        <img src="{{ Session::get('profile_image') }}" class="rounded-circle z-depth-0 mt-n3 mb-n3" style="height: 2rem; width:2rem"
                         alt="">
                     </a>
 

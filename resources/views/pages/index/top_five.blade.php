@@ -24,7 +24,8 @@
                             @if (Auth::id() == $participant['id']) 
                                 <td class="pl-3"><a href={{route('dashboard.index')}}>{{$participant['username']}}</a></td>
                             @else
-                                <td class="pl-3"><a href={{route('user_profile.show', ['id' => $participant['id']])}}>{{$participant['username']}}</a></td>
+                                <td class="pl-3"><span><a href={{route('user_profile.show', ['id' => $participant['id']])}}><img src="storage/profile_images/{{ $participant['profile_image'] }}" class="rounded-circle z-depth-0 mt-n3 mb-n3" style="height: 1.5rem; width:1.5rem"
+                                    alt=""> {{$participant['username']}}</a><span></td>
                             @endif
                             <td class="cell-align-right">{{($participant['points_total']) == null ? 0 : $participant['points_total']}}</td>
                         </tr>

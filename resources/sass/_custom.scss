@@ -1,5 +1,5 @@
 html * {
-    font-family: 'Nunito Sans';
+    font-family: 'Roboto';
     font-size: 1rem;
 }
 
@@ -23,9 +23,8 @@ html * {
 }
 
 .jumbotron {
-    margin-top: 5%;
     background: white !important;
-    border-radius: 5px !important;
+    margin-top: 2% !important;
 }
 
 .eliminated {
@@ -112,12 +111,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #c7c7c7; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #b3b3b3; 
 }
 
 .general-text {
@@ -145,3 +144,26 @@ input[type=number]::-webkit-outer-spin-button {
 .div-max-height {
     max-height: 500px;
 }
+
+.chatroom-button {
+    border-radius: 0px !important;
+}
+
+
+@media (min-width: 992px) {
+    .jumbotron {
+        margin-left: 7.5%;
+        margin-right: 7.5%;
+    }
+ }
+ .circle-img {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .circle-img img {
+    height: 100%;
+    transform: translateX(-50%);
+    margin-left: 50%;
+  }

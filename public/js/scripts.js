@@ -210,28 +210,45 @@ jQuery(document).ready(function() {
     jQuery("time.timeago").timeago();
 });
 
+jQuery(document).ready(function() { 
+    $('.image-selector').click(function() {
+        $('.image-selector').removeClass('green');
+        this.classList.add('green');
+        $('#profile_image').val(this.id);
+    });
+});
+
+
 // chatroom 
 
 $(document).ready(function() {
-    // on enter press
-    var input = document.getElementById('chatroom-text-field');
-
-    // Execute a function when the user releases a key on the keyboard
-    input.addEventListener('keyup', function(event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        // Cancel the default action, if needed
-        event.preventDefault();
-        // Trigger the button element with a click
-        document.getElementById('btn-chatroom-add').click();
-    }
-    });
-
+    // tooltip initn
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+        
     // scroll to bottom
     var element = document.getElementById('chatbox');
     if (element) {
         element.scrollTop = element.scrollHeight;    
     }
+
+    // on enter press
+    var input = document.getElementById('chatroom-text-field');
+
+    if (input){
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener('keyup', function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById('btn-chatroom-add').click();
+            }
+        });
+    }
+
 
     // disable if not logged in
     if ($('#chatroom-hidden-input').val() == null || $('#chatroom-hidden-input').val().length === 0) {
