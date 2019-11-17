@@ -17,8 +17,8 @@ Route::resource('dashboard', 'DashboardController', [
 ]);
 
 Route::get('/', 'PagesController@index');
-Route::get('/info', 'PagesController@info');
-Route::get('/instructions', 'PagesController@instructions');
+Route::get('/info', 'PagesController@info')->name('info');
+Route::get('/instructions', 'PagesController@instructions')->name('instructions');
 Route::get('/cl_statistics', 'PagesController@clStatistics');
 
 Route::get('/table', 'ParticipantsController@index');

@@ -9,6 +9,7 @@ use App\OverallPrediction;
 use App\Matchday;
 use App\User;
 use App\Fixture;
+use App\News;
 use App\Prediction;
 use App\ChatroomMessage;
 use App\Charts\SampleChart;
@@ -18,13 +19,13 @@ class PagesController extends Controller
 
     public function index() 
     {
-        $postsArray = $this->getPostsArray();
+        $news = $this->getNews();
         $fixtures = $this->getNextMatchday();
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
         $data = [
 
-            'posts' => $postsArray,
+            'posts' => $news,
             'fixtures' => $fixtures,
             'topFive' => $topFive,
             'chatroomMessages' => $chatroomMessages,
@@ -47,6 +48,7 @@ class PagesController extends Controller
             'registrations' => $registrations,
             'predictions' => $predictions
         ];
+
         return view('pages.info')->with('data', $data);
     }
 
@@ -75,11 +77,20 @@ class PagesController extends Controller
         return view('pages.cl_statistics');
     }
 
-    private function getPostsArray() {
-        $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
-        $postsArray = $blogFeed->posts;
-        return array_slice($postsArray, 0, 5);
+    private function getNews() {
+        $news = News::join('news_type', 'news.news_type_id', 'news_type.id')
+            ->join('users', 'news.id_user', 'users.id')
+            ->select('users.username', 'news_type.name', 'news.title', 'news.summary', 'news.img_ref', 'news.created_at')
+            ->limit(3)
+            ->get();
+
+        return $news;
     }
+    // private function getPostsArray() {
+    //     $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
+    //     $postsArray = $blogFeed->posts;
+    //     return array_slice($postsArray, 0, 5);
+    // }
 
     
 

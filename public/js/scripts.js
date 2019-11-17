@@ -162,6 +162,7 @@ $(document).ready(function(){
     }) 
 });
 
+// dropdowns
 $(document).ready(function() {
     $('.li-results').click(function() {    
         var id = $(this).attr('id');
@@ -179,10 +180,6 @@ $(document).ready(function() {
         $(this).find('.fa-chevron-previous-predictions').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
 
-
-
-
-    
     $('.previous-predictions-profile-dropdown').click(function() {
         $('.previous-prediction').toggle(500);
         $(this).find('.fa-chevron-previous-predictions-profile').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
@@ -206,10 +203,13 @@ $(document).ready(function() {
 });
 
 
+// timeago
 jQuery(document).ready(function() { 
     jQuery("time.timeago").timeago();
 });
 
+
+// registration images
 jQuery(document).ready(function() { 
     $('.image-selector').click(function() {
         $('.image-selector').removeClass('green');
@@ -220,7 +220,6 @@ jQuery(document).ready(function() {
 
 
 // chatroom 
-
 $(document).ready(function() {
     // tooltip initn
     $(function () {

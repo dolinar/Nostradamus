@@ -9,5 +9,4 @@
     </div>
     <br>
     @include('pages.index.news')
-    @include('pages.index.footer')
 @endsection

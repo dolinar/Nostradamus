@@ -1,42 +1,135 @@
-<footer class="page-footer font-small  blue lighten-1 mx-4n mt-4" style="">
+<!-- Footer -->
+<footer class="page-footer font-small blue-grey lighten-5">
 
-    <!-- Footer Elements -->
-    <div class="container">
-    
+    <div class="blue lighten-2">
+      <div class="container">
+  
         <!-- Grid row-->
-        <div class="row">
-        
-            <!-- Grid column -->
-            <div class="col-md-12 py-2">
-                <div class="mb-5 flex-center">
-        
-                <a type="button" class="btn-floating btn-fb btn-sm">
-                <i class="fab fa-facebook-f"></i>
-                </a>
-                <a type="button" class="btn-floating btn-tw btn-sm">
-                <i class="fab fa-twitter"></i>
-                </a>
-                <a type="button" class="btn-floating btn-li btn-sm">
-                <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a type="button" class="btn-floating btn-git btn-sm">
-                <i class="fab fa-github"></i>
-                </a>
-                </div>
-            </div>
-            <!-- Grid column -->
-    
+        <div class="row py-4 d-flex align-items-center">
+  
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h6 class="mb-0">Obiščite naša socialna omrežja!</h6>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+  
+            <!-- Facebook -->
+            <a class="fb-ic">
+              <i class="fab fa-facebook-f white-text mr-4"> </i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic">
+              <i class="fab fa-twitter white-text mr-4"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic">
+              <i class="fab fa-google-plus-g white-text mr-4"> </i>
+            </a>
+            <!--Linkedin -->
+            <a class="li-ic">
+              <i class="fab fa-linkedin-in white-text mr-4"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i class="fab fa-instagram white-text"> </i>
+            </a>
+  
+          </div>
+          <!-- Grid column -->
+  
         </div>
         <!-- Grid row-->
-    
+  
+      </div>
     </div>
-    <!-- Footer Elements -->
-    
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">
-        Nogometni navdušenci
+  
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left mt-5">
+  
+      <!-- Grid row -->
+      <div class="row mt-3 dark-grey-text">
+  
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+  
+          <!-- Content -->
+          <h6 class="text-uppercase font-weight-bold">Nogometni navdušenci</h6>
+          <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>Ekipa Nogometnih navdušencev predstavlja drugo izvedbo tekmovanja Nostradamus Lige Prvakov.</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+  
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Products</h6>
+          <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a class="dark-grey-text" href="#!">MDBootstrap</a>
+          </p>
+          <p>
+            <a class="dark-grey-text" href="#!">MDWordPress</a>
+          </p>
+          <p>
+            <a class="dark-grey-text" href="#!">Bootstrap Angular</a>
+          </p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+  
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Povezave</h6>
+          <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          @auth
+            <p>
+                <a class="dark-grey-text" href="{{route('dashboard.index')}}">Profil</a>
+            </p>  
+          @endauth
+          @guest
+            <p>
+              <a class="dark-grey-text" href="{{route('login')}}">Prijava</a>
+            </p>
+            <p>
+                <a class="dark-grey-text" href="{{route('register')}}">Registracija</a>
+            </p>
+          @endguest
+          <p>
+          <a class="dark-grey-text" href="{{route('info')}}">Informacije</a>
+          </p>
+          <p>
+            <a class="dark-grey-text" href="{{route('instructions')}}">Navodila</a>
+          </p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold">Kontakt</h6>
+          <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <i class="fas fa-home mr-3"></i> Ljubljana, Slovenija</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i> support@nostradamus.si</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> +368 41 580 199</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
     </div>
-    <!-- Copyright -->
-      
-</footer>
-<!-- Footer -->
+    <!-- Footer Links -->
+  
