@@ -56,7 +56,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)   
     {
-        $profile_image = 'storage/profile_images/' . Auth::user()->profile_image;
+        $profile_image = '/storage/profile_images/' . Auth::user()->profile_image;
         Session::put('profile_image', $profile_image);
     }
 

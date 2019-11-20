@@ -181,6 +181,8 @@ $(document).ready(function() {
     });
 
     $('.previous-predictions-profile-dropdown').click(function() {
+        
+        $('.previous-prediction-item').hide(500);
         $('.previous-prediction').toggle(500);
         $(this).find('.fa-chevron-previous-predictions-profile').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });

@@ -37,7 +37,7 @@
 </head>
 <body>
     @include('inc.navbar') 
-    <div class="jumbotron mt-n2 mb-n4">
+    <div class="jumbotron mb-n4">
         @include('inc.messages')
         @yield('content')
     </div>

@@ -1,9 +1,9 @@
-<nav class="mb-1 navbar navbar-expand-lg blue darken-2">
+<nav class="navbar navbar-expand-lg blue darken-1">
     <a class="navbar-brand" href="/"> {{config('app.name', 'Nostradamus')}}</a>   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
             <span>
-                    <i class="fas fa-bars"></i>
-                </span>
+                <i class="fas fa-bars"></i>
+            </span>
     </button>
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav ml-auto">
@@ -39,6 +39,8 @@
                     <a class="dropdown-item" href="/teams">Ekipe</a>
                 </div>
             </li>
+        {{-- </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons"> --}}
             @guest
             <form class="form-inline">
                 <a class="btn btn-outline-white btn-sm my-0" href="{{ route('login') }}">{{ __('Prijava') }}</a>
@@ -47,9 +49,8 @@
                 @endif
             </form>
             @else
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown ml-auto">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->username }} <span class="caret"></span>
                         <img src="{{ Session::get('profile_image') }}" class="rounded-circle z-depth-0 mt-n3 mb-n3" style="height: 2rem; width:2rem"
                         alt="">
                     </a>
@@ -81,3 +82,4 @@
         </ul>
     </div>
 </nav>
+

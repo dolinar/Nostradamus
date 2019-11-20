@@ -1,6 +1,6 @@
 @if ($data['invitations'])
 <div class="table-responsive" style="border-radius:5px">
-    <table class="table table-hover">
+    <table class="table table-sm table-hover">
         <thead>
             <tr>
             <th scope="col" class="cell-align-right">#</th>

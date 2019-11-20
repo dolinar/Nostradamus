@@ -31,7 +31,7 @@
                         <p class="card-text">{{$post['summary']}}</p>
                         <hr>
                         <a class="card-meta"><span><i class="fas fa-star"></i>Rating</span></a>
-                        <p class="card-meta float-right">{{$post['username'] . ': ' . date('d F o, H:i', strtotime(date($post['created_at'])))}}</p>
+                        <p class="card-meta small text-muted float-right"><i class="fas fa-calendar"></i>{{$post['username'] . ': ' . date('d F o, H:i', strtotime(date($post['created_at'])))}}</p>
                     </div>
                     <!--Card content-->
                 </div>
