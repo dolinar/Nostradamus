@@ -2,13 +2,13 @@
   $.fn.mdbRate = function () {
     var $stars;
     // Custom whitelist to allow for using HTML tags in popover content
-    var myDefaultWhiteList = $.fn.tooltip.Constructor.Default.whiteList
-    myDefaultWhiteList.textarea = [];
-    myDefaultWhiteList.button = [];
+    // var myDefaultWhiteList = $.fn.tooltip.Constructor.Default.whiteList
+    // myDefaultWhiteList.textarea = [];
+    // myDefaultWhiteList.button = [];
 
     var $container = $(this);
 
-    var titles = ['Very bad', 'Poor', 'OK', 'Good', 'Excellent'];
+    var titles = ['Zelo slabo', 'Slabo', 'OK', 'Dobro', 'Odlično!'];
 
     for (var i = 0; i < 5; i++) {
       $container.append(`<i class="py-2 px-1 rate-popover" data-index="${i}" data-html="true" data-toggle="popover"
@@ -91,12 +91,27 @@
 
     $stars.on('click', function () {
       $stars.popover('hide');
+      var nOfStars;
+      if ($stars.hasClass('oneStar')) {
+        nOfStars = 1;
+      } else if ($stars.hasClass('twoStars')) {
+        nOfStars = 2;
+      } else if ($stars.hasClass('threeStars')) {
+        nOfStars = 3;
+      } else if ($stars.hasClass('fourStars')) {
+        nOfStars = 4;
+      } else {
+        nOfStars = 5;
+      }
+      console.log(nOfStars);
+
     });
 
     // Submit, you can add some extra custom code here
     // ex. to send the information to the server
     $container.on('click', '#voteSubmitButton', function () {
       $stars.popover('hide');
+
     });
 
     // Cancel, just close the popover

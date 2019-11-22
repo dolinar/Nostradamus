@@ -79,3 +79,5 @@ Route::post('send_chatroom_message', [
     'as' => 'send_chatroom_message',
     'uses' => 'ChatroomMessagesController@fireEvent'
 ]);
+
+Route::resource('news', 'NewsController');

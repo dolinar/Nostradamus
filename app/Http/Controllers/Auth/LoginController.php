@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password]))
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {   
             return $this->sendLoginResponse($request);
         }
@@ -58,9 +58,5 @@ class LoginController extends Controller
     {
         $profile_image = '/storage/profile_images/' . Auth::user()->profile_image;
         Session::put('profile_image', $profile_image);
-    }
-
-    public function username() {
-        return 'username';
     }
 }

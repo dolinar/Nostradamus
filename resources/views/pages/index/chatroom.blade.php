@@ -25,7 +25,7 @@
 			@if (Auth::check())
 				<input type="hidden" value="{{Auth::user()->id}}" id="chatroom-hidden-input">
 			@endif
-            <input id="chatroom-text-field" type="text" class="form-control" placeholder="Sporočilo" aria-label="Sporočilo"
+            <input data-emojiable="true" id="chatroom-text-field" type="text" class="form-control" placeholder="Sporočilo" aria-label="Sporočilo"
               aria-describedby="button-addon">
             <div class="input-group-append">
               <button class="btn btn-md btn-outline-primary m-0 px-3 py-2 z-depth-0 waves-effect chatroom-button" type="button" id="btn-chatroom-add">+</button>

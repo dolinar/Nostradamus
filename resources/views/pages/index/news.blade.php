@@ -3,7 +3,7 @@
 @if (count($data['posts']) > 0)
     <div class="row">
         @foreach($data['posts'] as $post)
-        <div class="col-md-4">
+        <div class="col-xl-3 col-lg-6 col-md-6">
 
         <!--Card group-->
             <div class="card-group">
@@ -18,7 +18,7 @@
                         </a>
                     </div>
                     <!--Card image-->
-            
+                    <a href="{{route('news.show', ['id' => $post['id']]) }}" class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i class="fas fa-chevron-right pl-1"></i></a>
                     <!--Card content-->
                     <div class="card-body">
                         <!--Title-->
@@ -30,8 +30,10 @@
                         <!--Text-->
                         <p class="card-text">{{$post['summary']}}</p>
                         <hr>
-                        <a class="card-meta"><span><i class="fas fa-star"></i>Rating</span></a>
-                        <p class="card-meta small text-muted float-right"><i class="fas fa-calendar"></i>{{$post['username'] . ': ' . date('d F o, H:i', strtotime(date($post['created_at'])))}}</p>
+
+                        <span class="card-meta small text-muted float-right w-100"><i class="fas fa-calendar"></i>{{$post['username'] . ': '}}<time class="timeago" datetime="{{$post['created_at']}}"><small></small></time></span>
+                        <div class="container"><span id="rate-{{$post['id']}}" class="card-meta rate-stars empty-stars float-right"></span></div>
+                        
                     </div>
                     <!--Card content-->
                 </div>

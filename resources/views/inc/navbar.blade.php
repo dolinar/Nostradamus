@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg blue darken-1">
-    <a class="navbar-brand" href="/"> {{config('app.name', 'Nostradamus')}}</a>   
+<nav class="navbar navbar-dark navbar-expand-lg" style="background:#3b5998">
+    {{-- <a class="navbar-brand" href="/"> {{config('app.name', 'Nostradamus')}}</a>    --}}
+    <a href="/"><img style="max-height:3rem" src="/logo.png"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
             <span>
                 <i class="fas fa-bars"></i>
@@ -7,7 +8,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                     {{ Config::get('languages')[App::getLocale()] }}
                 </a>
@@ -18,7 +19,7 @@
                         @endif
                     @endforeach
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>

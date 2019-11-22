@@ -80,8 +80,9 @@ class PagesController extends Controller
     private function getNews() {
         $news = News::join('news_type', 'news.news_type_id', 'news_type.id')
             ->join('users', 'news.id_user', 'users.id')
-            ->select('users.username', 'news_type.name', 'news.title', 'news.summary', 'news.img_ref', 'news.created_at')
-            ->limit(3)
+            ->select('news.id', 'users.username', 'news_type.name', 'news.title', 'news.summary', 'news.img_ref', 'news.created_at')
+            ->limit(4)
+            ->orderBy('news.id', 'desc')
             ->get();
 
         return $news;

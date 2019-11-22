@@ -18,24 +18,20 @@
             @csrf
             <!-- Email -->
             <div class="md-form">
-            <input id="username" type="text" class="form-control {{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-            <label for="username">Uporabniško ime</label>
+                <input id="email" type="text" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                <label for="email">E-mail</label>
             </div>
-            @if ($errors->has('username'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('username') }}</strong>
-                </span>
-            @endif
     
             <!-- Password -->
             <div class="md-form">
-            <input id="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-            <label for="password">Geslo</label>
-            @if ($errors->has('password'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
+                <input id="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                <label for="password">Geslo</label>
+
+                @if ($errors->has('email'))
+                    <span class="text-danger" role="alert">
+                        Napačna prijava.
+                    </span>
+                @endif
             </div>
     
             <div class="d-flex justify-content-around">

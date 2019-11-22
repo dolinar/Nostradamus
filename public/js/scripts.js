@@ -25,6 +25,7 @@ $(document).ready(function() {
         $('#div-' + id).toggle(500);
         $(this).find('i').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
     });
+
 });
 
 $(document).ready(function() {
@@ -161,6 +162,13 @@ $(document).ready(function(){
         }
     }) 
 });
+
+$(document).ready(function() {
+    $('.rate-stars').each($(this).mdbRate);
+    $('#rate-1').click(function(){
+    });
+});
+
 
 // dropdowns
 $(document).ready(function() {

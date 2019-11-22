@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer class="page-footer font-small blue-grey lighten-5">
 
-    <div class="blue lighten-2">
+    <div class="blue lighten-1">
       <div class="container">
   
         <!-- Grid row-->
@@ -29,7 +29,7 @@
               <i class="fab fa-google-plus-g white-text mr-4"> </i>
             </a>
             <!--Linkedin -->
-            <a class="li-ic">
+            <a href="https://github.com/dolinar/" target="_blank" class="li-ic">
               <i class="fab fa-linkedin-in white-text mr-4"> </i>
             </a>
             <!--Instagram-->

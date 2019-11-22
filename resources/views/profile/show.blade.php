@@ -5,7 +5,7 @@
     <div class="card testimonial-card">
 
         <!-- Background color -->
-        <div class="card-up aqua-gradient"></div>
+        <div class="card-up blue"></div>
         
         <!-- Avatar -->
         <div class="avatar mx-auto white">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="predictions-dropdown previous-predictions-profile-dropdown">    
-                        <h5 class="mt-2">Pretekle napovedi <i class="fas fa-chevron-down fa-chevron-previous-predictions-profile"></i></h5>
+                        <button type="button" class="btn btn-primary btn-sm mt-1 w-100">Pretekle napovedi <i class="fas fa-chevron-down fa-chevron-previous-predictions-profile"></i></button>
                     </div>
                     <hr>
                     @forelse ($data['predictions'] as $matchday)
