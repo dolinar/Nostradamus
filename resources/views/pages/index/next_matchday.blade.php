@@ -17,9 +17,9 @@
             </thead>
             <tbody>
                 @foreach ($data['fixtures']['fixtures'] as $fixture)
-                    @if ($fixture['status'] == 'NS')
+                    @if ($fixture['status'] == 'NOT_STARTED')
                         <tr>
-                            <td>{{substr($fixture['time'], 0, 5)}}</td>
+                            <td>{{substr(date('H:i', strtotime($fixture['time'] . ' UTC')), 0, 5)}}</td>
                             <td><img style="height:2em" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}</td>
                             <td><img style="height:2em" src="{{$fixture['team_away']['logo_url']}}"> {{$fixture['team_away']['name']}}</td>
                             <td>{{$data['fixtures']['stage']}}</td>

@@ -13,14 +13,20 @@ use App\News;
 use App\Prediction;
 use App\ChatroomMessage;
 use App\Charts\SampleChart;
+use App\LivescoreApi\GetLiveScores;
 
 class PagesController extends Controller
 {
 
     public function index() 
     {
+
+        $api = new GetLiveScores;
+
+        return;
         $news = $this->getNews();
         $fixtures = $this->getNextMatchday();
+    
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
         $data = [
