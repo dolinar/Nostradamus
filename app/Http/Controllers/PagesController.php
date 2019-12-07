@@ -22,7 +22,7 @@ class PagesController extends Controller
     {
 
         $api = new GetLiveScores;
-
+        return ;
         return;
         $news = $this->getNews();
         $fixtures = $this->getNextMatchday();

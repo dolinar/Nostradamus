@@ -30,16 +30,22 @@ class GetFixtures implements ShouldQueue
         $data = $this->toAssocArray($json);
 
         $this->insertNewFixture($data);
-
-
     }
 
     private function readIniFile() {
         $ini = parse_ini_file('config.ini');
-        define('KEY', $ini['KEY']);
-        define('SECRET', $ini['SECRET']); 
-        define('BASE_URI', $ini['BASE_URI']);
-        define('COMPETITION_ID', $ini['COMPETITION_ID']);
+        
+        $this->defineIfNotDefined('KEY', $ini['KEY']);
+        $this->defineIfNotDefined('SECRET', $ini['SECRET']);
+        $this->defineIfNotDefined('BASE_URI', $ini['BASE_URI']);
+        $this->defineIfNotDefined('COMPETITION_ID', $ini['COMPETITION_ID']);
+    }
+
+    
+    private function defineIfNotDefined($key, $value) {
+        if (!defined($key)) {
+            define($key, $value);
+        }
     }
 
     private function getData() {
@@ -58,7 +64,6 @@ class GetFixtures implements ShouldQueue
 
     private function insertNewFixture($data) {
         $fixtures = $data['data']['fixtures'];
-
         foreach ($fixtures as $value) {
             $fixtureDate = $value['date'];
             $this->insertNewMatchday($fixtureDate);
@@ -86,9 +91,10 @@ class GetFixtures implements ShouldQueue
                 $fixture->status = 'NOT_STARTED';
                 $fixture->id_api = $fixtureId;
                 if ($awayTeam == null || $homeTeam == null)
-                    return;
+                    continue;
                 $fixture->save();
             }       
+
         }
         
     }
