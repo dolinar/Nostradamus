@@ -1,6 +1,6 @@
+@if (count($data['fixtures']) > 0 && count($data['liveFixtures']) == 0)
 <div class="row border px-1 pt-3 m-1">
     <div class="col">
-    @if (count($data['fixtures']) > 0)
         <div class="row">
             <div class="col-md-11"><h5>Naslednji tekmovalni dan: {{ strftime('%e %B, %G', strtotime($data['fixtures']['date']))}}</h5></div>
             <div class="col-md-1 mt-n2"><a class="btn btn-outline-primary btn-sm float-right mr-n2" href="/cl_draw">Več</a></div>
@@ -29,6 +29,6 @@
             </tbody>
         </table>
         </div>
-    @endif
     </div>
 </div>
+@endif

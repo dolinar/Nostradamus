@@ -21,20 +21,25 @@ class PagesController extends Controller
     public function index() 
     {
 
-        $api = new GetLiveScores;
-        return ;
-        return;
+        //$api = new GetLiveScores;
+
         $news = $this->getNews();
         $fixtures = $this->getNextMatchday();
     
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
+        $liveFixtures = $this->getLiveFixtures();
+        // echo '<pre>';
+        //     var_dump($liveFixtures);
+        // echo '</pre>';
+        //return $liveFixtures;
         $data = [
 
             'posts' => $news,
             'fixtures' => $fixtures,
             'topFive' => $topFive,
             'chatroomMessages' => $chatroomMessages,
+            'liveFixtures' => $liveFixtures
 
         ];  
         return view('pages.index.index')->with("data", $data);
@@ -93,6 +98,7 @@ class PagesController extends Controller
 
         return $news;
     }
+
     // private function getPostsArray() {
     //     $blogFeed = new BlogFeed("https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml");
     //     $postsArray = $blogFeed->posts;
@@ -207,5 +213,16 @@ class PagesController extends Controller
                        ->limit(1)
                        ->pluck('id');
         return count($id) == 0 ? 0 : $id[0];
+    }
+
+    private function getLiveFixtures() {
+        $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
+        return $matchday 
+                ? Fixture::with('matchday', 'teamHome', 'teamAway')
+                            ->where('fixtures.status', 'IN_PLAY')
+                            ->orWhere('fixtures.status', 'ADDED_TIME')
+                            ->orWhere('fixtures.status', 'HALF_TIME_BREAK')
+                            ->get() 
+                : array();
     }
 }

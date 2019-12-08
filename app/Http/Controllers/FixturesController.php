@@ -32,4 +32,8 @@ class FixturesController extends Controller
         ];
         return view('pages.cl_draw')->with('data', $data);
     }
+
+    public function showLiveMatch($id) {
+        return view('pages.live_match');
+    }
 }

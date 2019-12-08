@@ -165,3 +165,31 @@ input[type=number]::-webkit-outer-spin-button {
     transform: translateX(-50%);
     margin-left: 50%;
   }
+
+
+  .blink-text {
+
+    animation:1.5s blinker linear infinite;
+    -webkit-animation:1.5s blinker linear infinite;
+    -moz-animation:1.5s blinker linear infinite;
+
+     color: red;
+    }
+
+    @-moz-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @-webkit-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }

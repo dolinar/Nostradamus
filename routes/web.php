@@ -81,3 +81,6 @@ Route::post('send_chatroom_message', [
 ]);
 
 Route::resource('news', 'NewsController');
+
+// Live fixture
+Route::get('live_match/{id}', 'FixturesController@showLiveMatch')->name('live_match');
