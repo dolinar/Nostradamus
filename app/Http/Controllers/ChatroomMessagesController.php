@@ -31,4 +31,11 @@ class ChatroomMessagesController extends Controller
 
         $chatroomMessage->save();
     }
+
+    function getChatroomMessages(int $count) {
+        $messages = ChatroomMessage::with('user')->latest()->take($count)->get();
+        $data = ['chatroomMessages' => $messages];
+        $html = view('pages.index.chatroom')->with("data", $data)->render();
+        return $html;
+    }
 }

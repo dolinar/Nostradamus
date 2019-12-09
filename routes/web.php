@@ -80,6 +80,8 @@ Route::post('send_chatroom_message', [
     'uses' => 'ChatroomMessagesController@fireEvent'
 ]);
 
+Route::get('get_chatroom_messages/{count}', 'ChatroomMessagesController@getChatroomMessages')->name('get_chatroom_messages');
+
 Route::resource('news', 'NewsController');
 
 // Live fixture

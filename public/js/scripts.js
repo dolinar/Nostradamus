@@ -242,6 +242,17 @@ $(document).ready(function() {
         element.scrollTop = element.scrollHeight;    
     }
 
+    // $('#chatbox').on('scroll', function(){
+    //     console.log($('#chatbox').scrollTop());
+    //     if ($('#chatbox').scrollTop() == 0) {   
+    //         var count = parseInt($('#chatroom-table tr').length) + 10;
+    //         $.get('get_chatroom_messages/' + count, function(responseData) {
+    //             $('#chatroom-div').replaceWith(responseData); 
+    //         });
+    //     }
+    // });
+
+
     // on enter press
     var input = document.getElementById('chatroom-text-field');
 

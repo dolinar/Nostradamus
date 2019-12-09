@@ -1,9 +1,9 @@
-<div class="col-md-6 col-margin">
+<div class="col-md-6 col-margin" id="chatroom-div">
     <div class="border p-3" style="height:100%;">
         <h5>Klepetalnica</h5>
         <div id="chatbox" class="pre-scrollable mt-3">
 			@if (count($data['chatroomMessages']) > 0)
-				<table class="table table-sm max-height mb-0">
+				<table class="table table-sm max-height mb-0" id="chatroom-table">
 					<tbody id="chatroom-tbody">
 					@foreach($data['chatroomMessages']->reverse() as $message)
 						<tr>
@@ -33,3 +33,15 @@
           </div>
     </div>
 </div>
+<script>    
+$('#chatbox').on('scroll', function(){
+	console.log($('#chatbox').scrollTop());
+	if ($('#chatbox').scrollTop() == 0) {   
+		var count = parseInt($('#chatroom-table tr').length) + 10;
+		$.get('get_chatroom_messages/' + count, function(responseData) {
+			$('#chatroom-div').replaceWith(responseData); 
+			$('#chatbox').scrollTop($('#chatroom-table tr').eq(0).height() * 10); 
+			console.log($('tr').eq(0).height() * count);
+		});
+	}
+});</script>
