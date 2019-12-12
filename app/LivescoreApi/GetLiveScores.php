@@ -80,7 +80,7 @@ class GetLiveScores
                             $this->updateFixtureStatus($localFixtureId, 'HALF_TIME_BREAK');
                             $this->updateFixture($localFixtureId, $liveMatch['ht_score'], 'ht_score');
                         }
-
+                        $this->updateFixture($localFixtureId, $liveMatch['time'], 'minutes');
                     } else if ($liveMatch['status'] == 'ADDED TIME') {
                         if ($localFixture['status'] == 'IN_PLAY') {
                             $this->updateFixtureStatus($localFixtureId, 'ADDED_TIME');

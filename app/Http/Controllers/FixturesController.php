@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Fixture;
 use App\Matchday;
+use App\MatchStats;
+use App\MatchEvent;
 
 class FixturesController extends Controller
 {
@@ -34,6 +36,16 @@ class FixturesController extends Controller
     }
 
     public function showLiveMatch($id) {
-        return view('pages.live_match');
+        $fixture = Fixture::with('matchday', 'teamHome', 'teamAway')->find($id);
+        $idMatch = $fixture->id_match;
+        $matchStats = MatchStats::find($idMatch);
+        $matchEvents = MatchEvent::where('id_match', $idMatch)->get();
+
+        $data = [
+            'fixture' => $fixture,
+            'matchStats' => $matchStats,
+            'matchEvents' =>$matchEvents
+        ];
+        return view('pages.live_match')->with('data', $data);
     }
 }
