@@ -46,6 +46,6 @@ class FixturesController extends Controller
             'matchStats' => $matchStats,
             'matchEvents' =>$matchEvents
         ];
-        return view('pages.live_match')->with('data', $data);
+        return view('pages.livematches.live_match')->with('data', $data);
     }
 }
