@@ -1,5 +1,4 @@
 <div class="tab-pane fade" id="contact-classic-shadow" role="tabpanel" aria-labelledby="contact-tab-classic-shadow">
-    <div class="view overlay">
     @foreach ($data['matchEvents'] as $event)
         <div class="row border-bottom p-2"> 
             <div class="col-4">
@@ -31,9 +30,6 @@
                 @endif
             </div>
         </div>
-        <div class="mask flex-center rgba-red-strong">
-                <p class="white-text">Strong overlay</p>
-            </div>
     @endforeach
     </div>
 </div>

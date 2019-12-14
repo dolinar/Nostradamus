@@ -33,15 +33,4 @@
           </div>
     </div>
 </div>
-<script>    
-$('#chatbox').on('scroll', function(){
-	console.log($('#chatbox').scrollTop());
-	if ($('#chatbox').scrollTop() == 0) {   
-		var count = parseInt($('#chatroom-table tr').length) + 10;
-		$.get('get_chatroom_messages/' + count, function(responseData) {
-			$('#chatroom-div').replaceWith(responseData); 
-			$('#chatbox').scrollTop($('#chatroom-table tr').eq(0).height() * 10); 
-			console.log($('tr').eq(0).height() * count);
-		});
-	}
-});</script>
+<script src="{{asset('js/chatroom.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
