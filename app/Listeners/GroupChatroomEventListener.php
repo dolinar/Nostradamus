@@ -2,13 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\ChatroomEvent;
+use App\Events\GroupChatroomEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\ChatroomMessage;
+use App\GroupChatroomMessage;
 use Auth;
-
-class ChatroomEventListener
+class GroupChatroomEventListener
 {
     /**
      * Create the event listener.
@@ -23,10 +22,10 @@ class ChatroomEventListener
     /**
      * Handle the event.
      *
-     * @param  ChatroomEvent  $event
+     * @param  object  $event
      * @return void
      */
-    public function handle(ChatroomEvent $event)
+    public function handle(GroupChatroomEvent $event)
     {
         return $event;
     }

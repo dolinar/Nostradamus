@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
-
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -58,5 +58,27 @@ class LoginController extends Controller
     {
         $profile_image = '/storage/profile_images/' . Auth::user()->profile_image;
         Session::put('profile_image', $profile_image);
+    }
+
+    /**
+     * Redirect the user to the facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        // $user->token;
     }
 }

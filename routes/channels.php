@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\DB;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +13,15 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+// Broadcast::channel('App.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
+
+// Broadcast::channel('group-channel.{groupId}', function ($user, $groupId) {
+//     return (int) $user->id === (int) $groupId;
+// });
+
+
+Broadcast::channel('fixture.{fixtureId}', function ($user, $message, $fixtureId) {
+    return true;
 });

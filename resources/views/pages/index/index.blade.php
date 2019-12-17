@@ -10,4 +10,6 @@
     </div>
     <br>
     @include('pages.index.news')
+
+    <script src="{{asset('js/channels/chatroom-channel.js')}}" type="text/javascript" cookie-consent="strictly-necessary"></script>
 @endsection

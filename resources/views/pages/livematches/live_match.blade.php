@@ -1,6 +1,8 @@
 @extends('layouts.app')
-
+<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 @section('content')
+    <a id="temp_button">send</a>
+    <div style="display:none" id="fixture_id">{{$data['fixture']['id']}}</div>
     <div class="row border-bottom">
         <div class="col-6">
             <span class="small">{{ strftime('%e %B, %G', strtotime($data['fixture']['matchday']['date']))}}</span><br>
@@ -59,4 +61,5 @@
             @include('pages.livematches.events')
         </div>
     </div>
+    <script src="{{asset('js/channels/fixture-channel.js')}}" type="text/javascript"></script>
 @endsection

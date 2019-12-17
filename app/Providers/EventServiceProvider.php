@@ -26,6 +26,14 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ChatroomEvent' => [
             'App\Listeners\ChatroomEventListener'
         ],
+
+        'App\Events\FixtureChatroomEvent' => [
+            'App\Listeners\FixtureChatroomEventListener'
+        ],
+
+        'App\Events\GroupChatroomEvent' => [
+            'App\Listeners\GroupChatroomEventListener'
+        ],
     ];
 
     /**

@@ -8,9 +8,16 @@ use App\Fixture;
 use App\Matchday;
 use App\MatchStats;
 use App\MatchEvent;
+use App\FixtureChatroomMessage;
+use Auth;
+use App\Events\FixtureChatroomEvent;
 
 class FixturesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +25,7 @@ class FixturesController extends Controller
      */
     public function indexResults()
     {
+
         // finished fixtures
         $results =  Matchday::where('finished', '=', 1)->with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->get();
         $data = [
@@ -40,12 +48,18 @@ class FixturesController extends Controller
         $idMatch = $fixture->id_match;
         $matchStats = MatchStats::find($idMatch);
         $matchEvents = MatchEvent::where('id_match', $idMatch)->get();
-
+        $chatroomMessages = $this->getFixtureChatroomMessages();
         $data = [
             'fixture' => $fixture,
             'matchStats' => $matchStats,
-            'matchEvents' =>$matchEvents
+            'matchEvents' => $matchEvents,
+            'chatroomMessages' => $chatroomMessages
         ];
         return view('pages.livematches.live_match')->with('data', $data);
+    }
+    
+    private function getFixtureChatroomMessages() {
+
+        return FixtureChatroomMessage::with('user')->latest()->take(10)->get();
     }
 }
