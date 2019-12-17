@@ -24,6 +24,9 @@ class BroadcastServiceProvider extends ServiceProvider
             return true;
         });
 
+        // Broadcast::channel('chatroom-channel', function ($user) {
+        //     return $user->id != null;
+        // });
 
     }
 }
