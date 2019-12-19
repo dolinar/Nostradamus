@@ -13,13 +13,10 @@ class FixtureChatroomMessagesController extends Controller
     function fireEvent(Request $request) {
         $message = $request->message;
         $username = Auth::user()->username;
-        $profileImg = Auth::user()->profile_image;
-        $userId = Auth::user()->id;
         $fixtureId = $request->fixtureId;
-        //$this->saveMessage($username, $message, $fixtureId);
-        //event(new FixtureChatroomEvent($userId, $message, $username, $profileImg, $fixtureId));
-        broadcast(new FixtureChatroomEvent(Auth::user(), $message, $fixtureId))->toOthers();
-
+        $this->saveMessage($username, $message, $fixtureId);
+        event(new FixtureChatroomEvent(Auth::user(), $message, $fixtureId));
+        //broadcast(new FixtureChatroomEvent(Auth::user(), $message, $fixtureId))->toOthers();
         return "{}";
     }
 

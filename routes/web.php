@@ -79,6 +79,11 @@ Route::post('send_chatroom_message', [
     'uses' => 'ChatroomMessagesController@fireEvent'
 ]);
 
+Route::post('/live_match/send_chatroom_message', [
+    'uses' => 'FixtureChatroomMessagesController@fireEvent'
+]);
+
+
 Route::post('live_match/send_fixture_chatroom_message', [
     'as' => 'send_fixture_chatroom_message',
     'uses' => 'FixtureChatroomMessagesController@fireEvent'

@@ -22,7 +22,6 @@ $offsides[2] = 'Prepovedani položaji';
 
 $statData = [$yellowCards, $possesion, $onTarget, $offTarget, $corners, $fauls, $offsides];
 @endphp
-
 <div class="tab-pane fade" id="follow-classic-shadow" role="tabpanel" aria-labelledby="follow-tab-classic-shadow">
 @foreach ($statData as $item)
     <div class="row"><div class="col-12 text-center">{{$item[2]}}</div></div>

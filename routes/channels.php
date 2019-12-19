@@ -22,6 +22,6 @@ use App\User;
 // });
 
 
-Broadcast::channel('fixture.{fixtureId}', function ($user, $message, $fixtureId) {
+Broadcast::channel('fixture.{fixtureId}', function ($user, $fixtureId) {
     return true;
 });

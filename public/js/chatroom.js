@@ -48,13 +48,14 @@ $(document).ready(function() {
     // fire event on + button click
     $('#btn-chatroom-add').click(function(){
         // do nothing if no message
+        var pageName = window.location.pathname.split('/')[1];
         var messageVal = $('#chatroom-text-field').val();
         if (messageVal == null || messageVal.length === 0) {
             return;
         }
         $.ajax({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            url: 'send_chatroom_message',
+            url: '/send_chatroom_message',
             type: 'POST',    
             dataType: 'json',
             data: { message: messageVal },

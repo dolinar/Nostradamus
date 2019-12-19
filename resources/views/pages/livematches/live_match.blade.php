@@ -1,7 +1,5 @@
 @extends('layouts.app')
-<script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 @section('content')
-    <a id="temp_button">send</a>
     <div style="display:none" id="fixture_id">{{$data['fixture']['id']}}</div>
     <div class="row border-bottom">
         <div class="col-6">
@@ -54,9 +52,7 @@
         </ul>
         
         <div class="tab-content card" id="myClassicTabContentShadow">
-            <div class="tab-pane fade active show" id="profile-classic-shadow" role="tabpanel" aria-labelledby="profile-tab-classic-shadow">
-            <p>.</p>
-            </div>
+            @include('pages.livematches.chatroom')
             @include('pages.livematches.stats')
             @include('pages.livematches.events')
         </div>
