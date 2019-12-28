@@ -11,15 +11,16 @@ $(document).ready(function() {
 	$('#chatbox').on('scroll', function(){
 		if ($('#chatbox').scrollTop() == 0) {   // on top
 			var count = parseInt($('#chatroom-table tr').length) + 10; // get current number of messages + 10
-			$.get('get_chatroom_messages/' + count, function(responseData) {
+            var usersInChannel = $('#chatroom-badge').text();
+            $.get('/live_match/get_fixture_chatroom_messages/' + count, function(responseData) {
                 $('#chatroom-div').replaceWith(responseData); 
                 var height=0;
                 $.each($('#chatroom-table tr').slice(0, 10),
                        function(r,row){
                                 height+=$(row).height();
                                  });
-				$('#chatbox').scrollTop(height); // scroll so user sees no difference
-			});
+                $('#chatbox').scrollTop(height); // scroll so user sees no difference
+            });
 		}
 	});
 
@@ -53,17 +54,17 @@ $(document).ready(function() {
     // fire event on + button click
     $('#btn-chatroom-add').click(function(){
         // do nothing if no message
-        var pageName = window.location.pathname.split('/')[1];
         var messageVal = $('#chatroom-text-field').val();
+        var fixtureId = $('#fixture_id').text();
         if (messageVal == null || messageVal.length === 0) {
             return;
         }
         $.ajax({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            url: '/send_chatroom_message',
+            url: '/live_match/send_fixture_chatroom_message',
             type: 'POST',    
             dataType: 'json',
-            data: { message: messageVal },
+            data: { message: messageVal, fixtureId: fixtureId },
             success: function (response) {
                 var textField = document.getElementById('chatroom-text-field');
                 textField.value = '';

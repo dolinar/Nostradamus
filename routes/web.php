@@ -79,17 +79,16 @@ Route::post('send_chatroom_message', [
     'uses' => 'ChatroomMessagesController@fireEvent'
 ]);
 
-Route::post('/live_match/send_chatroom_message', [
-    'uses' => 'FixtureChatroomMessagesController@fireEvent'
-]);
 
 
-Route::post('live_match/send_fixture_chatroom_message', [
-    'as' => 'send_fixture_chatroom_message',
+Route::post('/live_match/send_fixture_chatroom_message', [
     'uses' => 'FixtureChatroomMessagesController@fireEvent'
 ]);
 
 Route::get('get_chatroom_messages/{count}', 'ChatroomMessagesController@getChatroomMessages')->name('get_chatroom_messages');
+
+Route::get('/live_match/get_fixture_chatroom_messages/{count}', 'FixtureChatroomMessagesController@getChatroomMessages')->name('get_chatroom_messages');
+
 
 Route::resource('news', 'NewsController');
 

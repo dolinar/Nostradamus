@@ -32,7 +32,7 @@ class FixtureChatroomMessagesController extends Controller
     function getChatroomMessages(int $count) {
         $messages = FixtureChatroomMessage::with('user')->latest()->take($count)->get();
         $data = ['chatroomMessages' => $messages];
-        $html = view('pages.index.chatroom')->with("data", $data)->render();
+        $html = view('pages.livematches.chatroom')->with("data", $data)->render();
         return $html;
     }
 }

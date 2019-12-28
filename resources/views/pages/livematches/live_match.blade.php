@@ -52,7 +52,16 @@
         </ul>
         
         <div class="tab-content card" id="myClassicTabContentShadow">
-            @include('pages.livematches.chatroom')
+            <div class="tab-pane fade active show" id="profile-classic-shadow" role="tabpanel" aria-labelledby="profile-tab-classic-shadow">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        @include('pages.livematches.chatroom')
+                    </div>
+                </div>
+            </div>
             @include('pages.livematches.stats')
             @include('pages.livematches.events')
         </div>

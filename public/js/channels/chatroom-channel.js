@@ -2,8 +2,6 @@
 
 Echo.channel('chatroom-channel')
     .listen('ChatroomEvent', (e) => {
-        
-        console.log(e);
         var tbody = document.getElementById('chatroom-tbody');
 
         //							<td style="width:20%"><span><a href={{route('user_profile.show', ['id' => $message->id_user])}} class="small text-muted"><img src="storage/profile_images/{{ $message->user->profile_image }}" class="rounded-circle z-depth-0 mt-n3 mb-n3" style="height: 1.5rem; width:1.5rem"
