@@ -20,6 +20,9 @@
                     @endforeach
                 </ul>
             </li> --}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('news.index') }}">Novice</a>
+            </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false"> Tekmovanje </a>

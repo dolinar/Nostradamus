@@ -9,6 +9,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                @if (Auth::user() && Auth::user()->email_verified_at != null)
+                <th scope="col">#</th>
+                @endif
                 <th scope="col">Čas pričetka</th>
                 <th scope="col">Domača ekipa</th>
                 <th scope="col">Gostujoča ekipa</th>
@@ -19,16 +22,23 @@
                 @foreach ($data['fixtures']['fixtures'] as $fixture)
                     @if ($fixture['status'] == 'NOT_STARTED')
                         <tr>
+                            {{-- /* za dodat ce ze ima napoved */ --}}
+                            @if (Auth::user() && Auth::user()->email_verified_at != null) 
+                            <td><a class="btn btn-primary btn-sm my-0 p-1" id="btn-{{$fixture['id']}}" onclick="$('#{{$fixture['id']}}').modal('show');">Napoved</a></td>
+                            @endif
                             <td>{{substr(date('H:i', strtotime($fixture['time'] . ' UTC')), 0, 5)}}</td>
                             <td><img style="height:2em" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}</td>
                             <td><img style="height:2em" src="{{$fixture['team_away']['logo_url']}}"> {{$fixture['team_away']['name']}}</td>
                             <td>{{$data['fixtures']['stage']}}</td>
                         </tr>
+                        @include('pages.index.modal')
                     @endif
+
                 @endforeach
             </tbody>
         </table>
         </div>
     </div>
 </div>
+
 @endif

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\News;
 
 class NewsController extends Controller
 {
@@ -13,7 +14,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news = News::with('user')->join('news_type', 'news.news_type_id', 'news_type.id')->paginate(2);
+        $data = ['news' => $news];
+        return view('news.index')->with('data', $data);
     }
 
     /**
@@ -45,7 +48,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = News::where('news.id', $id)->join('news_type', 'news.news_type_id', 'news_type.id')->get();
+        $data = [ 'news' => $news ];
+        return view('news.show')->with('data', $data);
     }
 
     /**

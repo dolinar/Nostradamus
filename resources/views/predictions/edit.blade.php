@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-4 d-inline text-center">
                         <span>
-                        {{Form::number('home', $prediction['prediction_home'], array('class' => 'input-score', 'autocomplete' => 'off'))}} 
+                        {{Form::number('home', $prediction['prediction_home'], array('class' => 'input-score', 'autocomplete' => 'off', 'min' => 0, 'max' => 100))}} 
                         : 
                         {{Form::number('away', $prediction['prediction_away'], array('class' => 'input-score', 'autocomplete' => 'off', 'min' => 0, 'max' => 100))}}</span>
                     </div>

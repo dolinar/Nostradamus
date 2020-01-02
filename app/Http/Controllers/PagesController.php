@@ -29,10 +29,6 @@ class PagesController extends Controller
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
         $liveFixtures = $this->getLiveFixtures();
-        // echo '<pre>';
-        //     var_dump($liveFixtures);
-        // echo '</pre>';
-        //return $liveFixtures;
         $data = [
 
             'posts' => $news,

@@ -229,3 +229,24 @@ jQuery(document).ready(function() {
 });
 
 
+// quick prediction form
+$(document).ready(function() {
+    $('.quick-prediction-form').on('submit', function(event) {
+        event.preventDefault();
+        var id = $(this).attr('id').split('-')[1];
+        $('#' + id).modal('hide');
+        $.ajax({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            method: "POST",
+            url: "/predictions",
+            data: $( this ).serialize(),
+            success: function(response) {
+                toastr['info']('Napoved uspešno oddana!');
+                document.getElementById('btn-' + id).removeAttribute("onclick");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                toastr['error']('Napoved za to tekmo že obstaja. Uredite jo lahko v svojem profilu.');
+            }       
+        });
+    });
+});
