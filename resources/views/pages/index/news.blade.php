@@ -32,7 +32,7 @@
                         <hr>
 
                         <span class="card-meta small text-muted float-right w-100"><i class="fas fa-calendar"></i>{{$post['username'] . ': '}}<time class="timeago" datetime="{{$post['created_at']}}"><small></small></time></span>
-                        <div class="container"><span id="rate-{{$post['id']}}" class="card-meta rate-stars empty-stars float-right"></span></div>
+                        {{-- <div class="container"><span id="rate-{{$post['id']}}" class="card-meta rate-stars empty-stars float-right"></span></div> --}}
                         
                     </div>
                     <!--Card content-->

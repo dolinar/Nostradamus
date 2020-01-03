@@ -85,7 +85,7 @@
           <a class="dark-grey-text" href="{{route('info')}}">Informacije</a>
           </p>
           <p>
-            <a class="dark-grey-text" href="{{route('instructions')}}">Navodila</a>
+            <a class="dark-grey-text" href="{{route('news.index')}}">Novice</a>
           </p>
   
         </div>
