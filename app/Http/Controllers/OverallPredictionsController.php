@@ -23,7 +23,7 @@ class OverallPredictionsController extends Controller
     public function index()
     {
         // fetch all teams
-        $teams = Team::All();
+        $teams = Team::where('status', '1')->get();
 
         // fetch overall prediction of an authorized user
         $overallPrediction = User::find(auth()->user()->id)->overallPrediction;

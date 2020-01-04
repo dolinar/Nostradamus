@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Matchday;
 use App\Team;
 use App\Fixture;
+use App\News;
+use DB;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -18,11 +21,12 @@ class AdminController extends Controller
         $teams = Team::pluck('name', 'id')->toArray();
         $matchdays = Matchday::pluck('date', 'id')->toArray();
         $nextFixture = Fixture::where('status', 'NS')->with(['teamHome', 'teamAway'])->first();
-
+        $type = DB::table('news_type')->pluck('name', 'id');
         $data = [
             'matchdays' => $matchdays,
             'teams' => $teams,
-            'nextFixture' => $nextFixture
+            'nextFixture' => $nextFixture,
+            'type' => $type
         ];
         return view('admin.index')->with('data', $data);
     }
@@ -63,4 +67,37 @@ class AdminController extends Controller
 
         return redirect('/admin')->with('success', 'Tekma zaključena.');
     }
+
+    public function createNews(Request $request) {
+        $this->validate($request, [
+            'title' => 'required',
+            'summary' => 'required',
+            'content' => 'required'
+        ]);
+
+        $filenameToStore = 'default.png';
+
+        if ($request->hasFile('news_image')) {
+            $filenameWithExt = $request->file('news_image')->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            
+            $ext = $request->file('news_image')->getClientOriginalExtension();
+
+            $filenameToStore = $filename . '_' . time() . '.' . $ext;
+
+            $path = $request->file('news_image')->storeAs('public/news_images', $filenameToStore);
+        } 
+        
+        $news = new News;
+        $news->title = $request->title;
+        $news->summary = $request->summary;
+        $news->content = $request->content;
+        $news->id_user = Auth::user()->id;
+        $news->news_type_id = $request['news_type_select'];
+        $news->img_ref = $filenameToStore;
+        $news->save();
+        return redirect('/admin')->with('success', 'Novica dodana.');
+    }
+
 }

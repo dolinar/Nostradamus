@@ -60,6 +60,7 @@ Route::get('admin', 'AdminController@index')->name('admin');
 Route::post('create_matchday', 'AdminController@createMatchday'); 
 Route::post('create_fixture', 'AdminController@createFixture');   
 Route::post('finish_fixture', 'AdminController@finishFixture');   
+Route::put('create_news', 'AdminController@createNews');   
 
 
 

@@ -23,8 +23,8 @@
                     @foreach ($matchday['fixtures'] as $result)
                         <tr>
                             <td>{{substr($result['time'], 0, 5)}}</td>
-                            <td>{{$result['team_home']['name']}}</td>
-                            <td>{{$result['team_away']['name']}}</td>
+                            <td><img style="width:2em" src="{{$result['team_home']['logo_url']}}"> {{$result['team_home']['name']}}</td>
+                            <td><img style="width:2em" src="{{$result['team_away']['logo_url']}}"> {{$result['team_away']['name']}}</td>
                             <td>{{$result['home_score']}} - {{$result['away_score']}}</td>
                         </tr>
                     @endforeach
