@@ -245,7 +245,7 @@ $(document).ready(function() {
                 document.getElementById('btn-' + id).removeAttribute("onclick");
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                toastr['error']('Napoved za to tekmo že obstaja. Uredite jo lahko v svojem profilu.');
+                toastr['error']('Prišlo je do napake. Prosimo, poskusite kasneje.');
             }       
         });
     });

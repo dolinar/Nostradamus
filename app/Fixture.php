@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Auth;
 class Fixture extends Model
 {
 
@@ -27,5 +27,9 @@ class Fixture extends Model
 
     public function teams() {
         return $this->teamHome->merge($this->teamAway);
+    }
+
+    public function usersPrediction() {
+        return $this->hasOne('App\Prediction', 'id_fixture')->where('id_user', Auth::user()->id);
     }
 }

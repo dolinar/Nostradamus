@@ -14,7 +14,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with('user')->join('news_type', 'news.news_type_id', 'news_type.id')->paginate(2);
+        $news = News::with('user')->join('news_type', 'news.news_type_id', 'news_type.id')->orderBy('news.id', 'desc')->paginate(2);
         $data = ['news' => $news];
         return view('news.index')->with('data', $data);
     }

@@ -24,7 +24,13 @@
                         <tr>
                             {{-- /* za dodat ce ze ima napoved */ --}}
                             @if (Auth::user() && Auth::user()->email_verified_at != null) 
-                            <td><a class="btn btn-primary btn-sm my-0 p-1" id="btn-{{$fixture['id']}}" onclick="$('#{{$fixture['id']}}').modal('show');">Napoved</a></td>
+                                @if ($fixture['users_prediction'] == null) 
+                                    <td><a class="btn btn-primary btn-sm my-0 p-1" onclick="$('#{{$fixture['id']}}').modal('show');">Napoved</a></td>
+                                @else
+                                    <td><a class="btn btn-primary btn-sm my-0 p-1" 
+                                        onclick="toastr.warning('Napoved za to tekmo že obstaja! ({{$fixture['users_prediction']['prediction_home'] . ' - ' . $fixture['users_prediction']['prediction_away']}}). Uredite jo lahko v profilu.');"
+                                        >Napoved</a></td>
+                                @endif
                             @endif
                             <td>{{substr(date('H:i', strtotime($fixture['time'] . ' UTC')), 0, 5)}}</td>
                             <td><img class="team-image" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}</td>

@@ -29,6 +29,7 @@ class PagesController extends Controller
         $topFive = $this->getTopFive();
         $chatroomMessages = $this->getChatroomMessages();
         $liveFixtures = $this->getLiveFixtures();
+        
         $data = [
 
             'posts' => $news,
@@ -183,7 +184,9 @@ class PagesController extends Controller
         // next matchday
         $matchday = Matchday::where('finished', 0)->orderBy('date', 'asc')->limit(1)->first();
         // TODO: figure out why fixtures.teams doesnt work
-        return $matchday ? Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway')->find($matchday->id)->toArray() : array();
+        return $matchday ? Matchday::with('fixtures', 'fixtures.teamHome', 'fixtures.teamAway', 'fixtures.usersPrediction')
+                            ->find($matchday->id)
+                            ->toArray() : array();
     }
 
 
