@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-4 text-center">
-                        <img style="height:2em" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}
+                        <img class="team-image" src="{{$fixture['team_home']['logo_url']}}"> {{$fixture['team_home']['name']}}
                     </div>
                     <div class="col-sm-4 text-center my-2">
                         {{Form::number('prediction[' . $fixture['id'] . '][home]', null, array('class' => 'input-score', 'autocomplete' => 'off', 'min' => 0, 'max' => 100))}} 
@@ -20,7 +20,7 @@
                         {{Form::number('prediction[' . $fixture['id'] . '][away]', null, array('class' => 'input-score', 'autocomplete' => 'off', 'min' => 0, 'max' => 100))}}</span>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <img style="height:2em" src="{{$fixture['team_away']['logo_url']}}"> {{$fixture['team_away']['name']}}
+                        <img class="team-image" src="{{$fixture['team_away']['logo_url']}}"> {{$fixture['team_away']['name']}}
                     </div>
                 </div>
             </div>

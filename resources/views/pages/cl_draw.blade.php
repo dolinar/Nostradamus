@@ -28,8 +28,8 @@
                         <tr>
                             
                             <td>{{substr(date('H:i', strtotime($result['time'] . ' UTC')), 0, 5)}}</td>
-                            <td><img style="height:2em" src="{{$result['team_home']['logo_url']}}"> {{$result['team_home']['name']}}</td>
-                            <td><img style="height:2em" src="{{$result['team_away']['logo_url']}}"> {{$result['team_away']['name']}}</td>
+                            <td><img class="team-image" src="{{$result['team_home']['logo_url']}}"> {{$result['team_home']['name']}}</td>
+                            <td><img class="team-image" src="{{$result['team_away']['logo_url']}}"> {{$result['team_away']['name']}}</td>
                             <td>{{$matchday['stage']}}</td>
                         </tr>
                     @endforeach

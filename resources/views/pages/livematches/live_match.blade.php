@@ -12,13 +12,13 @@
     </div>
     <div class="row justify-content-center mt-1 text-right">
         <div class="col-4">
-            <img style="height:2em" src="/{{$data['fixture']->teamHome->logo_url}}"> {{$data['fixture']->teamHome->name}}
+            <img class="team-image" src="/{{$data['fixture']->teamHome->logo_url}}"> {{$data['fixture']->teamHome->name}}
         </div>
         <div class="col-4 text-center" style="font-size:2em">
             {{$data['fixture']->home_score}} - {{$data['fixture']->away_score}}
         </div>
         <div class="col-4 text-left">
-            <img style="height:2em" src="/{{$data['fixture']->teamAway->logo_url}}"> {{$data['fixture']->teamAway->name}}
+            <img class="team-image" src="/{{$data['fixture']->teamAway->logo_url}}"> {{$data['fixture']->teamAway->name}}
         </div>
     </div>
     @if ($data['fixture']->ht_score != null)

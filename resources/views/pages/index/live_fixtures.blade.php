@@ -19,9 +19,9 @@
                     @foreach ($data['liveFixtures'] as $fixture)
                         <tr>
                             <td class="text-danger font-weight-bold" style="width:12.5%">{{$fixture->minutes}} <span class="blink-text">'</span></td>
-                            <td style="width:25%"><img style="height:2em" src="{{$fixture->teamHome->logo_url}}"> {{$fixture->teamHome->name}}</td>
+                            <td style="width:25%"><img class="team-image" src="{{$fixture->teamHome->logo_url}}"> {{$fixture->teamHome->name}}</td>
                             <td style="width:25%" class="text-center">{{$fixture['home_score']}} - {{$fixture['away_score']}}</td>
-                            <td style="width:25%" class="text-right">{{$fixture->teamAway->name}} <img style="height:2em" src="{{$fixture->teamAway->logo_url}}"></td>
+                            <td style="width:25%" class="text-right">{{$fixture->teamAway->name}} <img class="team-image" src="{{$fixture->teamAway->logo_url}}"></td>
                             <td style="width:12.5%"><a class="btn btn-outline-primary btn-sm float-right mr-n2" href="{{route('live_match', $fixture['id'])}}">Več</a></td>
                         </tr>
                     @endforeach
